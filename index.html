@@ -39,6 +39,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .mast h1{margin:2px 0 0;font-size:30px;font-weight:600;line-height:1.15;letter-spacing:-.025em}
 /* Shows or hides the day's highlights; the choice is remembered on this device. */
 .dayrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.dayrow>div{min-width:0}
 .briefbtn{flex:none;display:grid;place-items:center;width:40px;height:40px;margin-right:-14px;padding:0;border:0;background:none;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .briefbtn svg{width:18px;height:18px}
 .briefbtn[aria-expanded="false"] svg{transform:rotate(180deg)}
@@ -153,8 +154,7 @@ a.post:active{opacity:.7}
 <div class="wrap">
   <header class="mast">
     <div class="hunk">
-      <div class="dayrow"><h1 id="day"></h1><button type="button" class="briefbtn" id="briefBtn" aria-controls="brief" hidden><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10 8 6l4 4"/></svg></button></div>
-      <div class="stat" id="stat"></div>
+      <div class="dayrow"><div><h1 id="day"></h1><div class="stat" id="stat"></div></div><button type="button" class="briefbtn" id="briefBtn" aria-controls="brief" hidden><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10 8 6l4 4"/></svg></button></div>
       <ul class="brief band" id="brief" hidden></ul>
     </div>
     <div class="notice" id="notice" hidden></div>
