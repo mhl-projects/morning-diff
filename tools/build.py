@@ -1,5 +1,5 @@
-# Turn one curated edition into the site: editions/<date>.json, <date>.html (kept forever),
-# index.html (always the latest) and days.json (the list the date picker uses).
+# Turn one curated edition into the site: archive/<date>.html (kept forever), index.html (always the latest)
+# and archive/days.json (the list the date picker uses). Each page carries its own data.
 # Adds what the curator leaves out: exact times (Nitra time) and a preview image for every item.
 # Items without a reachable image are dropped, because the page only shows entries with one.
 # Usage (from the repo root): python3 -I tools/build.py edition.json
@@ -82,12 +82,13 @@ for sec in data["sections"]:
     sec["items"] = kept
 data["added"] = sum(len(s["items"]) for s in data["sections"])
 
-(ROOT / "editions").mkdir(exist_ok=True)
-(ROOT / "editions" / f"{data['edition']}.json").write_text(json.dumps(data, ensure_ascii=False, indent=1))
-html = (ROOT / "tools" / "template.html").read_text().replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/"))
-(ROOT / f"{data['edition']}.html").write_text(html)
-(ROOT / "index.html").write_text(html)
-days_file = ROOT / "days.json"
+page = (ROOT / "tools" / "template.html").read_text().replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/"))
+archive = ROOT / "archive"
+archive.mkdir(exist_ok=True)
+(archive / f"{data['edition']}.html").write_text(page.replace("__BASE__", "../", 1))
+(ROOT / "index.html").write_text(page.replace("__BASE__", "./", 1))
+html = page
+days_file = archive / "days.json"
 days = json.loads(days_file.read_text()) if days_file.exists() else []
 days_file.write_text(json.dumps(sorted(set(days) | {data["edition"]})))
 print(data["edition"], {s["id"]: len(s["items"]) for s in data["sections"]}, f"| {len(html) // 1000} KB")

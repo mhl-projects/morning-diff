@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<base href="__BASE__">
 <title>Morning Diff</title>
 <meta name="robots" content="noindex">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="assets/manifest.webmanifest">
+<link rel="icon" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0D0E10" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -102,7 +103,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-si
   <main id="main"></main>
   <footer>Updated every day. Pick a date at the top to open any past day.</footer>
   <aside class="install" id="install" hidden>
-    <img src="icon-192.png" alt="" width="52" height="52">
+    <img src="assets/icon-192.png" alt="" width="52" height="52">
     <div class="install-copy">
       <div class="install-title">Morning Diff app</div>
       <div class="install-text" id="installText">One tap each morning</div>
@@ -263,11 +264,11 @@ if (!standalone && /iPhone|iPad/.test(navigator.userAgent)) {
   $("install").hidden = false;
 }
 
-// Past days: days.json lists every saved edition.
+// Past days: archive/days.json lists every saved edition.
 const pick = $("pick");
 pick.value = DATA.edition;
 pick.max = DATA.edition;
-fetch("days.json", { cache: "no-store" }).then(r => r.ok ? r.json() : []).catch(() => []).then(days => {
+fetch("archive/days.json", { cache: "no-store" }).then(r => r.ok ? r.json() : []).catch(() => []).then(days => {
   if (!Array.isArray(days) || !days.length) return;
   pick.min = days[0];
   pick.max = days[days.length - 1];
@@ -280,7 +281,7 @@ fetch("days.json", { cache: "no-store" }).then(r => r.ok ? r.json() : []).catch(
   pick.addEventListener("change", () => {
     const d = pick.value;
     if (!d || d === DATA.edition) return;
-    if (days.includes(d)) location.href = d + ".html";
+    if (days.includes(d)) location.href = "archive/" + d + ".html";
     else { $("notice").textContent = "No edition was saved for " + longDay(d) + "."; $("notice").hidden = false; pick.value = DATA.edition; }
   });
 });
