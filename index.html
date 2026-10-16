@@ -7,8 +7,8 @@
 <title>Morning Diff</title>
 <meta name="robots" content="noindex">
 <link rel="manifest" href="assets/manifest.webmanifest">
-<link rel="icon" href="assets/icon-192.png">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" href="assets/icon-192.png?v=2">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0D0E10" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -75,7 +75,6 @@ a.post:active{opacity:.7}
 .post-body{display:grid;gap:5px;padding-top:12px}
 .post-meta{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:12.5px;line-height:1.4;color:var(--muted);font-variant-numeric:tabular-nums}
 .post-src{min-width:0;overflow-wrap:anywhere}
-.post-time{flex:none}
 .t{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.012em;color:var(--ink);overflow-wrap:anywhere;text-wrap:pretty}
 .t .own,.reader-title .own{font-weight:400;color:var(--muted)}
 .b{font-size:15px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
@@ -105,7 +104,9 @@ a.post:active{opacity:.7}
 .lead{margin:10px 0 0;font-size:16px;line-height:1.55;color:var(--ink-2);text-wrap:pretty}
 .points{display:grid;gap:10px;margin:18px 0 0;padding:18px 0 0 18px;border-top:1px solid var(--line);font-size:15px;line-height:1.55;color:var(--ink);text-wrap:pretty}
 .points li::marker{color:var(--muted)}
-.original{display:inline-block;margin-top:24px;padding:10px 16px;border:1px solid var(--line);border-radius:5px;color:var(--ink);font-size:14.5px;font-weight:600;text-decoration:none}
+.original{box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;margin-top:28px;padding:12px 18px;border-radius:5px;background:var(--ink);color:var(--bg);font-size:15px;font-weight:600;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.original:active{opacity:.85}
+.original svg{flex:none;width:15px;height:15px}
 </style>
 </head>
 <body>
@@ -134,7 +135,7 @@ a.post:active{opacity:.7}
   <main id="main"></main>
   <aside class="band" id="install" hidden>
     <div class="band-in install">
-      <img src="assets/icon-192.png" alt="" width="36" height="36">
+      <img src="assets/icon-192.png?v=2" alt="" width="36" height="36">
       <div class="install-copy">
         <div class="install-title">Get the Morning Diff app</div>
         <div class="install-text" id="installText">One tap from your home screen</div>
@@ -167,13 +168,6 @@ const el = (tag, cls, text) => {
 const httpsUrl = u => { try { const x = new URL(u); return x.protocol === "https:" ? x.href : null; } catch { return null; } };
 const longDay = ymd => new Date(ymd + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
 const time = d => d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
-const prevDay = ymd => { const d = new Date(ymd + "T12:00:00"); d.setDate(d.getDate() - 1); return d.toLocaleDateString("sv-SE"); };
-// Times read relative to this edition's date, so old pages read the way they did that day.
-const whenLabel = i => {
-  const day = !i.date || i.date === DATA.edition ? (i.time ? "" : "Today") : i.date === prevDay(DATA.edition) ? "Yesterday"
-    : new Date(i.date + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short" });
-  return [day, i.time].filter(Boolean).join(" ");
-};
 const arr = s => (Array.isArray(s?.items) ? s.items : []).filter(i => httpsUrl(i.img)); // entries without an image are not shown
 const key = i => String(i.date || "") + String(i.time || "");
 const newestFirst = list => [...list].sort((a, b) => key(b).localeCompare(key(a)));
@@ -216,7 +210,7 @@ function mediaOf(item, eager) {
 function metaOf(item) {
   const parts = item.src === "repos" ? [item.meta, item.fig, item.sub] : item.src === "skills" || item.src === "models" ? [item.meta, item.fig] : [item.meta];
   const meta = el("div", "post-meta");
-  meta.append(el("span", "post-src", parts.filter(Boolean).join(" · ")), el("span", "post-time", whenLabel(item)));
+  meta.append(el("span", "post-src", parts.filter(Boolean).join(" · ")));
   return meta;
 }
 
@@ -252,9 +246,14 @@ function card(item, eager) {
 
 // Reader: a picked item's key points in the app's own design, with the original one tap away. Back closes it.
 const reader = $("reader");
+const SITES = { "github.com": "GitHub", "huggingface.co": "Hugging Face", "youtube.com": "YouTube" };
 function openReader(item) {
   const href = httpsUrl(item.url);
-  const link = el("a", "original", item.src === "news" ? "Read the original" : "Open on " + new URL(href).hostname.replace(/^www\./, ""));
+  const host = new URL(href).hostname.replace(/^www\./, "");
+  const link = el("a", "original", item.src === "news" ? "Read the full article" : "Open on " + (SITES[host] || host));
+  const arrow = document.createElement("template");
+  arrow.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11 11 5M6 4.5h5.5V10"/></svg>';
+  link.append(arrow.content.firstChild);
   link.href = href; link.target = "_blank"; link.rel = "noopener noreferrer";
   const list = el("ul", "points");
   list.append(...pointsOf(item).map(p => el("li", "", p)));
