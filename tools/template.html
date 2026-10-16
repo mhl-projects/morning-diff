@@ -28,7 +28,7 @@
 
 html{-webkit-text-size-adjust:100%}
 [hidden]{display:none!important}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:env(safe-area-inset-top,0px) 0}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:env(safe-area-inset-top,0px) env(safe-area-inset-bottom,0px)}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 .wrap{max-width:620px;margin-inline:auto}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
@@ -87,11 +87,6 @@ a.post:visited .t{color:var(--muted)}
 
 .band{margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));border-top:1px solid var(--line)}
 .band-in{max-width:620px;margin-inline:auto}
-.foot{display:grid;gap:12px;padding-block:22px calc(40px + env(safe-area-inset-bottom,0px))}
-.foot-brand{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:600;letter-spacing:-.01em}
-.foot-brand img{border-radius:7px}
-.foot-links{display:flex;gap:20px;margin-top:4px}
-.foot-links button{padding:4px 0;border:0;background:none;color:var(--ink);font:inherit;font-size:13.5px;font-weight:500;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-decoration-thickness:1.5px;text-underline-offset:4px}
 .install{display:flex;align-items:center;gap:12px;padding-block:18px}
 .install img{flex:none;width:36px;height:36px;border-radius:9px}
 .install-copy{flex:1;min-width:0}
@@ -131,15 +126,6 @@ a.post:visited .t{color:var(--muted)}
       <button type="button" class="install-yes" id="installBtn">Install</button>
     </div>
   </aside>
-  <footer class="band">
-    <div class="band-in foot">
-      <div class="foot-brand"><img src="assets/icon-192.png" alt="" width="24" height="24">Morning Diff</div>
-      <div class="foot-links">
-        <button type="button" id="footArchive">Browse archive</button>
-        <button type="button" id="footTop">Back to top</button>
-      </div>
-    </div>
-  </footer>
 </div>
 
 <script id="data" type="application/json">__DATA__</script>
@@ -300,9 +286,7 @@ $("installNo").addEventListener("click", () => {
 addEventListener("appinstalled", hideInstall);
 if (!standalone && !dismissed() && /iPhone|iPad/.test(navigator.userAgent)) $("install").hidden = false;
 
-$("footTop").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 const openPicker = () => { try { $("pick").showPicker(); } catch { $("pick").focus(); } };
-$("footArchive").addEventListener("click", openPicker);
 
 // Past days: archive/days.json lists every saved edition.
 const pick = $("pick");
