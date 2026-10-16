@@ -111,7 +111,9 @@ a.post:active{opacity:.7}
 .install-yes{flex:none;padding:7px 16px;border:1px solid var(--line);border-radius:5px;background:none;color:var(--ink);font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
 /* Reader: a picked item's key points in the app's own design; the original is one tap away. */
 .reader{position:fixed;inset:0;z-index:30;overflow-y:auto;overscroll-behavior:contain;background:var(--bg);padding:env(safe-area-inset-top,0px) max(16px,env(safe-area-inset-right,0px)) calc(40px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
-.reader-bar{position:sticky;top:0;z-index:1;max-width:620px;height:52px;margin:0 auto;display:flex;align-items:center;background:var(--bg)}
+.reader-bar{position:sticky;top:0;z-index:1;display:flex;align-items:center;height:64px;margin:0 calc(-1 * max(16px,env(safe-area-inset-right,0px))) 0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));background:var(--bg);border-bottom:1px solid transparent}
+.reader-bar.scrolled{border-bottom-color:var(--line)} /* a hairline once the page scrolls under the bar */
+.reader-bar-in{display:flex;align-items:center;width:100%;max-width:620px;margin:0 auto}
 .reader-close{display:inline-flex;align-items:center;gap:4px;height:40px;margin-left:-6px;padding:0 10px 0 0;border:0;background:none;color:var(--ink);font:inherit;font-size:15px;font-weight:500;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .reader-close svg{width:22px;height:22px}
 .reader-in{max-width:620px;margin:0 auto}
@@ -162,7 +164,7 @@ a.post:active{opacity:.7}
 </div>
 
 <div class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-labelledby="readerTitle">
-  <div class="reader-bar"><button type="button" class="reader-close" id="readerClose"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg><span id="readerBack">Back</span></button></div>
+  <div class="reader-bar" id="readerBar"><div class="reader-bar-in"><button type="button" class="reader-close" id="readerClose"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg><span id="readerBack">Back</span></button></div></div>
   <div class="reader-in" id="readerBody"></div>
 </div>
 
@@ -262,6 +264,7 @@ function card(item, eager) {
 
 // Reader: a picked item's key points in the app's own design, with the original one tap away. Back closes it.
 const reader = $("reader");
+reader.addEventListener("scroll", () => $("readerBar").classList.toggle("scrolled", reader.scrollTop > 4), { passive: true });
 const SITES = { "github.com": "GitHub", "huggingface.co": "Hugging Face", "youtube.com": "YouTube" };
 function openReader(item) {
   const href = httpsUrl(item.url);
@@ -279,6 +282,7 @@ function openReader(item) {
   $("readerBack").textContent = "Back to " + (VIEWS.find(v => v.id === current) || VIEWS[0]).label;
   reader.hidden = false;
   reader.scrollTop = 0;
+  $("readerBar").classList.remove("scrolled");
   document.body.style.overflow = "hidden";
   history.pushState({ reader: true }, "");
 }
