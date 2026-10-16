@@ -41,8 +41,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .stat a{color:var(--accent);text-decoration:none;font-weight:500}
 .notice{margin-top:16px;padding:10px 14px;border-radius:10px;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}
 /* Today's highlights, each with a topic icon on a softly tinted tile (hue set per topic). */
-.prev{margin:0;font-size:15px;line-height:1.4;color:var(--muted)}
-.prev a{color:inherit;text-decoration:none}
 .brief{display:grid;gap:12px;margin-block:20px 0;padding-block:20px 0;list-style:none;font-size:15px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
 .brief li{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start}
 .ico{display:grid;place-items:center;width:20px;height:20px;margin-top:1px;border-radius:5px;background:hsl(var(--h) var(--tile-s) var(--tile));color:hsl(var(--h) 55% var(--tile-ink))}
@@ -114,7 +112,6 @@ a.post:active{opacity:.7}
 <div class="wrap">
   <header class="mast">
     <div class="hunk">
-      <p class="prev" id="prev"></p>
       <h1 id="day"></h1>
       <div class="stat" id="stat"></div>
       <ul class="brief band" id="brief" hidden></ul>
@@ -298,7 +295,7 @@ const shown = VIEWS.flatMap(v => v.from.flatMap(id => arr(byId[id])));
 const total = shown.length;
 const minutes = Math.max(1, Math.round(shown.reduce((n, i) => n + `${i.title} ${i.blurb || ""}`.split(/\s+/).length, 0) / 230));
 $("day").textContent = longDay(DATA.edition);
-$("stat").textContent = ["Updated " + time(at), total + " picks", minutes + " min read", DATA.added && DATA.added < total ? DATA.added + " new" : ""].filter(Boolean).join(" · ");
+$("stat").textContent = [total + " picks from the last 24 hours", minutes + " min read", DATA.added && DATA.added < total ? DATA.added + " new" : ""].filter(Boolean).join(" · ");
 // Topic icons for the highlights: [hue, svg paths]. Unknown or missing icons fall back to "news".
 const ICONS = {
   news: [220, '<rect x="2.5" y="2.5" width="11" height="11" rx="2"/><path d="M5.5 5.5h5M5.5 8h5M5.5 10.5h3"/>'],
@@ -322,7 +319,6 @@ $("brief").replaceChildren(...brief.map(l => {
   li.append(ico, el("span", "", l.text));
   return li;
 }));
-$("prev").textContent = longDay(prevDay(DATA.edition));
 $("brief").hidden = !brief.length;
 const isIndex = !location.pathname.endsWith(DATA.edition + ".html");
 const note = isIndex && Date.now() - at > 30 * 3600e3 ? "Last updated " + longDay(DATA.edition) + ". Today's refresh hasn't landed yet." : DATA.note;
@@ -389,11 +385,6 @@ fetch("archive/days.json", { cache: "no-store" }).then(r => r.ok ? r.json() : []
   if (!Array.isArray(days) || !days.length) return;
   pick.min = days[0];
   pick.max = days[days.length - 1];
-  if (days.includes(prevDay(DATA.edition))) { // yesterday's line opens yesterday's edition
-    const a = el("a", "", $("prev").textContent);
-    a.href = "archive/" + prevDay(DATA.edition) + ".html";
-    $("prev").replaceChildren(a);
-  }
   const latest = days[days.length - 1];
   if (latest !== DATA.edition) {
     const a = el("a", "", "Open latest");
