@@ -34,7 +34,7 @@ def page_info(url):
     yt = re.search(r"youtube\.com/watch\?v=([\w-]{11})", url)
     if yt:
         return None, [f"https://i.ytimg.com/vi/{yt.group(1)}/{q}.jpg" for q in ("maxresdefault", "hqdefault")]
-    gh = re.match(r"https://github\.com/([^/]+/[^/#?]+)/?$", url)
+    gh = re.match(r"https://github\.com/([^/]+/[^/#?]+)", url)  # any page of a repo: its share card
     if gh:  # GitHub's share card
         return None, [f"https://opengraph.githubassets.com/1/{gh.group(1)}"]
     r = curl("--max-filesize", "3000000", url)
