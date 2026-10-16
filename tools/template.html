@@ -108,19 +108,6 @@ a.post:active{opacity:.7}
 .points{display:grid;gap:10px;margin:18px 0 0;padding:18px 0 0 18px;border-top:1px solid var(--line);font-size:15px;line-height:1.55;color:var(--ink);text-wrap:pretty}
 .points li::marker{color:var(--muted)}
 .original{display:inline-block;margin-top:24px;padding:10px 16px;border:1px solid var(--line);border-radius:5px;color:var(--ink);font-size:14.5px;font-weight:600;text-decoration:none}
-/* First-run tour: dims the page except the control being explained, which stays usable so each trick can be tried. */
-.tour{position:fixed;inset:0;z-index:25;pointer-events:none}
-.tour-dim,.tour-card{pointer-events:auto}
-.tour-dim{position:absolute;inset:0;background:rgba(10,11,13,.6);touch-action:none}
-.tour-ring{position:absolute;border-radius:8px;box-shadow:0 0 0 2px var(--accent);pointer-events:none}
-.tour-card{position:absolute;left:12px;right:12px;max-width:420px;margin-inline:auto;padding:18px 18px 14px;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--ink)}
-.tour-card.bottom{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
-.tour-card.top{top:calc(12px + env(safe-area-inset-top,0px))}
-.tour-title{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.012em}
-.tour-text{margin:6px 0 0;font-size:15px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
-.tour-actions{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
-.tour-skip{padding:8px 0;border:0;background:none;color:var(--muted);font:inherit;font-size:14px;cursor:pointer}
-.tour-next{padding:9px 18px;border:0;border-radius:5px;background:var(--ink);color:var(--bg);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
 </style>
 </head>
 <body>
@@ -163,19 +150,6 @@ a.post:active{opacity:.7}
 <div class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-labelledby="readerTitle">
   <div class="reader-bar"><button type="button" class="reader-close" id="readerClose" aria-label="Back"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg></button></div>
   <div class="reader-in" id="readerBody"></div>
-</div>
-
-<div class="tour" id="tour" hidden>
-  <div class="tour-dim" id="tourDim"></div>
-  <div class="tour-ring" id="tourRing" hidden></div>
-  <div class="tour-card bottom" id="tourCard" role="dialog" aria-labelledby="tourTitle">
-    <div class="tour-title" id="tourTitle"></div>
-    <p class="tour-text" id="tourText" aria-live="polite"></p>
-    <div class="tour-actions">
-      <button type="button" class="tour-skip" id="tourSkip">Skip</button>
-      <button type="button" class="tour-next" id="tourNext">Next</button>
-    </div>
-  </div>
 </div>
 
 <script id="data" type="application/json">__DATA__</script>
@@ -249,14 +223,11 @@ function card(item, eager) {
   const href = httpsUrl(item.url);
   const c = el(href ? "a" : "div", "post");
   if (href) { c.href = href; c.target = "_blank"; c.rel = "noopener noreferrer"; }
-  if (href && pointsOf(item).length) {
-    c.dataset.reader = "1";
-    c.addEventListener("click", e => { // key points open in the reader; modified clicks open the original
-      if (e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      e.preventDefault();
-      openReader(item);
-    });
-  }
+  if (href && pointsOf(item).length) c.addEventListener("click", e => { // key points open in the reader; modified clicks open the original
+    if (e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    openReader(item);
+  });
   const m = mediaOf(item, eager);
   m.firstChild.addEventListener("error", () => c.remove()); // no image, no post
   const body = el("div", "post-body");
@@ -296,7 +267,6 @@ function select(id) {
   current = id;
   store.set(id);
   renderView();
-  dispatchEvent(new Event("tabchange"));
   const top = $("top").offsetTop;
   if (window.scrollY > top) window.scrollTo(0, top);
 }
@@ -407,7 +377,6 @@ $("themeBtn").addEventListener("click", () => {
   root.dataset.theme = dark ? "light" : "dark";
   try { localStorage.setItem("theme", root.dataset.theme); } catch {}
   syncThemeColor();
-  dispatchEvent(new Event("themechange"));
 });
 
 const openPicker = () => { try { $("pick").showPicker(); } catch { $("pick").focus(); } };
@@ -440,70 +409,6 @@ fetch("archive/days.json", { cache: "no-store" }).then(r => r.ok ? r.json() : []
   });
 });
 
-// First-run tour: shown once per device (marked done as it starts); skipped when the browser keeps no storage.
-(() => {
-  try { if (localStorage.getItem("tourDone")) return; localStorage.setItem("tourDone", "1"); } catch { return; }
-  const ua = navigator.userAgent;
-  const ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-  const macSafari = !ios && /Macintosh/.test(ua) && /Safari\//.test(ua) && !/Chrome|Chromium|Edg|OPR|Firefox/.test(ua);
-  const steps = [
-    { target: ".strip", title: "Swipe between sections", text: "Swipe left or right to move between News, Projects and Skills. Try it.",
-      on: "tabchange", done: "That's it. Tapping a section name works too." },
-    { target: "#main .post[data-reader] .media", when: () => document.querySelector("#main .post[data-reader]"),
-      title: "Read the key points", text: "Tap a post to read its key points right here. The original is one tap away." },
-    { target: ".datebtn", title: "Open any day", text: "Tap the calendar to read the edition from an earlier day." },
-    { target: ".themebtn", title: "Light or dark", text: "Tap here to switch between light and dark. Try it.", on: "themechange", done: "Saved on this device." },
-    { title: "Install the app", when: () => !standalone && (installPrompt || ios || macSafari), install: () => !!installPrompt,
-      text: () => installPrompt ? "Add Morning Diff to your home screen and open it in one tap."
-        : ios ? "Open the Share menu and choose Add to Home Screen." : "In Safari, choose File, then Add to Dock." },
-  ];
-  const tour = $("tour"), dim = $("tourDim"), ring = $("tourRing"), card = $("tourCard");
-  let i = -1, step = null, stop = () => {};
-  const place = () => { // cut a hole around the step's control so it stays visible and tappable
-    const t = step && step.target && document.querySelector(step.target);
-    if (!t) { dim.style.clipPath = ""; ring.hidden = true; card.className = "tour-card bottom"; return; }
-    const r = t.getBoundingClientRect(), x = r.left - 6, y = r.top - 6, w = r.width + 12, h = r.height + 12, k = 8;
-    dim.style.clipPath = `path(evenodd, "M0 0H${innerWidth}V${innerHeight}H0Z M${x + k} ${y}H${x + w - k}A${k} ${k} 0 0 1 ${x + w} ${y + k}V${y + h - k}A${k} ${k} 0 0 1 ${x + w - k} ${y + h}H${x + k}A${k} ${k} 0 0 1 ${x} ${y + h - k}V${y + k}A${k} ${k} 0 0 1 ${x + k} ${y}Z")`;
-    Object.assign(ring.style, { left: x + "px", top: y + "px", width: w + "px", height: h + "px" });
-    ring.hidden = false;
-    card.className = "tour-card " + (r.top + r.height / 2 > innerHeight / 2 ? "top" : "bottom");
-  };
-  const end = () => { stop(); stop = () => {}; tour.hidden = true; removeEventListener("resize", place); removeEventListener("scroll", place); };
-  const show = n => {
-    stop();
-    stop = () => {};
-    for (i = n; steps[i] && steps[i].when && !steps[i].when(); i++);
-    step = steps[i];
-    if (!step) return end();
-    const last = !steps.slice(i + 1).some(s => !s.when || s.when());
-    $("tourTitle").textContent = step.title;
-    $("tourText").textContent = typeof step.text === "function" ? step.text() : step.text;
-    $("tourNext").textContent = step.install && step.install() ? "Install" : last ? "Start reading" : "Next";
-    $("tourSkip").textContent = step.install && step.install() ? "Not now" : "Skip";
-    if (step.on) {
-      const ev = step.on, done = step.done;
-      const tried = () => { $("tourText").textContent = done; place(); };
-      addEventListener(ev, tried);
-      stop = () => removeEventListener(ev, tried);
-    }
-    place();
-  };
-  $("tourNext").addEventListener("click", async () => {
-    if (step && step.install && step.install()) {
-      installPrompt.prompt();
-      await installPrompt.userChoice.catch(() => null);
-      installPrompt = null;
-      hideInstall();
-    }
-    show(i + 1);
-  });
-  $("tourSkip").addEventListener("click", end);
-  swipeable(dim); // swiping on the dimmed page switches sections too
-  addEventListener("resize", place);
-  addEventListener("scroll", place, { passive: true });
-  tour.hidden = false;
-  show(0);
-})();
 </script>
 </body>
 </html>
