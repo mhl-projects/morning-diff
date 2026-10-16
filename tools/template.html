@@ -41,30 +41,24 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .notice{margin-top:16px;padding:10px 14px;border-radius:10px;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}
 .brief{margin:18px 0 0;font-size:17px;line-height:1.55;color:var(--ink-2);text-wrap:pretty}
 
-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin-top:26px;background:var(--bg);transition:background-color .2s;border-bottom:1px solid var(--line);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)))}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin-top:26px;background:var(--bg);border-bottom:1px solid var(--line);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)))}
 .navrow{display:flex;align-items:center;gap:12px;max-width:620px;margin:0 auto -1px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .strip{flex:1;min-width:0;display:flex;gap:24px;overflow-x:auto;scrollbar-width:none}
-.datebtn{position:relative;flex:none;display:grid;place-items:center;width:40px;height:40px;margin-right:-10px;border:0;outline:none;color:var(--muted);cursor:pointer;transition:color .15s;-webkit-tap-highlight-color:transparent}
+.datebtn{position:relative;flex:none;display:grid;place-items:center;width:40px;height:40px;margin-right:-10px;border:0;outline:none;color:var(--muted);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .datebtn svg{width:20px;height:20px}
 .datebtn input{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;border:0;outline:none;opacity:0;font-size:16px;cursor:pointer;-webkit-tap-highlight-color:transparent}
 @media (hover:hover){.datebtn:hover{color:var(--ink)}}
 .strip::-webkit-scrollbar{display:none}
-.strip button{flex:none;padding:13px 0 11px;border:0;border-bottom:2px solid transparent;border-radius:0;background:none;color:var(--muted);font:inherit;font-size:14px;font-weight:500;cursor:pointer;transition:color .15s,border-color .15s;-webkit-tap-highlight-color:transparent}
+.strip button{flex:none;padding:13px 0 11px;border:0;border-bottom:2px solid transparent;border-radius:0;background:none;color:var(--muted);font:inherit;font-size:14px;font-weight:500;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .strip button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
 
 section{padding-block:16px 40px;min-height:60vh}
 .empty{margin:8px 0 0;font-size:14px;color:var(--muted)}
 
-@media (prefers-reduced-motion:no-preference){
-  .in-next{animation:in-next .22s ease-out}
-  .in-prev{animation:in-prev .22s ease-out}
-}
-@keyframes in-next{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
-@keyframes in-prev{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
 
 /* Wall of posts */
 .wall{display:grid;gap:34px;margin-top:6px}
-.post{display:block;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:opacity .15s}
+.post{display:block;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
 a.post:active{opacity:.7}
 .media{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:5px;background:var(--press);outline:1px solid var(--edge);outline-offset:-1px}
 .media img{display:block;width:100%;height:100%;object-fit:cover}
@@ -204,11 +198,9 @@ const known = id => VIEWS.some(v => v.id === id) ? id : null;
 let current = known(location.hash.slice(1)) || known(store.get()) || "news";
 
 function select(id) {
-  const dir = VIEWS.findIndex(v => v.id === id) - VIEWS.findIndex(v => v.id === current);
   current = id;
   store.set(id);
   renderView();
-  if (dir) $("main").firstChild.classList.add(dir > 0 ? "in-next" : "in-prev");
   const top = $("top").offsetTop;
   if (window.scrollY > top) window.scrollTo(0, top);
 }
