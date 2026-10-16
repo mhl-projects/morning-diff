@@ -77,8 +77,13 @@ a.row:active{background:var(--press)}
 a.row:visited .t{color:var(--muted)}
 .b{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;margin-top:4px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
 
-footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.6;color:var(--muted)}
-.install{display:flex;align-items:center;gap:14px;margin-top:24px;padding:16px;border-radius:18px;background:var(--press)}
+.foot{display:grid;gap:10px;margin-top:40px;padding-top:22px;border-top:1px solid var(--line)}
+.foot-brand{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+.foot-brand img{border-radius:7px}
+.foot-text{margin:0;max-width:44ch;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.foot-links{display:flex;gap:20px;margin-top:4px}
+.foot-links button{padding:4px 0;border:0;background:none;color:var(--ink);font:inherit;font-size:13.5px;font-weight:500;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-decoration-thickness:1.5px;text-underline-offset:4px}
+.install{display:flex;align-items:center;gap:14px;margin-top:40px;padding:16px;border-radius:18px;background:var(--press)}
 .install img{flex:none;width:52px;height:52px;border-radius:13px}
 .install-copy{min-width:0}
 .install-title{font-size:16px;font-weight:600;letter-spacing:-.01em}
@@ -101,7 +106,6 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-si
   <div id="top"></div>
   <nav aria-label="Sections"><div class="strip" id="tabs" role="tablist"></div></nav>
   <main id="main"></main>
-  <footer>Updated every day. Pick a date at the top to open any past day.</footer>
   <aside class="install" id="install" hidden>
     <img src="assets/icon-192.png" alt="" width="52" height="52">
     <div class="install-copy">
@@ -110,6 +114,14 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-si
     </div>
     <button type="button" id="installBtn">Install</button>
   </aside>
+  <footer class="foot">
+    <div class="foot-brand"><img src="assets/icon-192.png" alt="" width="24" height="24">Morning Diff</div>
+    <p class="foot-text">A new edition every morning, covering the last 24 hours in AI. Every past edition stays in the archive.</p>
+    <div class="foot-links">
+      <button type="button" id="footArchive">Browse archive</button>
+      <button type="button" id="footTop">Back to top</button>
+    </div>
+  </footer>
 </div>
 
 <script id="data" type="application/json">__DATA__</script>
@@ -263,6 +275,13 @@ if (!standalone && /iPhone|iPad/.test(navigator.userAgent)) {
   $("installBtn").hidden = true;
   $("install").hidden = false;
 }
+
+$("footTop").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+$("footArchive").addEventListener("click", () => {
+  const pick = $("pick");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  try { pick.showPicker(); } catch { pick.focus(); }
+});
 
 // Past days: archive/days.json lists every saved edition.
 const pick = $("pick");
