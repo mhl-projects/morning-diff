@@ -20,13 +20,13 @@
 <style>
 /* Layout: one clean white column: date headline and brief, sticky tabs, then a wall of posts (two columns on wide screens). */
 :root{
-  --bg:#FFFFFF;--ink:#111317;--ink-2:#3F4450;--muted:#6B7080;--line:#E6E7EA;--press:#F3F4F6;--add:#1A7F37;--del:#CF222E;--edge:rgba(17,19,23,.07);
+  --bg:#FFFFFF;--ink:#111317;--ink-2:#3F4450;--muted:#6B7080;--line:#E6E7EA;--press:#F3F4F6;--add:#1A7F37;--edge:rgba(17,19,23,.07);
   --accent:#2F6BFF;--warn-bg:#FFF6E0;--warn-ink:#6B4A00;
   --sans:"Geist",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D0E10;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8C919C;--line:#25282D;--press:#17191C;--add:#3FB950;--del:#F85149;--edge:rgba(255,255,255,.07);--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0D0E10;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8C919C;--line:#25282D;--press:#17191C;--add:#3FB950;--del:#F85149;--edge:rgba(255,255,255,.07);--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D0E10;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8C919C;--line:#25282D;--press:#17191C;--add:#3FB950;--edge:rgba(255,255,255,.07);--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0D0E10;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8C919C;--line:#25282D;--press:#17191C;--add:#3FB950;--edge:rgba(255,255,255,.07);--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}
 
 html{-webkit-text-size-adjust:100%}
 [hidden]{display:none!important}
@@ -35,24 +35,23 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .wrap{max-width:620px;margin-inline:auto}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
 
-.mast{padding-top:28px}
+.mast{padding-block:28px 24px}
 .brand{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
 .brand img{border-radius:5px}
 .mast h1{margin:2px 0 0;font-size:30px;font-weight:600;line-height:1.15;letter-spacing:-.025em}
 .stat{margin-top:4px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
 .stat a{color:var(--accent);text-decoration:none;font-weight:500}
 .notice{margin-top:16px;padding:10px 14px;border-radius:10px;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}
-/* The header reads as the day's diff: yesterday removed, today and its highlights added. Markers hang in a gutter. */
+/* Today's highlights read as added lines in a diff; the markers hang in a gutter. */
 .hunk{margin-top:24px}
 .ln{position:relative;padding-left:26px}
 .ln::before{position:absolute;left:0;top:0;font-family:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500}
 .add::before{content:"+";color:var(--add)}
-.del::before{content:"\2212";color:var(--del)}
-.del{margin:0;font-size:15px;line-height:1.4;color:var(--muted)}
-.del a{color:inherit;text-decoration:none}
-.brief{display:grid;gap:8px;margin:20px 0 0;padding:0;list-style:none;font-size:17px;line-height:1.45;color:var(--ink-2);text-wrap:pretty}
+.prev{margin:0;font-size:15px;line-height:1.4;color:var(--muted)}
+.prev a{color:inherit;text-decoration:none}
+.brief{display:grid;gap:8px;margin-block:20px 0;padding-block:20px 0;list-style:none;font-size:17px;line-height:1.45;color:var(--ink-2);text-wrap:pretty}
 
-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin-top:26px;background:var(--bg);border-bottom:1px solid var(--line);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)))}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)))}
 .navrow{display:flex;align-items:center;gap:12px;max-width:620px;margin:0 auto -1px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .strip{flex:1;min-width:0;display:flex;gap:28px;overflow-x:auto;scrollbar-width:none}
 .datebtn,.themebtn{position:relative;flex:none;display:grid;place-items:center;width:40px;height:40px;padding:0;border:0;background:none;color:var(--muted);cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -91,7 +90,9 @@ a.post:visited .t{color:var(--muted)}
   .wall{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:40px 28px}
 }
 
-.band{margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));border-top:1px solid var(--line)}
+.band,.mast{margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.band{border-top:1px solid var(--line)}
+.mast{border-bottom:1px solid var(--line)}
 .band-in{max-width:620px;margin-inline:auto}
 .install{display:flex;align-items:center;gap:12px;padding-block:18px}
 .install img{flex:none;width:36px;height:36px;border-radius:9px}
@@ -106,10 +107,10 @@ a.post:visited .t{color:var(--muted)}
   <header class="mast">
     <div class="brand"><img src="assets/icon-192.png" alt="" width="20" height="20">Morning Diff</div>
     <div class="hunk">
-      <p class="ln del" id="prev"></p>
-      <h1 class="ln add" id="day"></h1>
-      <div class="ln stat" id="stat"></div>
-      <ul class="brief" id="brief" hidden></ul>
+      <p class="prev" id="prev"></p>
+      <h1 id="day"></h1>
+      <div class="stat" id="stat"></div>
+      <ul class="brief band" id="brief" hidden></ul>
     </div>
     <div class="notice" id="notice" hidden></div>
   </header>
