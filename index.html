@@ -36,14 +36,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
 
 .mast{padding-block:28px 24px}
-.brand{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
-.brand img{border-radius:5px}
 .mast h1{margin:2px 0 0;font-size:30px;font-weight:600;line-height:1.15;letter-spacing:-.025em}
 .stat{margin-top:4px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
 .stat a{color:var(--accent);text-decoration:none;font-weight:500}
 .notice{margin-top:16px;padding:10px 14px;border-radius:10px;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}
 /* Today's highlights, each with a topic icon on a softly tinted tile (hue set per topic). */
-.hunk{margin-top:24px}
 .prev{margin:0;font-size:15px;line-height:1.4;color:var(--muted)}
 .prev a{color:inherit;text-decoration:none}
 .brief{display:grid;gap:12px;margin-block:20px 0;padding-block:20px 0;list-style:none;font-size:17px;line-height:1.45;color:var(--ink-2);text-wrap:pretty}
@@ -105,7 +102,6 @@ a.post:visited .t{color:var(--muted)}
 <body>
 <div class="wrap">
   <header class="mast">
-    <div class="brand"><img src="assets/icon-192.png" alt="" width="20" height="20">Morning Diff</div>
     <div class="hunk">
       <p class="prev" id="prev"></p>
       <h1 id="day"></h1>
