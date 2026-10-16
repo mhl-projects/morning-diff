@@ -19,12 +19,12 @@
 <style>
 /* Layout: one clean white column: date headline and brief, sticky tabs, then a wall of posts (two columns on wide screens). */
 :root{
-  --bg:#FFFFFF;--ink:#111317;--ink-2:#3F4450;--muted:#6B7080;--line:#E6E7EA;--press:#F3F4F6;--edge:rgba(17,19,23,.07);
+  --bg:#FFFFFF;--ink:#111317;--ink-2:#3F4450;--muted:#6B7080;--line:#E6E7EA;--press:#F3F4F6;--add:#1A7F37;--add-bg:#EAF7EE;--add-gutter:#D3F0DC;--edge:rgba(17,19,23,.07);
   --accent:#2F6BFF;--warn-bg:#FFF6E0;--warn-ink:#6B4A00;
   --sans:"Geist",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root{--bg:#0D0E10;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8C919C;--line:#25282D;--press:#17191C;--edge:rgba(255,255,255,.07);--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}}
+@media (prefers-color-scheme:dark){:root{--bg:#0D0E10;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8C919C;--line:#25282D;--press:#17191C;--add:#3FB950;--add-bg:rgba(46,160,67,.13);--add-gutter:rgba(46,160,67,.24);--edge:rgba(255,255,255,.07);--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}}
 
 html{-webkit-text-size-adjust:100%}
 [hidden]{display:none!important}
@@ -34,12 +34,16 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
 
 .mast{padding-top:28px}
-.brand{font-size:14px;font-weight:600}
+.brand{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
+.brand img{border-radius:5px}
 .mast h1{margin:14px 0 0;font-size:30px;font-weight:600;line-height:1.15;letter-spacing:-.025em}
 .stat{margin-top:4px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
 .stat a{color:var(--accent);text-decoration:none;font-weight:500}
 .notice{margin-top:16px;padding:10px 14px;border-radius:10px;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}
-.brief{margin:18px 0 0;font-size:17px;line-height:1.55;color:var(--ink-2);text-wrap:pretty}
+/* The brief reads like a git diff: one added line per thing that matters today. */
+.diff{max-width:620px;margin:20px 0 0;padding:7px 0;list-style:none;border-radius:5px;background:linear-gradient(to right,var(--add-gutter) 32px,var(--add-bg) 32px);font-size:16px;line-height:1.45}
+.diff li{display:grid;grid-template-columns:32px 1fr;padding:5px 14px 5px 0;text-wrap:pretty}
+.diff li::before{content:"+";text-align:center;color:var(--add);font:600 15px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 
 nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin-top:26px;background:var(--bg);border-bottom:1px solid var(--line);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)))}
 .navrow{display:flex;align-items:center;gap:12px;max-width:620px;margin:0 auto -1px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -75,7 +79,6 @@ a.post:visited .t{color:var(--muted)}
 .b{font-size:15px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
 @media (min-width:760px){
   .wrap,.navrow,.band .band-in{max-width:1000px}
-  .brief{max-width:62ch}
   .wall{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:40px 28px}
 }
 
@@ -92,11 +95,11 @@ a.post:visited .t{color:var(--muted)}
 <body>
 <div class="wrap">
   <header class="mast">
-    <div class="brand">Morning Diff</div>
+    <div class="brand"><img src="assets/icon-192.png" alt="" width="20" height="20">Morning Diff</div>
     <h1 id="day"></h1>
     <div class="stat" id="stat"></div>
     <div class="notice" id="notice" hidden></div>
-    <p class="brief" id="brief"></p>
+    <ul class="diff" id="brief" hidden></ul>
   </header>
   <div id="top"></div>
   <nav aria-label="Sections">
@@ -227,10 +230,14 @@ function renderView() {
 
 // Header
 const at = new Date(DATA.updatedAt);
-const total = VIEWS.reduce((n, v) => n + v.from.reduce((m, id) => m + arr(byId[id]).length, 0), 0);
+const shown = VIEWS.flatMap(v => v.from.flatMap(id => arr(byId[id])));
+const total = shown.length;
+const minutes = Math.max(1, Math.round(shown.reduce((n, i) => n + `${i.title} ${i.blurb || ""}`.split(/\s+/).length, 0) / 230));
 $("day").textContent = longDay(DATA.edition);
-$("stat").textContent = ["Updated " + time(at), total + " items", DATA.added && DATA.added < total ? DATA.added + " new" : ""].filter(Boolean).join(" · ");
-$("brief").textContent = DATA.brief || "";
+$("stat").textContent = ["Updated " + time(at), total + " picks", minutes + " min read", DATA.added && DATA.added < total ? DATA.added + " new" : ""].filter(Boolean).join(" · ");
+const brief = (Array.isArray(DATA.brief) ? DATA.brief : String(DATA.brief || "").split(/(?<=\.)\s+/)).map(l => String(l).trim().replace(/\.$/, "")).filter(Boolean);
+$("brief").replaceChildren(...brief.map(l => el("li", "", l)));
+$("brief").hidden = !brief.length;
 const isIndex = !location.pathname.endsWith(DATA.edition + ".html");
 const note = isIndex && Date.now() - at > 30 * 3600e3 ? "Last updated " + longDay(DATA.edition) + ". Today's refresh hasn't landed yet." : DATA.note;
 if (note) { $("notice").textContent = note; $("notice").hidden = false; }
