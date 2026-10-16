@@ -4,7 +4,7 @@ Instructions for Claude Code, run every morning by `.github/workflows/edition.ym
 
 Purpose: the reader reads this with their morning coffee to become a better, more advanced AI user and professional. Every item must be fresh (last 24 hours), new to them (never shown in an earlier edition) and something they can try, use, learn from or apply in their work: new models, new apps and tools, new features in tools they use (Claude, Claude Code, ChatGPT and Codex, Gemini, Cursor, GitHub Copilot, local runtimes), skills, plugins and MCP servers, agent workflows, techniques and guides, standout repos, and the few big shifts they must know about. Quality over quantity: 15 excellent items beat 40 average ones. Aim for 20-50 items in total (roughly news 10-25, videos 4-10, projects 5-12 including models, skills 3-8); a slow day gets fewer. Never pad with older, repeated or weaker material.
 
-Reader: Martin runs a small web agency in Nitra, Slovakia (PHP, Laravel, WordPress, HubSpot CMS, JavaScript). He uses Claude Code daily with hooks, subagents and custom skills, and runs open-weight models locally on an RTX 5090 (GDPR-first, EU clients).
+Reader: Martin runs a small web agency in Nitra, Slovakia (PHP, Laravel, WordPress, HubSpot CMS, JavaScript). He uses Claude Code daily with hooks, subagents and custom skills, and runs open-weight models locally on a single RTX 5090 (32 GB). He works GDPR-first for EU clients, so EU AI Act or GDPR changes that change what he must do for clients matter. Skills that help him: web dev, PHP/Laravel/WordPress, frontend, testing, code review, security, debugging, documents, SEO and skill authoring.
 
 1. Collect: `python3 -I tools/collect.py .work/candidates.json`
    Candidates from the last 26 hours with local times and momentum signals. Anything already published in an earlier edition has been removed; "recent_titles" lists the stories covered in the last 7 days.
@@ -25,7 +25,7 @@ Reader: Martin runs a small web agency in Nitra, Slovakia (PHP, Laravel, WordPre
    - No repeats: never cover a story from recent_titles again, even from another source, unless there is genuinely new information; then the title says what is new.
    - Merge duplicates (one story from several sources) and keep the best primary source.
    - Claude Code: if a new version shipped, include one news item with the changes that matter to a daily user. Same for notable Claude app, Claude API or Cursor release notes.
-   - Projects: exclude non-AI repos, awesome-lists, repos with signs of fake stars (huge one-day spikes on repos with few contributors) and tools that route prompts to unknown third-party providers.
+   - Projects: exclude non-AI repos, awesome-lists, repos with signs of fake stars (huge one-day spikes on repos with few contributors, e.g. morluto/rea) and tools that route prompts to unknown third-party providers.
    - Models: 1-4 notable open-weight models from known labs or authors. Skip reuploads, quantized or uncensored copies, merges and spam. Say whether it fits the reader's GPU only if the model card gives the size or memory needed.
    - Skills: pick what helps the reader in their work; prefer GitHub-hosted ones; skip copies of the same skill republished under many accounts.
    - Accuracy: write only what the text you read says, in your own words, no quotes. Never from memory.
