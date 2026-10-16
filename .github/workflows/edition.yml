@@ -1,0 +1,116 @@
+# Builds and publishes each morning's edition with Claude Code on the owner's Claude subscription
+# (repository secret CLAUDE_CODE_OAUTH_TOKEN, made with `claude setup-token`; it lasts a year).
+name: Morning Diff edition
+
+on:
+  schedule:
+    # 05:23 in Nitra: 03:23 UTC in summer time, 04:23 UTC in winter time. The later slots retry a failed morning.
+    - cron: "23 3,4,5 * * *"
+  workflow_dispatch: # "Run workflow" on the Actions tab rebuilds today's edition
+  push:
+    branches: [main]
+    paths: [.github/workflows/edition.yml]
+
+concurrency:
+  group: edition
+
+jobs:
+  curate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: read # Claude reads the web, so it gets no token that can push
+    outputs:
+      today: ${{ steps.when.outputs.today }}
+      built: ${{ steps.check.outputs.built }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - id: when
+        name: One morning edition a day
+        run: |
+          today=$(TZ=Europe/Bratislava date +%F)
+          echo "today=$today" >> "$GITHUB_OUTPUT"
+          mkdir -p .work
+          if [ "$GITHUB_EVENT_NAME" = schedule ]; then
+            made=$(git log -1 --format=%ct -- "archive/$today.html")
+            if [ "$(TZ=Europe/Bratislava date +%-H)" -lt 5 ] || { [ -n "$made" ] && [ "$(TZ=Europe/Bratislava date -d "@$made" +%-H)" -ge 5 ]; }; then
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
+      - id: claude
+        name: Curate and build
+        if: steps.when.outputs.skip != 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ github.token }}
+          allowed_bots: "*"
+          prompt: Make today's Morning Diff edition. Read tools/edition.md and follow it exactly.
+          claude_args: |
+            --model claude-sonnet-5-5
+            --max-turns 150
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(python3:*)"
+
+      - id: check
+        name: Check the build
+        if: always() && steps.when.outputs.skip != 'true'
+        env:
+          TODAY: ${{ steps.when.outputs.today }}
+          LOG: ${{ steps.claude.outputs.execution_file }}
+        run: |
+          python3 - <<'EOF'
+          import json, os
+          try:
+              res = next(m for m in reversed(json.load(open(os.environ["LOG"]))) if m.get("type") == "result")
+              msg = f'{res.get("result") or res.get("subtype")} ({res.get("num_turns")} turns)'
+          except Exception as e:
+              msg = f"no result from Claude: {e!r}"
+          print("::notice title=Claude::" + msg.replace("%", "%25").replace("\r", "").replace("\n", "%0A"))
+          EOF
+          if [ -n "$(git status --porcelain -- index.html "archive/$TODAY.html")" ] && grep -q "\"edition\": \"$TODAY\"" index.html; then
+            echo "built=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error::No edition was built for $TODAY"
+            exit 1
+          fi
+
+      - if: steps.check.outputs.built == 'true'
+        uses: actions/upload-artifact@v6
+        with:
+          name: edition
+          retention-days: 3
+          path: |
+            index.html
+            archive/${{ steps.when.outputs.today }}.html
+            archive/days.json
+            archive/seen.json
+
+  publish:
+    needs: curate
+    if: needs.curate.outputs.built == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/download-artifact@v7
+        with:
+          name: edition
+      - name: Commit, push and deploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TODAY: ${{ needs.curate.outputs.today }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html archive
+          git commit -m "Edition $TODAY"
+          git push || { git pull --rebase && git push; }
+          # a push made with this workflow's token doesn't start a Pages build by itself
+          gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds"
