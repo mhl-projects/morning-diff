@@ -42,7 +42,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .notice{margin-top:16px;padding:10px 14px;border-radius:10px;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}
 /* Today's highlights, each with a topic icon on a softly tinted tile (hue set per topic). */
 .brief{display:grid;gap:12px;margin-block:26px 0;padding-block:20px 22px;list-style:none;font-size:15px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
-.brief.band{border-top:0;background:var(--wash)} /* the day's highlights sit on a light grey band that runs to the divider */
+.brief.band{background:var(--wash)} /* the day's highlights sit on a light grey band that runs to the divider */
 .mast:has(.brief:not([hidden])){padding-bottom:0}
 .brief li{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start}
 .ico{display:grid;place-items:center;width:20px;height:20px;margin-top:1px;border-radius:5px;background:hsl(var(--h) var(--tile-s) var(--tile));color:hsl(var(--h) 55% var(--tile-ink))}
