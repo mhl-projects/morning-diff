@@ -1,7 +1,9 @@
 # Collect candidates from the last 24 hours into one compact JSON, so Claude only has to pick and summarise.
 # Sources: news feeds (incl. Techmeme's AI stories), Hacker News, Anthropic news/engineering/research, Claude Code releases (npm),
 # YouTube channel feeds (with views per hour), trendshift.io (repos), Hugging Face trending models, skills.sh (skills).
-# Momentum signals for ranking: HN points, Techmeme pick, views per hour, stars gained today, trending score, installs.
+# Also: practical newsletters (TLDR AI picks, The Rundown, Ben's Bites, One Useful Thing), Product Hunt AI launches,
+# and release notes of Claude (apps, API) and Cursor.
+# Momentum signals for ranking: HN points, Techmeme/TLDR pick, views per hour, stars gained today, trending score, installs.
 # Usage: python3 -I collect.py candidates.json
 import datetime, email.utils, html, json, pathlib, re, subprocess, sys, time, zoneinfo
 import xml.etree.ElementTree as ET
@@ -15,7 +17,14 @@ FEEDS = [("OpenAI", "https://openai.com/news/rss.xml"), ("Google", "https://blog
          ("The Verge", "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml"), ("Interconnects", "https://www.interconnects.ai/feed"),
          ("Ars Technica", "https://arstechnica.com/ai/feed/"), ("The Decoder", "https://the-decoder.com/feed/"),
          ("EU AI Act Newsletter", "https://artificialintelligenceact.substack.com/feed"), ("Import AI", "https://importai.substack.com/feed"),
-         ("Techmeme", "https://www.techmeme.com/feed.xml")]  # Techmeme covers all of tech: only its AI stories are kept
+         ("The Rundown AI", "https://www.therundown.ai/feed"), ("Ben's Bites", "https://www.bensbites.com/feed"),
+         ("One Useful Thing", "https://www.oneusefulthing.org/feed"),
+         ("Techmeme", "https://www.techmeme.com/feed.xml"), ("Product Hunt", "https://www.producthunt.com/feed")]
+GENERAL = {"Techmeme", "Product Hunt"}  # cover all of tech: only their AI items are kept
+# Release notes of tools Martin uses: dated sections, kept when dated today or yesterday (no times given).
+NOTES = [("Claude apps release notes", "https://docs.claude.com/en/release-notes/claude-apps"),
+         ("Claude API release notes", "https://docs.claude.com/en/release-notes/api"), ("Cursor changelog", "https://cursor.com/changelog")]
+DATE = r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? (\d{1,2}), (20\d\d)\b"
 CHANNELS = {"AI Explained": "UCNJ1Ymd5yFuUPtn21xtRbbw", "The AI Daily Brief": "UCKelCK4ZaO6HeEI1KQjqzWA",
             "Fireship": "UCsBjURrPoezykLs9EqgamOA", "Theo - t3.gg": "UCbRP3c757lWg9M-U7TyEkXA",
             "IndyDevDan": "UC_x36zCEGilGpB1m-V4gmjg", "Cole Medin": "UCMwVTLZIRRUyyVrkjDpn4pA",
@@ -88,9 +97,9 @@ for source, url in FEEDS:
         if not (pub and pub >= since and link.startswith("https://")):
             continue
         src = source
-        if source == "Techmeme":  # an editor's pick of the day's top stories: keep AI ones, link the original article
-            if not AI_WORDS.search(title or ""):
-                continue
+        if source in GENERAL and not AI_WORDS.search(f"{title} {text(summ)}"):
+            continue
+        if source == "Techmeme":  # an editor's pick of the day's top stories: link the original article
             link = next((u for u in re.findall(r'HREF="(https://[^"]+)"', summ or "", re.I) if "techmeme.com" not in u), link)
             name = re.search(r">([^<>]+)</A>:", summ or "", re.I)
             src = (name.group(1).strip() if name else "Techmeme") + " (Techmeme pick)"
@@ -111,6 +120,30 @@ for section in ("news", "engineering", "research"):
             og = lambda p: text((re.search(rf'<meta[^>]+property="og:{p}"[^>]+content="([^"]*)"', page) or [None, ""])[1])
             out["news"].append({"source": "Anthropic", "title": og("title") or slug, "url": f"https://www.anthropic.com/{section}/{slug}",
                                 "time": t.isoformat(), "summary": og("description")})
+
+for source, url in NOTES:  # one candidate per page with the sections dated today or yesterday
+    page = text(re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", get(url)), 2_000_000)
+    parts, best = re.split(DATE, page), {}
+    for mon, day, year, body in zip(parts[1::4], parts[2::4], parts[3::4], parts[4::4]):
+        d = datetime.datetime.strptime(f"{mon} {day} {year}", "%b %d %Y").replace(tzinfo=datetime.timezone.utc)
+        # dates in the future are deadlines mentioned in the text; a table of contents repeats dates with little text
+        if since.date() <= d.date() <= now.date() and len(body) > len(best.get(d, "")):
+            best[d] = body.strip()
+    if best:
+        out["news"].append({"source": source, "title": source, "url": url, "time": max(best).isoformat(), "date_only": True,
+                            "summary": " | ".join(f"{d:%b} {d.day}: {body[:1200]}" for d, body in sorted(best.items(), reverse=True))})
+
+# TLDR AI: the latest daily issue, one candidate per story (sponsors skipped), linking the original.
+issue = max(feed_entries(get("https://tldr.tech/api/rss/ai")), key=lambda e: e[2] or since, default=None)
+if issue and issue[2] and issue[2] >= now - datetime.timedelta(hours=36):
+    for art in re.findall(r"(?is)<article\b.*?</article>", get(issue[1])):
+        href, h3 = re.search(r'href="([^"]+)"', art), re.search(r"(?is)<h3[^>]*>(.*?)</h3>", art)
+        body = re.search(r'(?is)class="newsletter-html"[^>]*>(.*?)</div>', art)
+        title = text(h3.group(1) if h3 else "")
+        if href and title and "(Sponsor)" not in title:
+            out["news"].append({"source": "TLDR AI pick", "title": re.sub(r"\s*\(\d+ minute read\)$", "", title),
+                                "url": re.sub(r"[?&]utm_[^&#]*", "", html.unescape(html.unescape(href.group(1)))).rstrip("?&"),
+                                "time": issue[2].isoformat(), "summary": text(body.group(1) if body else "")})
 
 # Claude Code releases: exact publish times from npm, release notes from the changelog. One candidate for the day's versions.
 npm = get("https://registry.npmjs.org/@anthropic-ai/claude-code")
@@ -170,7 +203,7 @@ for key in ("news", "videos"):
     items = []
     for it in sorted(out[key], key=lambda i: i["time"], reverse=True):
         t = datetime.datetime.fromisoformat(it["time"].replace("Z", "+00:00")).astimezone(TZ)
-        it["date"], it["time"] = t.date().isoformat(), t.strftime("%H:%M")  # Nitra time
+        it["date"], it["time"] = t.date().isoformat(), "" if it.pop("date_only", False) else t.strftime("%H:%M")  # Nitra time
         k = re.sub(r"#.*$|[?&]utm_[^&#]*", "", it["url"]).rstrip("/?")  # keep ?v= for YouTube
         if k not in seen:
             seen.add(k)
