@@ -7,9 +7,8 @@ on:
     # 05:23 in Nitra: 03:23 UTC in summer time, 04:23 UTC in winter time. The later slots retry a failed morning.
     - cron: "23 3,4,5 * * *"
   workflow_dispatch: # "Run workflow" on the Actions tab rebuilds today's edition
-  push:
-    branches: [main]
-    paths: [.github/workflows/edition.yml]
+  repository_dispatch: # the same through the API: POST /repos/{owner}/{repo}/dispatches with event_type "edition"
+    types: [edition]
 
 concurrency:
   group: edition
