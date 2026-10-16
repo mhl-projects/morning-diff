@@ -9,22 +9,22 @@
 <link rel="manifest" href="assets/manifest.webmanifest">
 <link rel="icon" href="assets/icon-192.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0D0E10" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F3F4F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B0C0E" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Morning Diff">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap">
 <style>
-/* Layout: one quiet column. Date headline and brief, sticky tabs, and only the selected timeline (news, projects or skills) on a thin rail. */
+/* Layout: date headline and brief on a soft canvas, sticky tabs, then a wall of post cards (one column on phones, two on wide screens). */
 :root{
-  --bg:#FFFFFF;--ink:#111317;--ink-2:#3F4450;--muted:#6B7080;--line:#E6E7EA;--press:#F4F5F7;
+  --bg:#F3F4F6;--card:#FFFFFF;--ink:#111317;--ink-2:#3F4450;--muted:#676C79;--line:#E4E6EA;--press:#ECEEF1;
   --accent:#2F6BFF;--warn-bg:#FFF6E0;--warn-ink:#6B4A00;
   --sans:"Geist",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root{--bg:#0D0E10;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8C919C;--line:#25282D;--press:#17191C;--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}}
+@media (prefers-color-scheme:dark){:root{--bg:#0B0C0E;--card:#16181C;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8E939E;--line:#24272D;--press:#1C1F24;--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}}
 
 html{-webkit-text-size-adjust:100%}
 [hidden]{display:none!important}
@@ -57,29 +57,29 @@ section{padding-top:20px;min-height:60vh}
 .note{margin:0 0 6px;font-size:13.5px;color:var(--muted)}
 .empty{margin:8px 0 0;font-size:14px;color:var(--muted)}
 
-/* Timeline: a 1px rail through day markers and type icons */
-.tl{list-style:none;margin:10px 0 0;padding:0}
-.tl li{position:relative;padding-left:40px}
-.tl li::before{content:"";position:absolute;left:11px;top:0;bottom:0;width:1px;background:var(--line)}
-.tl li:first-child::before{top:12px}
-.tl li:last-child::before{bottom:auto;height:20px}
-.tl .day{padding-block:14px 4px;font-size:13px;font-weight:600;line-height:20px;color:var(--ink)}
-.tl .day::after{content:"";position:absolute;left:8px;top:20.5px;width:7px;height:7px;border-radius:50%;background:var(--muted)}
-.tl .day:first-child{padding-top:2px}
-.tl .day:first-child::after{top:8.5px}
-.node{position:absolute;left:0;top:8.5px;width:23px;height:23px;display:grid;place-items:center;box-sizing:border-box;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--muted)}
-.node svg{width:12px;height:12px}
-.node.is-new{border-color:var(--accent);color:var(--accent)}
-.row{display:block;margin-inline:-8px;padding:12px 8px 16px;border-radius:12px;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
-a.row:active{background:var(--press)}
-@media (hover:hover){a.row:hover{background:var(--press)}}
-.kind{display:block;font-size:12.5px;line-height:16px;color:var(--muted);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
-.kind b{font-weight:600;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
-.hero{display:block;width:100%;height:auto;aspect-ratio:16/9;margin:9px 0 2px;border-radius:10px;border:1px solid var(--line);object-fit:cover;box-sizing:border-box;background:var(--press)}
-.t{display:block;margin-top:7px;font-size:16px;font-weight:600;line-height:1.35;letter-spacing:-.005em;color:var(--ink);overflow-wrap:anywhere;text-wrap:pretty}
+/* Wall of posts */
+.wall{display:grid;gap:14px;margin-top:4px}
+.post{display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:var(--card);color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:transform .2s ease,box-shadow .2s ease}
+a.post:active{transform:scale(.985)}
+@media (hover:hover){a.post:hover{box-shadow:0 10px 30px -18px rgba(16,19,26,.35)}}
+.media{position:relative;aspect-ratio:16/9;background:var(--press);border-bottom:1px solid var(--line)}
+.media img{display:block;width:100%;height:100%;object-fit:cover}
+.media img.fit{object-fit:contain;background:#FFFFFF}
+.play{position:absolute;left:10px;bottom:10px;display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px 0 7px;border-radius:999px;background:rgba(10,11,13,.78);color:#FFFFFF;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+.play svg{width:11px;height:11px}
+.post-body{display:grid;gap:6px;padding:12px 16px 16px}
+.post-meta{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:12.5px;line-height:1.4;color:var(--muted);font-variant-numeric:tabular-nums}
+.post-src{min-width:0;overflow-wrap:anywhere}
+.post-time{flex:none}
+.t{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.012em;color:var(--ink);overflow-wrap:anywhere;text-wrap:pretty}
 .t .own{font-weight:400;color:var(--muted)}
-a.row:visited .t{color:var(--muted)}
-.b{display:block;margin-top:4px;font-size:14.5px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
+a.post:visited .t{color:var(--muted)}
+.b{font-size:15px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
+@media (min-width:760px){
+  .wrap,.navrow{max-width:1000px}
+  .brief{max-width:62ch}
+  .wall{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:18px}
+}
 
 .foot{display:grid;gap:10px;margin-top:32px;padding-top:22px;border-top:1px solid var(--line)}
 .foot-brand{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:600;letter-spacing:-.01em}
@@ -142,13 +142,7 @@ const VIEWS = [
   { id: "projects", label: "Projects", note: "AI projects gaining the most stars this week", from: ["repos"] },
   { id: "skills", label: "Skills", note: "Claude skills and plugins, by latest update", from: ["skills"] },
 ];
-const KIND = { news: "News", videos: "Video", repos: "Project", skills: "Skill" };
-const ICONS = {
-  news: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 4h10M3 8h10M3 12h6"/></svg>',
-  videos: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M5 3.2v9.6L12.8 8z"/></svg>',
-  repos: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M3.5 3.5a1.5 1.5 0 0 1 1.5-1.5h7.5v10H5a1.5 1.5 0 0 0-1.5 1.5zM3.5 13.5A1.5 1.5 0 0 0 5 15h7.5v-3"/></svg>',
-  skills: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5l1.6 4.9 4.9 1.6-4.9 1.6L8 14.5l-1.6-4.9L1.5 8l4.9-1.6z"/></svg>',
-};
+const PLAY = '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8v10.4L13 8z"/></svg>';
 const $ = id => document.getElementById(id);
 const el = (tag, cls, text) => {
   const e = document.createElement(tag);
@@ -156,62 +150,61 @@ const el = (tag, cls, text) => {
   if (text != null && text !== "") e.textContent = String(text);
   return e;
 };
-const icon = kind => { const t = document.createElement("template"); t.innerHTML = ICONS[kind]; return t.content.firstChild; };
+const playIcon = () => { const t = document.createElement("template"); t.innerHTML = PLAY; return t.content.firstChild; };
 const httpsUrl = u => { try { const x = new URL(u); return x.protocol === "https:" ? x.href : null; } catch { return null; } };
 const longDay = ymd => new Date(ymd + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
 const time = d => d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
 const prevDay = ymd => { const d = new Date(ymd + "T12:00:00"); d.setDate(d.getDate() - 1); return d.toLocaleDateString("sv-SE"); };
-// Day groups are relative to this edition's date, so old pages read the way they did that day.
-const dayLabel = ymd => {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(ymd || "")) return "Earlier";
-  if (ymd === DATA.edition) return "Today";
-  if (ymd === prevDay(DATA.edition)) return "Yesterday";
-  return new Date(ymd + "T12:00:00").toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+// Times read relative to this edition's date, so old pages read the way they did that day.
+const whenLabel = i => {
+  if (!i.time) return "";
+  if (!i.date || i.date === DATA.edition) return i.time;
+  if (i.date === prevDay(DATA.edition)) return "Yesterday " + i.time;
+  return new Date(i.date + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short" }) + " " + i.time;
 };
 const arr = s => (Array.isArray(s?.items) ? s.items : []).filter(i => httpsUrl(i.img)); // entries without an image are not shown
 const key = i => String(i.date || "") + String(i.time || "");
 const newestFirst = list => [...list].sort((a, b) => key(b).localeCompare(key(a)));
 const byId = Object.fromEntries((DATA.sections || []).map(s => [s.id, s]));
 
-function entry(item, mixed) {
-  const li = el("li", "ev");
-  const node = el("span", "node" + (item.isNew ? " is-new" : ""));
-  node.append(icon(item.src));
+function card(item, eager) {
   const href = httpsUrl(item.url);
-  const r = el(href ? "a" : "div", "row");
-  if (href) { r.href = href; r.target = "_blank"; r.rel = "noopener noreferrer"; }
-  const kind = el("span", "kind");
-  const facts = item.src === "news" ? [item.time, item.meta]
-    : item.src === "videos" ? [item.time, item.meta, item.fig]
-    : [item.time, item.meta, item.fig, item.sub];
-  if (mixed) kind.append(el("b", "", KIND[item.src]), facts.some(Boolean) ? " · " : "");
-  kind.append(facts.filter(Boolean).join(" · "));
-  r.append(kind);
-  const src = httpsUrl(item.img);
-  if (src) {
-    const img = el("img", "hero");
-    img.src = src; img.alt = ""; img.width = 640; img.height = 360; img.loading = "lazy"; img.decoding = "async";
-    img.referrerPolicy = "no-referrer";
-    img.addEventListener("error", () => {
-      const ol = li.parentElement;
-      li.remove();
-      for (const d of ol?.querySelectorAll(".day") || []) if (!d.nextElementSibling || d.nextElementSibling.classList.contains("day")) d.remove();
-    });
-    r.append(img);
+  const c = el(href ? "a" : "div", "post");
+  if (href) { c.href = href; c.target = "_blank"; c.rel = "noopener noreferrer"; }
+
+  const media = el("div", "media");
+  const img = el("img");
+  img.src = httpsUrl(item.img); img.alt = ""; img.width = 640; img.height = 360;
+  img.loading = eager ? "eager" : "lazy"; img.decoding = "async"; img.referrerPolicy = "no-referrer";
+  if (img.src.startsWith("https://opengraph.githubassets.com/")) img.className = "fit"; // GitHub cards: show them whole
+  img.addEventListener("error", () => c.remove()); // no image, no post
+  media.append(img);
+  if (item.src === "videos") {
+    const badge = el("span", "play");
+    badge.append(playIcon());
+    if (item.fig) badge.append(item.fig);
+    media.append(badge);
   }
-  const t = el("span", "t");
+
+  const parts = item.src === "repos" ? [item.meta, item.fig, item.sub] : item.src === "skills" ? [item.meta, item.fig] : [item.meta];
+  const meta = el("div", "post-meta");
+  meta.append(el("span", "post-src", parts.filter(Boolean).join(" · ")), el("span", "post-time", whenLabel(item)));
+
+  const t = el("div", "t");
   const text = String(item.title || "");
   if (item.src === "repos" && text.includes("/")) {
     const [own, ...rest] = text.split("/");
     t.append(el("span", "own", own + "/"), rest.join("/"));
   } else t.append(text);
-  r.append(t);
-  if (item.blurb) r.append(el("span", "b", item.blurb));
-  li.append(node, r);
-  return li;
+
+  const body = el("div", "post-body");
+  body.append(meta, t);
+  if (item.blurb) body.append(el("div", "b", item.blurb));
+  c.append(media, body);
+  return c;
 }
 
-// Only the selected timeline is shown; the choice is remembered on this device.
+// Only the selected tab's posts are shown; the choice is remembered on this device.
 const store = { get: () => { try { return localStorage.getItem("tab"); } catch { return null; } },
                 set: v => { try { localStorage.setItem("tab", v); } catch {} } };
 const known = id => VIEWS.some(v => v.id === id) ? id : null;
@@ -240,14 +233,9 @@ function renderView() {
   sec.append(el("p", "note", v.note));
   const items = newestFirst(v.from.flatMap(id => arr(byId[id]).map(i => ({ ...i, src: id }))));
   if (items.length) {
-    const ol = el("ol", "tl");
-    let last = null;
-    for (const i of items) {
-      const label = dayLabel(i.date);
-      if (label !== last) { ol.append(el("li", "day", label)); last = label; }
-      ol.append(entry(i, v.from.length > 1));
-    }
-    sec.append(ol);
+    const wall = el("div", "wall");
+    wall.append(...items.map((i, n) => card(i, n < 2)));
+    sec.append(wall);
   } else sec.append(el("p", "empty", "Nothing here for this day."));
   $("main").replaceChildren(sec);
 }
