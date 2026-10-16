@@ -9,26 +9,26 @@
 <link rel="manifest" href="assets/manifest.webmanifest">
 <link rel="icon" href="assets/icon-192.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<meta name="theme-color" content="#F3F4F6" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0B0C0E" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D0E10" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Morning Diff">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap">
 <style>
-/* Layout: date headline and brief on a soft canvas, sticky tabs, then a wall of post cards (one column on phones, two on wide screens). */
+/* Layout: one clean white column: date headline and brief, sticky tabs, then a wall of posts (two columns on wide screens). */
 :root{
-  --bg:#F3F4F6;--card:#FFFFFF;--ink:#111317;--ink-2:#3F4450;--muted:#676C79;--line:#E4E6EA;--press:#ECEEF1;
+  --bg:#FFFFFF;--ink:#111317;--ink-2:#3F4450;--muted:#6B7080;--line:#E6E7EA;--press:#F3F4F6;--edge:rgba(17,19,23,.07);
   --accent:#2F6BFF;--warn-bg:#FFF6E0;--warn-ink:#6B4A00;
   --sans:"Geist",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root{--bg:#0B0C0E;--card:#16181C;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8E939E;--line:#24272D;--press:#1C1F24;--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}}
+@media (prefers-color-scheme:dark){:root{--bg:#0D0E10;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8C919C;--line:#25282D;--press:#17191C;--edge:rgba(255,255,255,.07);--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}}
 
 html{-webkit-text-size-adjust:100%}
 [hidden]{display:none!important}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:env(safe-area-inset-top,0px) calc(40px + env(safe-area-inset-bottom,0px))}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:env(safe-area-inset-top,0px) 0}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 .wrap{max-width:620px;margin-inline:auto}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
@@ -41,7 +41,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .notice{margin-top:16px;padding:10px 14px;border-radius:10px;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}
 .brief{margin:18px 0 0;font-size:17px;line-height:1.55;color:var(--ink-2);text-wrap:pretty}
 
-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin-top:26px;background:var(--bg);border-bottom:1px solid var(--line);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)))}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin-top:26px;background:var(--bg);transition:background-color .2s;border-bottom:1px solid var(--line);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)))}
 .navrow{display:flex;align-items:center;gap:12px;max-width:620px;margin:0 auto -1px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .strip{flex:1;min-width:0;display:flex;gap:24px;overflow-x:auto;scrollbar-width:none}
 .datebtn{position:relative;flex:none;display:grid;place-items:center;width:40px;height:40px;margin-right:-10px;border:0;outline:none;color:var(--muted);cursor:pointer;transition:color .15s;-webkit-tap-highlight-color:transparent}
@@ -52,21 +52,26 @@ nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin-top:26px;b
 .strip button{flex:none;padding:13px 0 11px;border:0;border-bottom:2px solid transparent;border-radius:0;background:none;color:var(--muted);font:inherit;font-size:14px;font-weight:500;cursor:pointer;transition:color .15s,border-color .15s;-webkit-tap-highlight-color:transparent}
 .strip button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
 
-section{padding-top:20px;min-height:60vh}
-.note{margin:0 0 6px;font-size:13.5px;color:var(--muted)}
+section{padding-block:16px 40px;min-height:60vh}
 .empty{margin:8px 0 0;font-size:14px;color:var(--muted)}
 
+@media (prefers-reduced-motion:no-preference){
+  .in-next{animation:in-next .22s ease-out}
+  .in-prev{animation:in-prev .22s ease-out}
+}
+@keyframes in-next{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+@keyframes in-prev{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+
 /* Wall of posts */
-.wall{display:grid;gap:14px;margin-top:4px}
-.post{display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:var(--card);color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:transform .2s ease,box-shadow .2s ease}
-a.post:active{transform:scale(.985)}
-@media (hover:hover){a.post:hover{box-shadow:0 10px 30px -18px rgba(16,19,26,.35)}}
-.media{position:relative;aspect-ratio:16/9;background:var(--press);border-bottom:1px solid var(--line)}
+.wall{display:grid;gap:34px;margin-top:6px}
+.post{display:block;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:opacity .15s}
+a.post:active{opacity:.7}
+.media{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:5px;background:var(--press);outline:1px solid var(--edge);outline-offset:-1px}
 .media img{display:block;width:100%;height:100%;object-fit:cover}
 .media img.fit{object-fit:contain;background:#FFFFFF}
 .play{position:absolute;left:10px;bottom:10px;display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px 0 7px;border-radius:999px;background:rgba(10,11,13,.78);color:#FFFFFF;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
 .play svg{width:11px;height:11px}
-.post-body{display:grid;gap:6px;padding:12px 16px 16px}
+.post-body{display:grid;gap:5px;padding-top:12px}
 .post-meta{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:12.5px;line-height:1.4;color:var(--muted);font-variant-numeric:tabular-nums}
 .post-src{min-width:0;overflow-wrap:anywhere}
 .post-time{flex:none}
@@ -75,18 +80,19 @@ a.post:active{transform:scale(.985)}
 a.post:visited .t{color:var(--muted)}
 .b{font-size:15px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
 @media (min-width:760px){
-  .wrap,.navrow{max-width:1000px}
+  .wrap,.navrow,.band .band-in{max-width:1000px}
   .brief{max-width:62ch}
-  .wall{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:18px}
+  .wall{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:40px 28px}
 }
 
-.foot{display:grid;gap:10px;margin-top:32px;padding-top:22px;border-top:1px solid var(--line)}
+.band{margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));border-top:1px solid var(--line)}
+.band-in{max-width:620px;margin-inline:auto}
+.foot{display:grid;gap:12px;padding-block:22px calc(40px + env(safe-area-inset-bottom,0px))}
 .foot-brand{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:600;letter-spacing:-.01em}
 .foot-brand img{border-radius:7px}
-.foot-text{margin:0;max-width:44ch;font-size:13.5px;line-height:1.5;color:var(--muted)}
 .foot-links{display:flex;gap:20px;margin-top:4px}
 .foot-links button{padding:4px 0;border:0;background:none;color:var(--ink);font:inherit;font-size:13.5px;font-weight:500;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-decoration-thickness:1.5px;text-underline-offset:4px}
-.install{display:flex;align-items:center;gap:12px;margin-top:40px}
+.install{display:flex;align-items:center;gap:12px;padding-block:18px}
 .install img{flex:none;width:36px;height:36px;border-radius:9px}
 .install-copy{flex:1;min-width:0}
 .install-title{font-size:14.5px;font-weight:600;letter-spacing:-.01em}
@@ -115,20 +121,23 @@ a.post:visited .t{color:var(--muted)}
     </div>
   </nav>
   <main id="main"></main>
-  <aside class="install" id="install" hidden>
-    <img src="assets/icon-192.png" alt="" width="36" height="36">
-    <div class="install-copy">
-      <div class="install-title">Get the Morning Diff app</div>
-      <div class="install-text" id="installText">One tap from your home screen · <button type="button" class="install-no" id="installNo">Not interested</button></div>
+  <aside class="band" id="install" hidden>
+    <div class="band-in install">
+      <img src="assets/icon-192.png" alt="" width="36" height="36">
+      <div class="install-copy">
+        <div class="install-title">Get the Morning Diff app</div>
+        <div class="install-text" id="installText">One tap from your home screen · <button type="button" class="install-no" id="installNo">Not interested</button></div>
+      </div>
+      <button type="button" class="install-yes" id="installBtn">Install</button>
     </div>
-    <button type="button" class="install-yes" id="installBtn">Install</button>
   </aside>
-  <footer class="foot">
-    <div class="foot-brand"><img src="assets/icon-192.png" alt="" width="24" height="24">Morning Diff</div>
-    <p class="foot-text">A new edition every morning, covering the last 24 hours in AI. Every past edition stays in the archive.</p>
-    <div class="foot-links">
-      <button type="button" id="footArchive">Browse archive</button>
-      <button type="button" id="footTop">Back to top</button>
+  <footer class="band">
+    <div class="band-in foot">
+      <div class="foot-brand"><img src="assets/icon-192.png" alt="" width="24" height="24">Morning Diff</div>
+      <div class="foot-links">
+        <button type="button" id="footArchive">Browse archive</button>
+        <button type="button" id="footTop">Back to top</button>
+      </div>
     </div>
   </footer>
 </div>
@@ -137,9 +146,9 @@ a.post:visited .t{color:var(--muted)}
 <script>
 const DATA = JSON.parse(document.getElementById("data").textContent);
 const VIEWS = [
-  { id: "news", label: "News", note: "Latest AI news and videos, newest first", from: ["news", "videos"] },
-  { id: "projects", label: "Projects", note: "AI projects gaining the most stars this week", from: ["repos"] },
-  { id: "skills", label: "Skills", note: "Claude skills and plugins, by latest update", from: ["skills"] },
+  { id: "news", label: "News", from: ["news", "videos"] },
+  { id: "projects", label: "Projects", from: ["repos"] },
+  { id: "skills", label: "Skills", from: ["skills"] },
 ];
 const PLAY = '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8v10.4L13 8z"/></svg>';
 const $ = id => document.getElementById(id);
@@ -156,10 +165,9 @@ const time = d => d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-di
 const prevDay = ymd => { const d = new Date(ymd + "T12:00:00"); d.setDate(d.getDate() - 1); return d.toLocaleDateString("sv-SE"); };
 // Times read relative to this edition's date, so old pages read the way they did that day.
 const whenLabel = i => {
-  if (!i.time) return "";
-  if (!i.date || i.date === DATA.edition) return i.time;
-  if (i.date === prevDay(DATA.edition)) return "Yesterday " + i.time;
-  return new Date(i.date + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short" }) + " " + i.time;
+  const day = !i.date || i.date === DATA.edition ? (i.time ? "" : "Today") : i.date === prevDay(DATA.edition) ? "Yesterday"
+    : new Date(i.date + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  return [day, i.time].filter(Boolean).join(" ");
 };
 const arr = s => (Array.isArray(s?.items) ? s.items : []).filter(i => httpsUrl(i.img)); // entries without an image are not shown
 const key = i => String(i.date || "") + String(i.time || "");
@@ -210,9 +218,11 @@ const known = id => VIEWS.some(v => v.id === id) ? id : null;
 let current = known(location.hash.slice(1)) || known(store.get()) || "news";
 
 function select(id) {
+  const dir = VIEWS.findIndex(v => v.id === id) - VIEWS.findIndex(v => v.id === current);
   current = id;
   store.set(id);
   renderView();
+  if (dir) $("main").firstChild.classList.add(dir > 0 ? "in-next" : "in-prev");
   const top = $("top").offsetTop;
   if (window.scrollY > top) window.scrollTo(0, top);
 }
@@ -229,7 +239,6 @@ function renderView() {
   const v = VIEWS.find(x => x.id === current);
   const sec = el("section");
   sec.setAttribute("role", "tabpanel");
-  sec.append(el("p", "note", v.note));
   const items = newestFirst(v.from.flatMap(id => arr(byId[id]).map(i => ({ ...i, src: id }))));
   if (items.length) {
     const wall = el("div", "wall");
@@ -249,6 +258,18 @@ const isIndex = !location.pathname.endsWith(DATA.edition + ".html");
 const note = isIndex && Date.now() - at > 30 * 3600e3 ? "Last updated " + longDay(DATA.edition) + ". Today's refresh hasn't landed yet." : DATA.note;
 if (note) { $("notice").textContent = note; $("notice").hidden = false; }
 renderView();
+
+// Swipe left or right on the posts to switch tabs.
+let touch = null;
+$("main").addEventListener("touchstart", e => { const t = e.touches[0]; touch = { x: t.clientX, y: t.clientY, at: Date.now() }; }, { passive: true });
+$("main").addEventListener("touchend", e => {
+  if (!touch) return;
+  const t = e.changedTouches[0], dx = t.clientX - touch.x, dy = t.clientY - touch.y, quick = Date.now() - touch.at < 800;
+  touch = null;
+  if (!quick || Math.abs(dx) < 60 || Math.abs(dx) < 1.5 * Math.abs(dy)) return;
+  const next = VIEWS[VIEWS.findIndex(v => v.id === current) + (dx < 0 ? 1 : -1)];
+  if (next) select(next.id);
+}, { passive: true });
 
 // Install as an app: Chrome on Android offers its own prompt; iPhone needs Share > Add to Home Screen.
 const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
