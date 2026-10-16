@@ -112,7 +112,7 @@ a.post:active{opacity:.7}
 /* Reader: a picked item's key points in the app's own design; the original is one tap away. */
 .reader{position:fixed;inset:0;z-index:30;overflow-y:auto;overscroll-behavior:contain;background:var(--bg);padding:env(safe-area-inset-top,0px) max(16px,env(safe-area-inset-right,0px)) calc(40px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
 .reader-bar{position:sticky;top:0;z-index:1;max-width:620px;height:52px;margin:0 auto;display:flex;align-items:center;background:var(--bg)}
-.reader-close{display:grid;place-items:center;width:40px;height:40px;margin-left:-10px;padding:0;border:0;background:none;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.reader-close{display:inline-flex;align-items:center;gap:4px;height:40px;margin-left:-6px;padding:0 10px 0 0;border:0;background:none;color:var(--ink);font:inherit;font-size:15px;font-weight:500;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .reader-close svg{width:22px;height:22px}
 .reader-in{max-width:620px;margin:0 auto}
 .reader-in .post-meta{margin-top:14px}
@@ -162,7 +162,7 @@ a.post:active{opacity:.7}
 </div>
 
 <div class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-labelledby="readerTitle">
-  <div class="reader-bar"><button type="button" class="reader-close" id="readerClose" aria-label="Back"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg></button></div>
+  <div class="reader-bar"><button type="button" class="reader-close" id="readerClose"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg><span id="readerBack">Back</span></button></div>
   <div class="reader-in" id="readerBody"></div>
 </div>
 
@@ -276,6 +276,7 @@ function openReader(item) {
   const title = titleOf(item, "h2", "reader-title");
   title.id = "readerTitle";
   $("readerBody").replaceChildren(mediaOf(item, true), metaOf(item), title, ...(item.blurb ? [el("p", "lead", item.blurb)] : []), list, link);
+  $("readerBack").textContent = "Back to " + (VIEWS.find(v => v.id === current) || VIEWS[0]).label;
   reader.hidden = false;
   reader.scrollTop = 0;
   document.body.style.overflow = "hidden";
