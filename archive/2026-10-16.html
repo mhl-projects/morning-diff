@@ -70,8 +70,8 @@ a.post:active{opacity:.7}
 .media{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:5px;background:var(--press);outline:1px solid var(--edge);outline-offset:-1px}
 .media img{display:block;width:100%;height:100%;object-fit:cover}
 .media img.fit{object-fit:contain;background:#FFFFFF}
-.play{position:absolute;left:10px;bottom:10px;display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px 0 7px;border-radius:999px;background:rgba(10,11,13,.78);color:#FFFFFF;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
-.play svg{width:11px;height:11px}
+.kind{position:absolute;left:10px;bottom:10px;display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:999px;background:rgba(10,11,13,.78);color:#FFFFFF;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+.kind svg{width:11px;height:11px;margin-left:-2px}
 .post-body{display:grid;gap:5px;padding-top:12px}
 .post-meta{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:12.5px;line-height:1.4;color:var(--muted);font-variant-numeric:tabular-nums}
 .post-src{min-width:0;overflow-wrap:anywhere}
@@ -181,6 +181,10 @@ const key = i => String(i.date || "") + String(i.time || "");
 const newestFirst = list => [...list].sort((a, b) => key(b).localeCompare(key(a)));
 const byId = Object.fromEntries((DATA.sections || []).map(s => [s.id, s]));
 
+// What a post is, shown on its image. An edition item may set "kind"; otherwise it follows from the section and source.
+const KINDS = { videos: "Video", repos: "Repo", models: "Model", skills: "Skill" };
+const kindOf = i => i.kind || KINDS[i.src] || (/release notes|changelog/i.test(i.meta || "") || /^Claude Code \d/.test(i.title || "") ? "Release notes" : "Article");
+
 function mediaOf(item, eager) {
   const m = el("div", "media");
   const img = el("img");
@@ -188,12 +192,10 @@ function mediaOf(item, eager) {
   img.loading = eager ? "eager" : "lazy"; img.decoding = "async"; img.referrerPolicy = "no-referrer";
   if (/^https:\/\/(opengraph\.githubassets\.com|cdn-thumbnails\.huggingface\.co)\//.test(img.src)) img.className = "fit"; // GitHub and Hugging Face cards: show them whole
   m.append(img);
-  if (item.src === "videos") {
-    const badge = el("span", "play");
-    badge.append(playIcon());
-    if (item.fig) badge.append(item.fig);
-    m.append(badge);
-  }
+  const badge = el("span", "kind");
+  if (item.src === "videos") badge.append(playIcon());
+  badge.append([kindOf(item), item.src === "videos" && item.fig].filter(Boolean).join(" · "));
+  m.append(badge);
   return m;
 }
 
