@@ -35,13 +35,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .wrap{max-width:620px;margin-inline:auto}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
 
-.mast{padding-block:28px 24px}
+.mast{padding-block:22px 24px}
 .mast h1{margin:2px 0 0;font-size:30px;font-weight:600;line-height:1.15;letter-spacing:-.025em}
 .stat{margin-top:4px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
 .stat a{color:var(--accent);text-decoration:none;font-weight:500}
 .notice{margin-top:16px;padding:10px 14px;border-radius:10px;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}
 /* Today's highlights, each with a topic icon on a softly tinted tile (hue set per topic). */
-.brief{display:grid;gap:12px;margin-block:20px 0;padding-block:20px 22px;list-style:none;font-size:15px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
+.brief{display:grid;gap:12px;margin-block:26px 0;padding-block:20px 22px;list-style:none;font-size:15px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
 .brief.band{border-top:0;background:var(--wash)} /* the day's highlights sit on a light grey band that runs to the divider */
 .mast:has(.brief:not([hidden])){padding-bottom:0}
 .brief li{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start}
