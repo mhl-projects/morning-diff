@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <base href="__BASE__">
 <title>Morning Diff</title>
 <meta name="robots" content="noindex">
@@ -44,9 +44,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .prev{margin:0;font-size:15px;line-height:1.4;color:var(--muted)}
 .prev a{color:inherit;text-decoration:none}
 .brief{display:grid;gap:12px;margin-block:20px 0;padding-block:20px 0;list-style:none;font-size:15px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
-.brief li{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start}
-.ico{display:grid;place-items:center;width:24px;height:24px;border-radius:5px;background:hsl(var(--h) var(--tile-s) var(--tile));color:hsl(var(--h) 55% var(--tile-ink))}
-.ico svg{width:15px;height:15px}
+.brief li{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start}
+.ico{display:grid;place-items:center;width:20px;height:20px;margin-top:1px;border-radius:5px;background:hsl(var(--h) var(--tile-s) var(--tile));color:hsl(var(--h) 55% var(--tile-ink))}
+.ico svg{width:13px;height:13px}
 
 nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)))}
 .navrow{display:flex;align-items:center;gap:12px;max-width:620px;margin:0 auto -1px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}

@@ -71,8 +71,11 @@ for sec in data["sections"]:
         if sec["id"] in ("news", "videos"):
             if not it.get("time") and when:  # exact time from the page when the curator had none
                 try:
-                    t = local(when)
-                    it["date"], it["time"] = t.date().isoformat(), t.strftime("%H:%M")
+                    if re.search(r"T00:00(:00(\.0+)?)?(Z|[+-]00:?00)?$", when.strip()):  # midnight UTC means a date without a time
+                        it["date"] = when.strip()[:10]
+                    else:
+                        t = local(when)
+                        it["date"], it["time"] = t.date().isoformat(), t.strftime("%H:%M")
                 except ValueError:
                     pass
         else:  # projects and skills: when they were picked up for this edition
@@ -88,6 +91,14 @@ archive.mkdir(exist_ok=True)
 (archive / f"{data['edition']}.html").write_text(page.replace("__BASE__", "../", 1))
 (ROOT / "index.html").write_text(page.replace("__BASE__", "./", 1))
 html = page
+# Every item ever published (url -> first edition date and title), so collect.py never offers it again on a later day.
+seen_file = archive / "seen.json"
+seen = json.loads(seen_file.read_text()) if seen_file.exists() else {}
+for sec in data["sections"]:
+    for it in sec["items"]:
+        key = re.sub(r"#.*$|[?&]utm_[^&#]*", "", it.get("page") or it.get("url", "")).rstrip("/?")
+        seen.setdefault(key, {"date": data["edition"], "title": it.get("title", "")})
+seen_file.write_text(json.dumps(seen, ensure_ascii=False, indent=0))
 days_file = archive / "days.json"
 days = json.loads(days_file.read_text()) if days_file.exists() else []
 days_file.write_text(json.dumps(sorted(set(days) | {data["edition"]})))

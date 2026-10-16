@@ -83,7 +83,7 @@ def feed_entries(xml):
                 href = c.get("href")
                 break
         pub = next((f[k].text for k in ("published", "pubDate", "updated", "date") if k in f and f[k].text), "")
-        summ = next((f[k].text for k in ("description", "summary", "content", "group") if k in f and f[k].text), "")
+        summ = next((f[k].text for k in ("description", "summary", "content") if k in f and (f[k].text or "").strip()), "")
         if "group" in f and not summ:  # YouTube: media:group/media:description
             d = next((c for c in f["group"] if c.tag.endswith("description")), None)
             summ = d.text if d is not None else ""
@@ -198,6 +198,17 @@ for s in (json.loads(m.group(1)) if m else [])[:60]:
                           "url": f"https://github.com/{src}" if repo else f"https://skills.sh/{src}/{s['skillId']}"})
 
 TZ = zoneinfo.ZoneInfo("Europe/Bratislava")
+# Nothing published on an earlier day comes back: drop candidates already in archive/seen.json (written by build.py).
+published_file = pathlib.Path(__file__).resolve().parent.parent / "archive" / "seen.json"
+published = json.loads(published_file.read_text()) if published_file.exists() else {}
+today = now.astimezone(TZ).date().isoformat()
+norm = lambda u: re.sub(r"#.*$|[?&]utm_[^&#]*", "", u or "").rstrip("/?")
+old = lambda u: published.get(norm(u), {}).get("date", today) < today
+for key in ("news", "videos", "repos", "models"):
+    out[key] = [i for i in out[key] if not old(i["url"])]
+out["skills"] = [s for s in out["skills"] if not old(s["page"])]  # skills are tracked by their own page: one repo holds many
+week_ago = (now - datetime.timedelta(days=7)).astimezone(TZ).date().isoformat()
+out["recent_titles"] = sorted({v["title"] for v in published.values() if week_ago <= v["date"] < today})  # stories already covered
 seen = set()
 for key in ("news", "videos"):
     items = []

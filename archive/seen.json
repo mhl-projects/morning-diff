@@ -1,0 +1,126 @@
+{
+"https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md": {
+"date": "2026-10-16",
+"title": "Claude Code 2.1.302"
+},
+"https://the-decoder.com/chatgpt-becomes-a-full-chrome-browser-assistant-that-reads-and-acts-on-your-open-tabs": {
+"date": "2026-10-16",
+"title": "ChatGPT's Chrome extension now reads and acts on your open tabs"
+},
+"https://the-decoder.com/googles-gemini-4-argon-is-closer-to-the-ai-frontier-than-any-google-model-in-months": {
+"date": "2026-10-16",
+"title": "Gemini 4 Argon is Google's closest shot at the frontier in months"
+},
+"https://research.meta.ai/blog/muse-spark-open": {
+"date": "2026-10-16",
+"title": "Meta's Muse Spark Open: an 816B open-weight model for coding and agents"
+},
+"https://huggingface.co/blog/reflection-beam": {
+"date": "2026-10-16",
+"title": "Reflection's Beam: a 501B open model for coding and agents, under Apache 2.0"
+},
+"https://techcrunch.com/2026/10/16/jev-is-vercels-fastest-adopted-ai-model-ever": {
+"date": "2026-10-16",
+"title": "Jev is Vercel's fastest-adopted model, and open weights now carry 70% of tokens"
+},
+"https://techcrunch.com/2026/10/16/elorians-first-ai-model-wants-to-reason-with-images-not-just-about-them": {
+"date": "2026-10-16",
+"title": "Elorian's Glimpse reasons with images instead of describing them once"
+},
+"https://huggingface.co/blog/ibm-granite/granite-switch-4-1": {
+"date": "2026-10-16",
+"title": "IBM Granite Switch 4.1: chat, decisions and speech-to-text from one endpoint"
+},
+"https://docs.claude.com/en/release-notes/api": {
+"date": "2026-10-16",
+"title": "Claude API: fast mode for Opus 5.5 leaves research preview"
+},
+"https://cursor.com/changelog": {
+"date": "2026-10-16",
+"title": "Cursor: cloud agents build shareable canvases, plus an Environments API"
+},
+"https://techcrunch.com/2026/10/16/india-becomes-the-latest-country-to-report-rogue-ai-agent-activity": {
+"date": "2026-10-16",
+"title": "AI agents keep getting in through exposed credentials, now in India"
+},
+"https://www.theregister.com/databases/2026/10/16/postgres-19-delayed-after-ai-reviewers-find-more-bugs-than-humans-can-fix/5303471": {
+"date": "2026-10-16",
+"title": "PostgreSQL 19 slips to November after AI code review finds more bugs than devs can fix"
+},
+"https://www.anthropic.com/research/ecdsa-curve-origins": {
+"date": "2026-10-16",
+"title": "Claude solved the decades-old mystery of the NIST elliptic curve seeds"
+},
+"https://github.com/xerj-org/xerj": {
+"date": "2026-10-16",
+"title": "xerj-org/xerj"
+},
+"https://github.com/JuliusBrussee/caveman": {
+"date": "2026-10-16",
+"title": "JuliusBrussee/caveman"
+},
+"https://github.com/Thysrael/Horizon": {
+"date": "2026-10-16",
+"title": "Thysrael/Horizon"
+},
+"https://github.com/chenglou/handwired": {
+"date": "2026-10-16",
+"title": "chenglou/handwired"
+},
+"https://huggingface.co/black-forest-labs/flux-3-image-klein": {
+"date": "2026-10-16",
+"title": "black-forest-labs/flux-3-image-klein"
+},
+"https://huggingface.co/LiquidAI/LFM2.5-24B-A2B": {
+"date": "2026-10-16",
+"title": "LiquidAI/LFM2.5-24B-A2B"
+},
+"https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B": {
+"date": "2026-10-16",
+"title": "openbmb/MiniCPM-V-4.7-35B-A3B"
+},
+"https://huggingface.co/google/embeddinggemma-2": {
+"date": "2026-10-16",
+"title": "google/embeddinggemma-2"
+},
+"https://skills.sh/vercel-labs/agent-browser/agent-browser": {
+"date": "2026-10-16",
+"title": "agent-browser: browser automation for your coding agent"
+},
+"https://skills.sh/vercel-labs/skills/find-skills": {
+"date": "2026-10-16",
+"title": "find-skills: let your agent find and install the right skill"
+},
+"https://skills.sh/heygen-com/hyperframes/hyperframes": {
+"date": "2026-10-16",
+"title": "HyperFrames: make videos from HTML with your agent"
+},
+"https://www.youtube.com/watch?v=hiI0Vk4NgeY": {
+"date": "2026-10-16",
+"title": "Anthropic Rebuilt Git (yes really)"
+},
+"https://www.youtube.com/watch?v=iZ88PPiAsl8": {
+"date": "2026-10-16",
+"title": "NVIDIA Put a DGX Spark in a Laptop… Almost"
+},
+"https://www.youtube.com/watch?v=KJ_7KPKlO_Q": {
+"date": "2026-10-16",
+"title": "Build more personal sites with Codex"
+},
+"https://www.youtube.com/watch?v=GQatuTWSRqY": {
+"date": "2026-10-16",
+"title": "My AI Dark Factory Dream Is Dead (Here's What Actually Works)"
+},
+"https://www.youtube.com/watch?v=8nh1dcH4uJU": {
+"date": "2026-10-16",
+"title": "Claude Code desktop: running many sessions at once"
+},
+"https://www.youtube.com/watch?v=kiClTcJUnhc": {
+"date": "2026-10-16",
+"title": "Why One AI Agent Isn't Enough (And How to Run 1,000)"
+},
+"https://www.youtube.com/watch?v=B4HQ-c8i3NM": {
+"date": "2026-10-16",
+"title": "NVIDIA Nemotron-3.5 Bolt-74B-A9B Locally"
+}
+}
