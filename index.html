@@ -71,7 +71,7 @@ a.post:active{opacity:.7}
 .media img{display:block;width:100%;height:100%;object-fit:cover}
 .media img.fit{object-fit:contain;background:#FFFFFF}
 .kind{position:absolute;left:10px;bottom:10px;display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:999px;background:rgba(10,11,13,.78);color:#FFFFFF;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
-.kind svg{width:11px;height:11px;margin-left:-2px}
+.kind svg{flex:none;width:12px;height:12px;margin-left:-2px}
 .post-body{display:grid;gap:5px;padding-top:12px}
 .post-meta{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:12.5px;line-height:1.4;color:var(--muted);font-variant-numeric:tabular-nums}
 .post-src{min-width:0;overflow-wrap:anywhere}
@@ -101,7 +101,7 @@ a.post:active{opacity:.7}
 .reader-close svg{width:22px;height:22px}
 .reader-in{max-width:620px;margin:0 auto}
 .reader-in .post-meta{margin-top:14px}
-.reader-title{margin:6px 0 0;font-size:22px;font-weight:600;line-height:1.25;letter-spacing:-.015em;color:var(--ink);overflow-wrap:anywhere;text-wrap:pretty}
+.reader-title{margin:20px 0 0;font-size:22px;font-weight:600;line-height:1.25;letter-spacing:-.015em;color:var(--ink);overflow-wrap:anywhere;text-wrap:pretty}
 .lead{margin:10px 0 0;font-size:16px;line-height:1.55;color:var(--ink-2);text-wrap:pretty}
 .points{display:grid;gap:10px;margin:18px 0 0;padding:18px 0 0 18px;border-top:1px solid var(--line);font-size:15px;line-height:1.55;color:var(--ink);text-wrap:pretty}
 .points li::marker{color:var(--muted)}
@@ -157,7 +157,6 @@ const VIEWS = [
   { id: "projects", label: "Projects", from: ["repos", "models"] },
   { id: "skills", label: "Skills", from: ["skills"] },
 ];
-const PLAY = '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 2.8v10.4L13 8z"/></svg>';
 const $ = id => document.getElementById(id);
 const el = (tag, cls, text) => {
   const e = document.createElement(tag);
@@ -165,7 +164,6 @@ const el = (tag, cls, text) => {
   if (text != null && text !== "") e.textContent = String(text);
   return e;
 };
-const playIcon = () => { const t = document.createElement("template"); t.innerHTML = PLAY; return t.content.firstChild; };
 const httpsUrl = u => { try { const x = new URL(u); return x.protocol === "https:" ? x.href : null; } catch { return null; } };
 const longDay = ymd => new Date(ymd + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
 const time = d => d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
@@ -183,6 +181,23 @@ const byId = Object.fromEntries((DATA.sections || []).map(s => [s.id, s]));
 
 // What a post is, shown on its image. An edition item may set "kind"; otherwise it follows from the section and source.
 const KINDS = { videos: "Video", repos: "Repo", models: "Model", skills: "Skill" };
+const KIND_ICONS = { // 16px line icons; unknown kinds use the article icon
+  Video: '<path d="M4.5 2.8v10.4L13 8z" fill="currentColor" stroke="none"/>',
+  Article: '<path d="M4 1.8h5l3 3v9.4H4z"/><path d="M9 1.8v3h3M6.2 8.5h3.6M6.2 11h3.6"/>',
+  "Release notes": '<path d="M2.8 4.5h.4M6 4.5h7.2M2.8 8h.4M6 8h7.2M2.8 11.5h.4M6 11.5h7.2"/>',
+  Repo: '<path d="M5.5 4.5 2 8l3.5 3.5M10.5 4.5 14 8l-3.5 3.5"/>',
+  Model: '<path d="M8 1.8 13.5 5v6L8 14.2 2.5 11V5z"/><path d="M2.5 5 8 8.2 13.5 5M8 8.2v6"/>',
+  Skill: '<path d="M9 1.8 3.5 9H8l-1 5.2L12.5 7H8z"/>',
+  Website: '<circle cx="8" cy="8" r="6"/><path d="M2 8h12M8 2c1.8 1.7 2.6 3.7 2.6 6S9.8 12.3 8 14c-1.8-1.7-2.6-3.7-2.6-6S6.2 3.7 8 2z"/>',
+  Guide: '<path d="M2.5 3.5c2-.8 3.8-.6 5.5.8 1.7-1.4 3.5-1.6 5.5-.8v9c-2-.8-3.8-.6-5.5.8-1.7-1.4-3.5-1.6-5.5-.8zM8 4.3v9"/>',
+  Paper: '<path d="M4 1.8h5l3 3v9.4H4z"/><path d="M9 1.8v3h3"/>',
+  Thread: '<path d="M2.5 3.5h11v7h-6l-3 2.5v-2.5h-2z"/>',
+};
+const kindIcon = k => {
+  const t = document.createElement("template");
+  t.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (KIND_ICONS[k] || KIND_ICONS.Article) + "</svg>";
+  return t.content.firstChild;
+};
 const kindOf = i => i.kind || KINDS[i.src] || (/release notes|changelog/i.test(i.meta || "") || /^Claude Code \d/.test(i.title || "") ? "Release notes" : "Article");
 
 function mediaOf(item, eager) {
@@ -192,9 +207,8 @@ function mediaOf(item, eager) {
   img.loading = eager ? "eager" : "lazy"; img.decoding = "async"; img.referrerPolicy = "no-referrer";
   if (/^https:\/\/(opengraph\.githubassets\.com|cdn-thumbnails\.huggingface\.co)\//.test(img.src)) img.className = "fit"; // GitHub and Hugging Face cards: show them whole
   m.append(img);
-  const badge = el("span", "kind");
-  if (item.src === "videos") badge.append(playIcon());
-  badge.append([kindOf(item), item.src === "videos" && item.fig].filter(Boolean).join(" · "));
+  const badge = el("span", "kind"), kind = kindOf(item);
+  badge.append(kindIcon(kind), [kind, item.src === "videos" && item.fig].filter(Boolean).join(" · "));
   m.append(badge);
   return m;
 }
