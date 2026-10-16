@@ -63,6 +63,15 @@ section{padding-block:16px 40px;min-height:60vh}
 .empty{margin:8px 0 0;font-size:14px;color:var(--muted)}
 
 
+/* Switching tabs slides the new list in from the side you're moving to. */
+main{overflow-x:clip}
+@media (prefers-reduced-motion:no-preference){
+  .in-next{animation:in-next .24s ease-out}
+  .in-prev{animation:in-prev .24s ease-out}
+}
+@keyframes in-next{from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:none}}
+@keyframes in-prev{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:none}}
+
 /* Wall of posts */
 .wall{display:grid;gap:34px;margin-top:6px}
 .post{display:block;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
@@ -276,9 +285,11 @@ const known = id => VIEWS.some(v => v.id === id) ? id : null;
 let current = known(location.hash.slice(1)) || known(store.get()) || "news";
 
 function select(id) {
+  const dir = VIEWS.findIndex(v => v.id === id) - VIEWS.findIndex(v => v.id === current);
   current = id;
   store.set(id);
   renderView();
+  if (dir) $("main").firstChild.classList.add(dir > 0 ? "in-next" : "in-prev"); // slide in from the side we're moving to
   const top = $("top").offsetTop;
   if (window.scrollY > top) window.scrollTo(0, top);
 }
