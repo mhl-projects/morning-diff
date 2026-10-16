@@ -15,16 +15,16 @@
 <meta name="apple-mobile-web-app-title" content="Morning Diff">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap">
 <style>
 /* Layout: one clean white column: date headline and brief, sticky tabs, then a wall of posts (two columns on wide screens). */
 :root{
-  --bg:#FFFFFF;--ink:#111317;--ink-2:#3F4450;--muted:#6B7080;--line:#E6E7EA;--press:#F3F4F6;--add:#1A7F37;--add-bg:#EAF7EE;--add-gutter:#D3F0DC;--edge:rgba(17,19,23,.07);
+  --bg:#FFFFFF;--ink:#111317;--ink-2:#3F4450;--muted:#6B7080;--line:#E6E7EA;--press:#F3F4F6;--add:#1A7F37;--del:#CF222E;--edge:rgba(17,19,23,.07);
   --accent:#2F6BFF;--warn-bg:#FFF6E0;--warn-ink:#6B4A00;
   --sans:"Geist",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root{--bg:#0D0E10;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8C919C;--line:#25282D;--press:#17191C;--add:#3FB950;--add-bg:rgba(46,160,67,.13);--add-gutter:rgba(46,160,67,.24);--edge:rgba(255,255,255,.07);--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}}
+@media (prefers-color-scheme:dark){:root{--bg:#0D0E10;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8C919C;--line:#25282D;--press:#17191C;--add:#3FB950;--del:#F85149;--edge:rgba(255,255,255,.07);--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}}
 
 html{-webkit-text-size-adjust:100%}
 [hidden]{display:none!important}
@@ -36,14 +36,19 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .mast{padding-top:28px}
 .brand{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
 .brand img{border-radius:5px}
-.mast h1{margin:14px 0 0;font-size:30px;font-weight:600;line-height:1.15;letter-spacing:-.025em}
+.mast h1{margin:2px 0 0;font-size:30px;font-weight:600;line-height:1.15;letter-spacing:-.025em}
 .stat{margin-top:4px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
 .stat a{color:var(--accent);text-decoration:none;font-weight:500}
 .notice{margin-top:16px;padding:10px 14px;border-radius:10px;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}
-/* The brief reads like a git diff: one added line per thing that matters today. */
-.diff{max-width:620px;margin:20px 0 0;padding:7px 0;list-style:none;border-radius:5px;background:linear-gradient(to right,var(--add-gutter) 32px,var(--add-bg) 32px);font-size:16px;line-height:1.45}
-.diff li{display:grid;grid-template-columns:32px 1fr;padding:5px 14px 5px 0;text-wrap:pretty}
-.diff li::before{content:"+";text-align:center;color:var(--add);font:600 15px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+/* The header reads as the day's diff: yesterday removed, today and its highlights added. Markers hang in a gutter. */
+.hunk{margin-top:24px}
+.ln{position:relative;padding-left:26px}
+.ln::before{position:absolute;left:0;top:0;font-family:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500}
+.add::before{content:"+";color:var(--add)}
+.del::before{content:"\2212";color:var(--del)}
+.del{margin:0;font-size:15px;line-height:1.4;color:var(--muted)}
+.del a{color:inherit;text-decoration:none}
+.brief{display:grid;gap:8px;margin:20px 0 0;padding:0;list-style:none;font-size:17px;line-height:1.45;color:var(--ink-2);text-wrap:pretty}
 
 nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin-top:26px;background:var(--bg);border-bottom:1px solid var(--line);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)))}
 .navrow{display:flex;align-items:center;gap:12px;max-width:620px;margin:0 auto -1px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -96,10 +101,13 @@ a.post:visited .t{color:var(--muted)}
 <div class="wrap">
   <header class="mast">
     <div class="brand"><img src="assets/icon-192.png" alt="" width="20" height="20">Morning Diff</div>
-    <h1 id="day"></h1>
-    <div class="stat" id="stat"></div>
+    <div class="hunk">
+      <p class="ln del" id="prev"></p>
+      <h1 class="ln add" id="day"></h1>
+      <div class="ln stat" id="stat"></div>
+      <ul class="brief" id="brief" hidden></ul>
+    </div>
     <div class="notice" id="notice" hidden></div>
-    <ul class="diff" id="brief" hidden></ul>
   </header>
   <div id="top"></div>
   <nav aria-label="Sections">
@@ -236,7 +244,8 @@ const minutes = Math.max(1, Math.round(shown.reduce((n, i) => n + `${i.title} ${
 $("day").textContent = longDay(DATA.edition);
 $("stat").textContent = ["Updated " + time(at), total + " picks", minutes + " min read", DATA.added && DATA.added < total ? DATA.added + " new" : ""].filter(Boolean).join(" · ");
 const brief = (Array.isArray(DATA.brief) ? DATA.brief : String(DATA.brief || "").split(/(?<=\.)\s+/)).map(l => String(l).trim().replace(/\.$/, "")).filter(Boolean);
-$("brief").replaceChildren(...brief.map(l => el("li", "", l)));
+$("brief").replaceChildren(...brief.map(l => el("li", "ln add", l)));
+$("prev").textContent = longDay(prevDay(DATA.edition));
 $("brief").hidden = !brief.length;
 const isIndex = !location.pathname.endsWith(DATA.edition + ".html");
 const note = isIndex && Date.now() - at > 30 * 3600e3 ? "Last updated " + longDay(DATA.edition) + ". Today's refresh hasn't landed yet." : DATA.note;
@@ -290,6 +299,11 @@ fetch("archive/days.json", { cache: "no-store" }).then(r => r.ok ? r.json() : []
   if (!Array.isArray(days) || !days.length) return;
   pick.min = days[0];
   pick.max = days[days.length - 1];
+  if (days.includes(prevDay(DATA.edition))) { // yesterday's line opens yesterday's edition
+    const a = el("a", "", $("prev").textContent);
+    a.href = "archive/" + prevDay(DATA.edition) + ".html";
+    $("prev").replaceChildren(a);
+  }
   const latest = days[days.length - 1];
   if (latest !== DATA.edition) {
     const a = el("a", "", "Open latest");
