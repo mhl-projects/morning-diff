@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <base href="__BASE__">
 <title>Morning Diff</title>
 <meta name="robots" content="noindex">
@@ -44,7 +44,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .brief{display:grid;gap:12px;margin-block:26px 0;padding-block:20px 22px;list-style:none;font-size:15px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
 .brief.band{background:var(--wash)} /* the day's highlights sit on a light grey band that runs to the divider */
 .mast:has(.brief:not([hidden])){padding-bottom:0}
-.brief li{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start}
+.brief li,.brief li>a{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start}
+.brief li>a{grid-column:1/-1;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.brief li>a:active{opacity:.7}
 .ico{display:grid;place-items:center;width:20px;height:20px;margin-top:1px;border-radius:5px;background:hsl(var(--h) var(--tile-s) var(--tile));color:hsl(var(--h) 55% var(--tile-ink))}
 .ico svg{width:13px;height:13px}
 
@@ -98,6 +100,21 @@ a.post:active{opacity:.7}
 .band{border-top:1px solid var(--line)}
 .mast{border-bottom:1px solid var(--line)}
 .band-in{max-width:620px;margin-inline:auto}
+/* Wider screens: header, highlights and tabs run edge to edge with their content lined up with the posts;
+   highlights in two columns, posts in two and then three columns. Phones keep the single column above. */
+@media (min-width:760px){
+  html{overflow-x:clip}
+  .mast,.band,nav{margin-inline:calc(50% - 50vw)}
+  .mast,.band{padding-inline:calc(50vw - 50%)}
+  .mast h1{font-size:36px}
+  .brief{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 40px}
+  .reader-title{font-size:28px}
+}
+@media (min-width:1100px){
+  .wrap,.navrow,.band .band-in{max-width:1180px}
+  .wall{grid-template-columns:repeat(3,minmax(0,1fr));gap:44px 32px}
+}
+@media (hover:hover){a.post:hover .t,.brief a:hover span:last-child{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}}
 .install{display:flex;align-items:center;gap:12px;padding-block:18px}
 .install img{flex:none;width:36px;height:36px;border-radius:9px}
 /* The white app icon would vanish on the white page: show the dark one there, the white one in dark mode. */
@@ -112,12 +129,12 @@ a.post:active{opacity:.7}
 /* Reader: a picked item's key points in the app's own design; the original is one tap away. */
 .reader{position:fixed;inset:0;z-index:30;overflow-y:auto;overscroll-behavior:contain;background:var(--bg);padding:env(safe-area-inset-top,0px) max(16px,env(safe-area-inset-right,0px)) calc(40px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
 /* Built like the section tabs (same padding, line box and hairline), so opening an item doesn't shift the bar. */
-.reader-bar{position:sticky;top:0;z-index:1;margin:0 calc(-1 * max(16px,env(safe-area-inset-right,0px))) 0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));background:var(--bg);border-bottom:1px solid var(--line)}
+.reader-bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:1;margin:0 calc(-1 * max(16px,env(safe-area-inset-right,0px))) 0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));background:var(--bg);border-bottom:1px solid var(--line)}
 .reader-bar-in{display:flex;max-width:620px;margin:0 auto -1px}
 .reader-close{display:inline-flex;align-items:center;gap:4px;margin-left:-6px;padding:14px 10px 12px 0;border:0;border-bottom:2px solid transparent;background:none;color:var(--ink);font:inherit;font-size:15px;font-weight:500;line-height:1.7;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .reader-close svg{width:22px;height:22px}
-@media (display-mode:standalone){body::before{content:"";position:fixed;inset:0 0 auto;z-index:40;height:1px;background:var(--line)}} /* installed app: a hairline under the phone's status bar */
-.reader-in{max-width:620px;margin:0 auto}
+@media (display-mode:standalone){body::before{z-index:40;border-bottom:1px solid var(--line)}} /* installed app: a hairline under the phone's status bar */
+.reader-in{max-width:620px;margin:0 auto;padding-top:22px} /* the image sits as far below the bar as the first post below the tabs */
 .reader-in .post-meta{margin-top:14px}
 .reader-title{margin:20px 0 0;font-size:22px;font-weight:600;line-height:1.25;letter-spacing:-.015em;color:var(--ink);overflow-wrap:anywhere;text-wrap:pretty}
 .lead{margin:10px 0 0;font-size:16px;line-height:1.55;color:var(--ink-2);text-wrap:pretty}
@@ -245,15 +262,18 @@ function titleOf(item, tag, cls) {
 
 const pointsOf = item => (Array.isArray(item.points) ? item.points : []).map(p => String(p).trim()).filter(Boolean);
 
-function card(item, eager) {
-  const href = httpsUrl(item.url);
-  const c = el(href ? "a" : "div", "post");
-  if (href) { c.href = href; c.target = "_blank"; c.rel = "noopener noreferrer"; }
-  if (href && pointsOf(item).length) c.addEventListener("click", e => { // key points open in the reader; modified clicks open the original
+// Links an item: its key points open in the reader; items without points and modified clicks open the original.
+function linkTo(a, item) {
+  a.href = httpsUrl(item.url); a.target = "_blank"; a.rel = "noopener noreferrer";
+  if (pointsOf(item).length) a.addEventListener("click", e => {
     if (e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     e.preventDefault();
     openReader(item);
   });
+  return a;
+}
+function card(item, eager) {
+  const c = httpsUrl(item.url) ? linkTo(el("a", "post"), item) : el("div", "post");
   const m = mediaOf(item, eager);
   m.firstChild.addEventListener("error", () => c.remove()); // no image, no post
   const body = el("div", "post-body");
@@ -346,14 +366,16 @@ const ICONS = {
 };
 const brief = (Array.isArray(DATA.brief) ? DATA.brief : String(DATA.brief || "").split(/(?<=\.)\s+/))
   .map(l => (l && typeof l === "object" ? l : { text: l }))
-  .map(l => ({ icon: ICONS[l.icon] ? l.icon : "news", text: String(l.text || "").trim().replace(/\.$/, "") }))
+  .map(l => ({ icon: ICONS[l.icon] ? l.icon : "news", text: String(l.text || "").trim().replace(/\.$/, ""), url: l.url }))
   .filter(l => l.text);
 $("brief").replaceChildren(...brief.map(l => {
   const ico = el("span", "ico");
   ico.style.setProperty("--h", ICONS[l.icon][0]);
   ico.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[l.icon][1] + "</svg>";
   const li = el("li");
-  li.append(ico, el("span", "", l.text));
+  const item = l.url && shown.find(i => i.page === l.url || i.url === l.url); // a highlight opens the item it's about
+  const row = item && httpsUrl(item.url) ? li.appendChild(linkTo(el("a"), item)) : li;
+  row.append(ico, el("span", "", l.text));
   return li;
 }));
 $("brief").hidden = !brief.length;
