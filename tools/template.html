@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Morning Diff</title>
+<meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D0E10" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Morning Diff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap">
+<style>
+/* Layout: one quiet column. Date headline and brief, sticky tabs, and only the selected timeline (news, projects or skills) on a thin rail. */
+:root{
+  --bg:#FFFFFF;--ink:#111317;--ink-2:#3F4450;--muted:#6B7080;--line:#E6E7EA;--press:#F4F5F7;
+  --accent:#2F6BFF;--warn-bg:#FFF6E0;--warn-ink:#6B4A00;
+  --sans:"Geist",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{--bg:#0D0E10;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8C919C;--line:#25282D;--press:#17191C;--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}}
+
+html{-webkit-text-size-adjust:100%}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:env(safe-area-inset-top,0px) calc(40px + env(safe-area-inset-bottom,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:620px;margin-inline:auto}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+.mast{padding-top:28px}
+.brandrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-size:14px;font-weight:600}
+.pick input{min-height:32px;padding:4px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;font-size:13px}
+.mast h1{margin:14px 0 0;font-size:30px;font-weight:600;line-height:1.15;letter-spacing:-.025em}
+.stat{margin-top:4px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.stat a{color:var(--accent);text-decoration:none;font-weight:500}
+.notice{margin-top:16px;padding:10px 14px;border-radius:10px;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}
+.brief{margin:18px 0 0;font-size:17px;line-height:1.55;color:var(--ink-2);text-wrap:pretty}
+
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin-top:26px;background:var(--bg);border-bottom:1px solid var(--line);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)))}
+.strip{display:flex;gap:24px;max-width:620px;margin:0 auto -1px;overflow-x:auto;scrollbar-width:none;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.strip::-webkit-scrollbar{display:none}
+.strip button{flex:none;padding:13px 0 11px;border:0;border-bottom:2px solid transparent;border-radius:0;background:none;color:var(--muted);font:inherit;font-size:14px;font-weight:500;cursor:pointer;transition:color .15s,border-color .15s;-webkit-tap-highlight-color:transparent}
+.strip button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+
+section{padding-top:20px;min-height:60vh}
+.note{margin:0 0 6px;font-size:13.5px;color:var(--muted)}
+.empty{margin:8px 0 0;font-size:14px;color:var(--muted)}
+
+/* Timeline: a 1px rail through day markers and type icons */
+.tl{list-style:none;margin:10px 0 0;padding:0}
+.tl li{position:relative;padding-left:40px}
+.tl li::before{content:"";position:absolute;left:11px;top:0;bottom:0;width:1px;background:var(--line)}
+.tl li:first-child::before{top:12px}
+.tl li:last-child::before{bottom:auto;height:20px}
+.tl .day{padding-block:14px 4px;font-size:13px;font-weight:600;line-height:20px;color:var(--ink)}
+.tl .day::after{content:"";position:absolute;left:8px;top:20.5px;width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.tl .day:first-child{padding-top:2px}
+.tl .day:first-child::after{top:8.5px}
+.node{position:absolute;left:0;top:8.5px;width:23px;height:23px;display:grid;place-items:center;box-sizing:border-box;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--muted)}
+.node svg{width:12px;height:12px}
+.node.is-new{border-color:var(--accent);color:var(--accent)}
+.row{display:block;margin-inline:-8px;padding:12px 8px 16px;border-radius:12px;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+a.row:active{background:var(--press)}
+@media (hover:hover){a.row:hover{background:var(--press)}}
+.kind{display:block;font-size:12.5px;line-height:16px;color:var(--muted);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.kind b{font-weight:600;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+.hero{display:block;width:100%;height:auto;aspect-ratio:16/9;margin:9px 0 2px;border-radius:10px;border:1px solid var(--line);object-fit:cover;box-sizing:border-box;background:var(--press)}
+.t{display:block;margin-top:7px;font-size:16px;font-weight:600;line-height:1.35;letter-spacing:-.005em;color:var(--ink);overflow-wrap:anywhere;text-wrap:pretty}
+.t .own{font-weight:400;color:var(--muted)}
+a.row:visited .t{color:var(--muted)}
+.b{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;margin-top:4px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.6;color:var(--muted)}
+.install{display:flex;align-items:center;gap:14px;margin-top:24px;padding:16px;border-radius:18px;background:var(--press)}
+.install img{flex:none;width:52px;height:52px;border-radius:13px}
+.install-copy{min-width:0}
+.install-title{font-size:16px;font-weight:600;letter-spacing:-.01em}
+.install-text{margin-top:1px;font-size:13.5px;line-height:1.4;color:var(--muted)}
+.install button{flex:none;margin-left:auto;padding:10px 20px;border:0;border-radius:999px;background:var(--ink);color:var(--bg);font:inherit;font-size:14.5px;font-weight:600;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <div class="brandrow">
+      <div class="brand">Morning Diff</div>
+      <label class="pick"><span hidden>Open a past day</span><input type="date" id="pick" aria-label="Open a past day"></label>
+    </div>
+    <h1 id="day"></h1>
+    <div class="stat" id="stat"></div>
+    <div class="notice" id="notice" hidden></div>
+    <p class="brief" id="brief"></p>
+  </header>
+  <div id="top"></div>
+  <nav aria-label="Sections"><div class="strip" id="tabs" role="tablist"></div></nav>
+  <main id="main"></main>
+  <footer>Updated every day. Pick a date at the top to open any past day.</footer>
+  <aside class="install" id="install" hidden>
+    <img src="icon-192.png" alt="" width="52" height="52">
+    <div class="install-copy">
+      <div class="install-title">Morning Diff app</div>
+      <div class="install-text" id="installText">One tap each morning</div>
+    </div>
+    <button type="button" id="installBtn">Install</button>
+  </aside>
+</div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+const DATA = JSON.parse(document.getElementById("data").textContent);
+const VIEWS = [
+  { id: "news", label: "News", note: "Latest AI news and videos, newest first", from: ["news", "videos"] },
+  { id: "projects", label: "Projects", note: "AI projects gaining the most stars this week", from: ["repos"] },
+  { id: "skills", label: "Skills", note: "Claude skills and plugins, by latest update", from: ["skills"] },
+];
+const KIND = { news: "News", videos: "Video", repos: "Project", skills: "Skill" };
+const ICONS = {
+  news: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 4h10M3 8h10M3 12h6"/></svg>',
+  videos: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M5 3.2v9.6L12.8 8z"/></svg>',
+  repos: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M3.5 3.5a1.5 1.5 0 0 1 1.5-1.5h7.5v10H5a1.5 1.5 0 0 0-1.5 1.5zM3.5 13.5A1.5 1.5 0 0 0 5 15h7.5v-3"/></svg>',
+  skills: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5l1.6 4.9 4.9 1.6-4.9 1.6L8 14.5l-1.6-4.9L1.5 8l4.9-1.6z"/></svg>',
+};
+const $ = id => document.getElementById(id);
+const el = (tag, cls, text) => {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null && text !== "") e.textContent = String(text);
+  return e;
+};
+const icon = kind => { const t = document.createElement("template"); t.innerHTML = ICONS[kind]; return t.content.firstChild; };
+const httpsUrl = u => { try { const x = new URL(u); return x.protocol === "https:" ? x.href : null; } catch { return null; } };
+const longDay = ymd => new Date(ymd + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+const time = d => d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+const prevDay = ymd => { const d = new Date(ymd + "T12:00:00"); d.setDate(d.getDate() - 1); return d.toLocaleDateString("sv-SE"); };
+// Day groups are relative to this edition's date, so old pages read the way they did that day.
+const dayLabel = ymd => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(ymd || "")) return "Earlier";
+  if (ymd === DATA.edition) return "Today";
+  if (ymd === prevDay(DATA.edition)) return "Yesterday";
+  return new Date(ymd + "T12:00:00").toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+};
+const arr = s => (Array.isArray(s?.items) ? s.items : []).filter(i => httpsUrl(i.img)); // entries without an image are not shown
+const key = i => String(i.date || "") + String(i.time || "");
+const newestFirst = list => [...list].sort((a, b) => key(b).localeCompare(key(a)));
+const byId = Object.fromEntries((DATA.sections || []).map(s => [s.id, s]));
+
+function entry(item, mixed) {
+  const li = el("li", "ev");
+  const node = el("span", "node" + (item.isNew ? " is-new" : ""));
+  node.append(icon(item.src));
+  const href = httpsUrl(item.url);
+  const r = el(href ? "a" : "div", "row");
+  if (href) { r.href = href; r.target = "_blank"; r.rel = "noopener noreferrer"; }
+  const kind = el("span", "kind");
+  const facts = item.src === "news" ? [item.time, item.meta]
+    : item.src === "videos" ? [item.time, item.meta, item.fig]
+    : [item.time, item.meta, item.fig, item.sub];
+  if (mixed) kind.append(el("b", "", KIND[item.src]), facts.some(Boolean) ? " · " : "");
+  kind.append(facts.filter(Boolean).join(" · "));
+  r.append(kind);
+  const src = httpsUrl(item.img);
+  if (src) {
+    const img = el("img", "hero");
+    img.src = src; img.alt = ""; img.width = 640; img.height = 360; img.loading = "lazy"; img.decoding = "async";
+    img.referrerPolicy = "no-referrer";
+    img.addEventListener("error", () => {
+      const ol = li.parentElement;
+      li.remove();
+      for (const d of ol?.querySelectorAll(".day") || []) if (!d.nextElementSibling || d.nextElementSibling.classList.contains("day")) d.remove();
+    });
+    r.append(img);
+  }
+  const t = el("span", "t");
+  const text = String(item.title || "");
+  if (item.src === "repos" && text.includes("/")) {
+    const [own, ...rest] = text.split("/");
+    t.append(el("span", "own", own + "/"), rest.join("/"));
+  } else t.append(text);
+  r.append(t);
+  if (item.blurb) r.append(el("span", "b", item.blurb));
+  li.append(node, r);
+  return li;
+}
+
+// Only the selected timeline is shown; the choice is remembered on this device.
+const store = { get: () => { try { return localStorage.getItem("tab"); } catch { return null; } },
+                set: v => { try { localStorage.setItem("tab", v); } catch {} } };
+const known = id => VIEWS.some(v => v.id === id) ? id : null;
+let current = known(location.hash.slice(1)) || known(store.get()) || "news";
+
+function select(id) {
+  current = id;
+  store.set(id);
+  renderView();
+  const top = $("top").offsetTop;
+  if (window.scrollY > top) window.scrollTo(0, top);
+}
+
+function renderView() {
+  $("tabs").replaceChildren(...VIEWS.map(v => {
+    const b = el("button", "", v.label);
+    b.type = "button";
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", v.id === current);
+    b.addEventListener("click", () => select(v.id));
+    return b;
+  }));
+  const v = VIEWS.find(x => x.id === current);
+  const sec = el("section");
+  sec.setAttribute("role", "tabpanel");
+  sec.append(el("p", "note", v.note));
+  const items = newestFirst(v.from.flatMap(id => arr(byId[id]).map(i => ({ ...i, src: id }))));
+  if (items.length) {
+    const ol = el("ol", "tl");
+    let last = null;
+    for (const i of items) {
+      const label = dayLabel(i.date);
+      if (label !== last) { ol.append(el("li", "day", label)); last = label; }
+      ol.append(entry(i, v.from.length > 1));
+    }
+    sec.append(ol);
+  } else sec.append(el("p", "empty", "Nothing here for this day."));
+  $("main").replaceChildren(sec);
+}
+
+// Header
+const at = new Date(DATA.updatedAt);
+const total = VIEWS.reduce((n, v) => n + v.from.reduce((m, id) => m + arr(byId[id]).length, 0), 0);
+$("day").textContent = longDay(DATA.edition);
+$("stat").textContent = ["Updated " + time(at), total + " items", DATA.added && DATA.added < total ? DATA.added + " new" : ""].filter(Boolean).join(" · ");
+$("brief").textContent = DATA.brief || "";
+const isIndex = !location.pathname.endsWith(DATA.edition + ".html");
+const note = isIndex && Date.now() - at > 30 * 3600e3 ? "Last updated " + longDay(DATA.edition) + ". Today's refresh hasn't landed yet." : DATA.note;
+if (note) { $("notice").textContent = note; $("notice").hidden = false; }
+renderView();
+
+// Install as an app: Chrome on Android offers its own prompt; iPhone needs Share > Add to Home Screen.
+const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+let installPrompt = null;
+addEventListener("beforeinstallprompt", e => {
+  e.preventDefault();
+  installPrompt = e;
+  if (!standalone) $("install").hidden = false;
+});
+$("installBtn").addEventListener("click", async () => {
+  if (!installPrompt) return;
+  installPrompt.prompt();
+  await installPrompt.userChoice.catch(() => null);
+  installPrompt = null;
+  $("install").hidden = true;
+});
+addEventListener("appinstalled", () => { $("install").hidden = true; });
+if (!standalone && /iPhone|iPad/.test(navigator.userAgent)) {
+  $("installText").textContent = "Tap Share, then Add to Home Screen";
+  $("installBtn").hidden = true;
+  $("install").hidden = false;
+}
+
+// Past days: days.json lists every saved edition.
+const pick = $("pick");
+pick.value = DATA.edition;
+pick.max = DATA.edition;
+fetch("days.json", { cache: "no-store" }).then(r => r.ok ? r.json() : []).catch(() => []).then(days => {
+  if (!Array.isArray(days) || !days.length) return;
+  pick.min = days[0];
+  pick.max = days[days.length - 1];
+  const latest = days[days.length - 1];
+  if (latest !== DATA.edition) {
+    const a = el("a", "", "Open latest");
+    a.href = "index.html";
+    $("stat").append(" · ", a);
+  }
+  pick.addEventListener("change", () => {
+    const d = pick.value;
+    if (!d || d === DATA.edition) return;
+    if (days.includes(d)) location.href = d + ".html";
+    else { $("notice").textContent = "No edition was saved for " + longDay(d) + "."; $("notice").hidden = false; pick.value = DATA.edition; }
+  });
+});
+</script>
+</body>
+</html>
