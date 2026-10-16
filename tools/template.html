@@ -86,8 +86,7 @@ a.post:visited .t{color:var(--muted)}
 .install-copy{flex:1;min-width:0}
 .install-title{font-size:14.5px;font-weight:600;letter-spacing:-.01em}
 .install-text{font-size:13px;line-height:1.45;color:var(--muted)}
-.install-no{padding:0;border:0;background:none;color:inherit;font:inherit;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-decoration-thickness:1.5px;text-underline-offset:3px}
-.install-yes{flex:none;padding:7px 16px;border:1px solid var(--line);border-radius:999px;background:none;color:var(--ink);font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.install-yes{flex:none;padding:7px 16px;border:1px solid var(--line);border-radius:5px;background:none;color:var(--ink);font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
 </style>
 </head>
 <body>
@@ -115,7 +114,7 @@ a.post:visited .t{color:var(--muted)}
       <img src="assets/icon-192.png" alt="" width="36" height="36">
       <div class="install-copy">
         <div class="install-title">Get the Morning Diff app</div>
-        <div class="install-text" id="installText">One tap from your home screen · <button type="button" class="install-no" id="installNo">Not interested</button></div>
+        <div class="install-text" id="installText">One tap from your home screen</div>
       </div>
       <button type="button" class="install-yes" id="installBtn">Install</button>
     </div>
@@ -253,12 +252,11 @@ $("main").addEventListener("touchend", e => {
 const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
 let installPrompt = null;
-const dismissed = () => { try { return localStorage.getItem("installDismissed") === "1"; } catch { return false; } };
 const hideInstall = () => { $("install").hidden = true; };
 addEventListener("beforeinstallprompt", e => {
   e.preventDefault();
   installPrompt = e;
-  if (!standalone && !dismissed()) $("install").hidden = false;
+  if (!standalone) $("install").hidden = false;
 });
 $("installBtn").addEventListener("click", async () => {
   if (!installPrompt) { // iPhone: installing goes through Safari's Share menu
@@ -271,12 +269,8 @@ $("installBtn").addEventListener("click", async () => {
   installPrompt = null;
   hideInstall();
 });
-$("installNo").addEventListener("click", () => {
-  try { localStorage.setItem("installDismissed", "1"); } catch {}
-  hideInstall();
-});
 addEventListener("appinstalled", hideInstall);
-if (!standalone && !dismissed() && /iPhone|iPad/.test(navigator.userAgent)) $("install").hidden = false;
+if (!standalone && /iPhone|iPad/.test(navigator.userAgent)) $("install").hidden = false;
 
 const openPicker = () => { try { $("pick").showPicker(); } catch { $("pick").focus(); } };
 
