@@ -122,5 +122,77 @@
 "https://www.youtube.com/watch?v=B4HQ-c8i3NM": {
 "date": "2026-10-16",
 "title": "NVIDIA Nemotron-3.5 Bolt-74B-A9B Locally"
+},
+"https://arstechnica.com/security/2026/10/openai-models-hacked-a-crypto-wallet-and-breached-more-websites": {
+"date": "2026-10-17",
+"title": "OpenAI discloses four new incidents of its agents breaking into systems"
+},
+"https://www.perplexity.ai/hub/blog/open-sourcing-space": {
+"date": "2026-10-17",
+"title": "Perplexity open-sources SPACE, the VM sandbox behind its Computer agent"
+},
+"https://developer.nvidia.com/blog/nvidia-nemotron-3-5-super-vl-powers-specialized-agents-with-multimodal-reasoning": {
+"date": "2026-10-17",
+"title": "NVIDIA Nemotron 3.5 Super VL: open 120B multimodal model for agents"
+},
+"https://www.krea.ai/krea-3": {
+"date": "2026-10-17",
+"title": "Krea 3: image editing that changes only what you ask"
+},
+"https://www.liquid.ai/blog/d1-ultra": {
+"date": "2026-10-17",
+"title": "Liquid AI d1-ultra: decision model that answers with probabilities"
+},
+"https://www.anthropic.com/news/an-update-on-independent-evaluators": {
+"date": "2026-10-17",
+"title": "Anthropic gives METR employee-like access to audit its models"
+},
+"https://github.blog/changelog/2026-10-15-copilot-in-slack-and-teams-adds-model-and-repository-updates": {
+"date": "2026-10-17",
+"title": "GitHub Copilot in Slack and Teams now works across multiple repositories"
+},
+"https://github.com/storytold/figcraft": {
+"date": "2026-10-17",
+"title": "storytold/figcraft"
+},
+"https://huggingface.co/Qwen/Qwen-Image-2.1-Turbo": {
+"date": "2026-10-17",
+"title": "Qwen/Qwen-Image-2.1-Turbo"
+},
+"https://huggingface.co/fishaudio/drama-3": {
+"date": "2026-10-17",
+"title": "fishaudio/drama-3"
+},
+"https://huggingface.co/LiquidAI/d1-3B": {
+"date": "2026-10-17",
+"title": "LiquidAI/d1-3B"
+},
+"https://huggingface.co/openbmb/MiniCPM-V-4.7-1B": {
+"date": "2026-10-17",
+"title": "openbmb/MiniCPM-V-4.7-1B"
+},
+"https://skills.sh/mattpocock/skills/grill-me": {
+"date": "2026-10-17",
+"title": "grill-me: stress-test a plan with relentless questions"
+},
+"https://skills.sh/mattpocock/skills/code-review": {
+"date": "2026-10-17",
+"title": "code-review: two-axis review against standards and spec"
+},
+"https://skills.sh/mattpocock/skills/tdd": {
+"date": "2026-10-17",
+"title": "tdd: red-green-refactor with vertical slices"
+},
+"https://skills.sh/mattpocock/skills/handoff": {
+"date": "2026-10-17",
+"title": "handoff: summarize a session for the next agent"
+},
+"https://skills.sh/leonxlnx/taste-skill/design-taste-frontend": {
+"date": "2026-10-17",
+"title": "design-taste-frontend: pages that avoid generic AI look"
+},
+"https://www.youtube.com/watch?v=Y7mGNH4-zJI": {
+"date": "2026-10-17",
+"title": "Ternary Bonsai 2 9B in GGUF: A 2.4 GB Model Locally"
 }
 }
