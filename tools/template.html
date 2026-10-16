@@ -34,9 +34,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
 
 .mast{padding-top:28px}
-.brandrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{font-size:14px;font-weight:600}
-.pick input{min-height:32px;padding:4px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;font-size:13px}
 .mast h1{margin:14px 0 0;font-size:30px;font-weight:600;line-height:1.15;letter-spacing:-.025em}
 .stat{margin-top:4px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
 .stat a{color:var(--accent);text-decoration:none;font-weight:500}
@@ -44,7 +42,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .brief{margin:18px 0 0;font-size:17px;line-height:1.55;color:var(--ink-2);text-wrap:pretty}
 
 nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin-top:26px;background:var(--bg);border-bottom:1px solid var(--line);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)))}
-.strip{display:flex;gap:24px;max-width:620px;margin:0 auto -1px;overflow-x:auto;scrollbar-width:none;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.navrow{display:flex;align-items:center;gap:12px;max-width:620px;margin:0 auto -1px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.strip{flex:1;min-width:0;display:flex;gap:24px;overflow-x:auto;scrollbar-width:none}
+.datebtn{position:relative;flex:none;display:grid;place-items:center;width:40px;height:40px;margin-right:-10px;border-radius:999px;color:var(--muted);cursor:pointer;transition:color .15s}
+.datebtn svg{width:20px;height:20px}
+.datebtn input{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;border:0;opacity:0;font-size:16px;cursor:pointer}
+.datebtn:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+@media (hover:hover){.datebtn:hover{color:var(--ink)}}
 .strip::-webkit-scrollbar{display:none}
 .strip button{flex:none;padding:13px 0 11px;border:0;border-bottom:2px solid transparent;border-radius:0;background:none;color:var(--muted);font:inherit;font-size:14px;font-weight:500;cursor:pointer;transition:color .15s,border-color .15s;-webkit-tap-highlight-color:transparent}
 .strip button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
@@ -75,44 +79,50 @@ a.row:active{background:var(--press)}
 .t{display:block;margin-top:7px;font-size:16px;font-weight:600;line-height:1.35;letter-spacing:-.005em;color:var(--ink);overflow-wrap:anywhere;text-wrap:pretty}
 .t .own{font-weight:400;color:var(--muted)}
 a.row:visited .t{color:var(--muted)}
-.b{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;margin-top:4px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.b{display:block;margin-top:4px;font-size:14.5px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
 
-.foot{display:grid;gap:10px;margin-top:40px;padding-top:22px;border-top:1px solid var(--line)}
+.foot{display:grid;gap:10px;margin-top:32px;padding-top:22px;border-top:1px solid var(--line)}
 .foot-brand{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:600;letter-spacing:-.01em}
 .foot-brand img{border-radius:7px}
 .foot-text{margin:0;max-width:44ch;font-size:13.5px;line-height:1.5;color:var(--muted)}
 .foot-links{display:flex;gap:20px;margin-top:4px}
 .foot-links button{padding:4px 0;border:0;background:none;color:var(--ink);font:inherit;font-size:13.5px;font-weight:500;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-decoration-thickness:1.5px;text-underline-offset:4px}
-.install{display:flex;align-items:center;gap:14px;margin-top:40px;padding:16px;border-radius:18px;background:var(--press)}
-.install img{flex:none;width:52px;height:52px;border-radius:13px}
-.install-copy{min-width:0}
-.install-title{font-size:16px;font-weight:600;letter-spacing:-.01em}
-.install-text{margin-top:1px;font-size:13.5px;line-height:1.4;color:var(--muted)}
-.install button{flex:none;margin-left:auto;padding:10px 20px;border:0;border-radius:999px;background:var(--ink);color:var(--bg);font:inherit;font-size:14.5px;font-weight:600;cursor:pointer}
+.install{display:flex;align-items:center;gap:12px;margin-top:40px}
+.install img{flex:none;width:36px;height:36px;border-radius:9px}
+.install-copy{flex:1;min-width:0}
+.install-title{font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+.install-text{font-size:13px;line-height:1.45;color:var(--muted)}
+.install-no{padding:0;border:0;background:none;color:inherit;font:inherit;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-decoration-thickness:1.5px;text-underline-offset:3px}
+.install-yes{flex:none;padding:7px 16px;border:1px solid var(--line);border-radius:999px;background:none;color:var(--ink);font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="mast">
-    <div class="brandrow">
-      <div class="brand">Morning Diff</div>
-      <label class="pick"><span hidden>Open a past day</span><input type="date" id="pick" aria-label="Open a past day"></label>
-    </div>
+    <div class="brand">Morning Diff</div>
     <h1 id="day"></h1>
     <div class="stat" id="stat"></div>
     <div class="notice" id="notice" hidden></div>
     <p class="brief" id="brief"></p>
   </header>
   <div id="top"></div>
-  <nav aria-label="Sections"><div class="strip" id="tabs" role="tablist"></div></nav>
+  <nav aria-label="Sections">
+    <div class="navrow">
+      <div class="strip" id="tabs" role="tablist"></div>
+      <label class="datebtn" title="Open a past day">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><rect x="2.5" y="3.5" width="11" height="10" rx="2"/><path d="M2.5 6.5h11M5.5 2v3M10.5 2v3"/></svg>
+        <input type="date" id="pick" aria-label="Open a past day">
+      </label>
+    </div>
+  </nav>
   <main id="main"></main>
   <aside class="install" id="install" hidden>
-    <img src="assets/icon-192.png" alt="" width="52" height="52">
+    <img src="assets/icon-192.png" alt="" width="36" height="36">
     <div class="install-copy">
-      <div class="install-title">Morning Diff app</div>
-      <div class="install-text" id="installText">One tap each morning</div>
+      <div class="install-title">Get the Morning Diff app</div>
+      <div class="install-text" id="installText">One tap from your home screen · <button type="button" class="install-no" id="installNo">Not interested</button></div>
     </div>
-    <button type="button" id="installBtn">Install</button>
+    <button type="button" class="install-yes" id="installBtn">Install</button>
   </aside>
   <footer class="foot">
     <div class="foot-brand"><img src="assets/icon-192.png" alt="" width="24" height="24">Morning Diff</div>
@@ -257,34 +267,38 @@ renderView();
 const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
 let installPrompt = null;
+const dismissed = () => { try { return localStorage.getItem("installDismissed") === "1"; } catch { return false; } };
+const hideInstall = () => { $("install").hidden = true; };
 addEventListener("beforeinstallprompt", e => {
   e.preventDefault();
   installPrompt = e;
-  if (!standalone) $("install").hidden = false;
+  if (!standalone && !dismissed()) $("install").hidden = false;
 });
 $("installBtn").addEventListener("click", async () => {
-  if (!installPrompt) return;
+  if (!installPrompt) { // iPhone: installing goes through Safari's Share menu
+    $("installText").textContent = "Tap Share, then Add to Home Screen";
+    $("installBtn").hidden = true;
+    return;
+  }
   installPrompt.prompt();
   await installPrompt.userChoice.catch(() => null);
   installPrompt = null;
-  $("install").hidden = true;
+  hideInstall();
 });
-addEventListener("appinstalled", () => { $("install").hidden = true; });
-if (!standalone && /iPhone|iPad/.test(navigator.userAgent)) {
-  $("installText").textContent = "Tap Share, then Add to Home Screen";
-  $("installBtn").hidden = true;
-  $("install").hidden = false;
-}
+$("installNo").addEventListener("click", () => {
+  try { localStorage.setItem("installDismissed", "1"); } catch {}
+  hideInstall();
+});
+addEventListener("appinstalled", hideInstall);
+if (!standalone && !dismissed() && /iPhone|iPad/.test(navigator.userAgent)) $("install").hidden = false;
 
 $("footTop").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-$("footArchive").addEventListener("click", () => {
-  const pick = $("pick");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  try { pick.showPicker(); } catch { pick.focus(); }
-});
+const openPicker = () => { try { $("pick").showPicker(); } catch { $("pick").focus(); } };
+$("footArchive").addEventListener("click", openPicker);
 
 // Past days: archive/days.json lists every saved edition.
 const pick = $("pick");
+pick.addEventListener("click", openPicker); // desktop browsers open the calendar only on request
 pick.value = DATA.edition;
 pick.max = DATA.edition;
 fetch("archive/days.json", { cache: "no-store" }).then(r => r.ok ? r.json() : []).catch(() => []).then(days => {
