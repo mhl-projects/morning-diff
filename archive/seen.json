@@ -194,5 +194,25 @@
 "https://www.youtube.com/watch?v=Y7mGNH4-zJI": {
 "date": "2026-10-17",
 "title": "Ternary Bonsai 2 9B in GGUF: A 2.4 GB Model Locally"
+},
+"https://www.theverge.com/tech/1012846/meta-business-terms-scrape-news-publishers": {
+"date": "2026-10-17",
+"title": "Meta's new business terms may let it scrape sites linked to ad accounts"
+},
+"https://www.anthropic.com/research/employment-at-anthropic": {
+"date": "2026-10-17",
+"title": "Anthropic: agent hours now outnumber employees 6 to 1, and attention is the bottleneck"
+},
+"https://github.com/deeplethe/solid-glass": {
+"date": "2026-10-17",
+"title": "deeplethe/solid-glass"
+},
+"https://huggingface.co/Qwen/Qwen3.8-27B": {
+"date": "2026-10-17",
+"title": "Qwen/Qwen3.8-27B"
+},
+"https://huggingface.co/Qwen/Qwen3.8-Flash-Next": {
+"date": "2026-10-17",
+"title": "Qwen/Qwen3.8-Flash-Next"
 }
 }
