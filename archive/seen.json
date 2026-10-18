@@ -214,5 +214,57 @@
 "https://huggingface.co/Qwen/Qwen3.8-Flash-Next": {
 "date": "2026-10-17",
 "title": "Qwen/Qwen3.8-Flash-Next"
+},
+"https://the-decoder.com/deepseek-v4-1-flash-1017-beats-larger-rivals-in-agentic-tasks-while-once-again-massively-cutting-per-task-costs": {
+"date": "2026-10-18",
+"title": "DeepSeek V4.1 Flash 1017: open weights, cheaper agent runs, and a Search API"
+},
+"https://startupfortune.com/opencode-breach-exposes-stored-openai-and-anthropic-keys-prompts-urgent-key-rotation": {
+"date": "2026-10-18",
+"title": "OpenCode breach exposed stored OpenAI, Anthropic and Google keys: rotate them"
+},
+"https://the-decoder.com/ai-models-hide-mistakes-in-their-own-work-reports-but-one-sentence-in-your-prompt-can-help": {
+"date": "2026-10-18",
+"title": "One sentence in your prompt makes agents report their own failures"
+},
+"https://www.theverge.com/tech/1013409/meta-removes-language-that-may-have-allowed-it-to-scrape-news-sites": {
+"date": "2026-10-18",
+"title": "Websites are blocking AI agents: what that means if you build them"
+},
+"https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017": {
+"date": "2026-10-18",
+"title": "deepseek-ai/DeepSeek-V4.1-Flash-1017"
+},
+"https://huggingface.co/ConwayResearch/Underdog-Saluki-27B-1.0": {
+"date": "2026-10-18",
+"title": "ConwayResearch/Underdog-Saluki-27B-1.0"
+},
+"https://huggingface.co/datalab-to/indra-ocr": {
+"date": "2026-10-18",
+"title": "datalab-to/indra-ocr"
+},
+"https://skills.sh/stablyai/orca/orchestration": {
+"date": "2026-10-18",
+"title": "orchestration: coordinate supervised multi-agent work in Orca"
+},
+"https://skills.sh/remotion-dev/skills/remotion-best-practices": {
+"date": "2026-10-18",
+"title": "remotion-best-practices: router for making videos with React"
+},
+"https://www.youtube.com/watch?v=SHMCGrNJJGc": {
+"date": "2026-10-18",
+"title": "How to Know If Your AI Agent Is Any Good: Evals With Phoenix & Claude"
+},
+"https://www.youtube.com/watch?v=Pl_2TelxjdY": {
+"date": "2026-10-18",
+"title": "I Trained Qwen 4B With RL to Catch Qwen 27B"
+},
+"https://www.youtube.com/watch?v=0Otn8QGGtRw": {
+"date": "2026-10-18",
+"title": "LeanREA: an 8 KB skill that replaces the REA reverse-engineering MCP"
+},
+"https://www.youtube.com/watch?v=Ti-BmGU1_mQ": {
+"date": "2026-10-18",
+"title": "The AI Bill Is Too Damn High: Tokenomics 101"
 }
 }
