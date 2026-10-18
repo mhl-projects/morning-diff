@@ -172,12 +172,17 @@ for name, cid in CHANNELS.items():
             out["videos"].append({"channel": name, "title": text(title, 160), "url": link, "time": pub.isoformat(),
                                   "views": views, "views_per_hour": round(views / hours), "summary": text(summ)})
 
-ts = get("https://trendshift.io/").replace('\\"', '"')
-for obj in re.findall(r'\{"id":\d+,"date":"[^"]*","rank":\d+.*?\}', ts):
-    try:
-        r = json.loads(obj)
-    except ValueError:
-        continue
+# trendshift.io is a Next.js page: its list sits in the flight chunks pushed to self.__next_f, each a JSON string.
+ts = get("https://trendshift.io/")
+flight = "".join(json.loads(f'"{c}"') for c in re.findall(r'self\.__next_f\.push\(\[1,"((?:[^"\\]|\\.)*)"\]\)', ts))
+at = flight.find('"initialData":')
+try:
+    rows = json.JSONDecoder().raw_decode(flight, at + len('"initialData":'))[0] if at >= 0 else []
+except ValueError:
+    rows = []
+if not rows:
+    print("trendshift: no repos found", file=sys.stderr)
+for r in rows:
     if r.get("repository_stars", 0) >= 1000:
         out["repos"].append({"repo": r["full_name"], "url": f"https://github.com/{r['full_name']}", "language": r.get("language") or "",
                              "stars": r["repository_stars"], "stars_today": r.get("repository_stars_gained", 0),
