@@ -266,5 +266,53 @@
 "https://www.youtube.com/watch?v=Ti-BmGU1_mQ": {
 "date": "2026-10-18",
 "title": "The AI Bill Is Too Damn High: Tokenomics 101"
+},
+"https://github.com/google-research/harness2": {
+"date": "2026-10-18",
+"title": "google-research/harness2"
+},
+"https://github.com/debpalash/VoiceStudio": {
+"date": "2026-10-18",
+"title": "debpalash/VoiceStudio"
+},
+"https://github.com/stablyai/orca": {
+"date": "2026-10-18",
+"title": "stablyai/orca"
+},
+"https://github.com/anthropics/claude-plugins-official": {
+"date": "2026-10-18",
+"title": "anthropics/claude-plugins-official"
+},
+"https://github.com/akitaonrails/ai-memory": {
+"date": "2026-10-18",
+"title": "akitaonrails/ai-memory"
+},
+"https://github.com/walkinglabs/learn-harness-engineering": {
+"date": "2026-10-18",
+"title": "walkinglabs/learn-harness-engineering"
+},
+"https://huggingface.co/tencent/Hy-Memory-30B-A3B": {
+"date": "2026-10-18",
+"title": "tencent/Hy-Memory-30B-A3B"
+},
+"https://huggingface.co/baidu/Unlimited-OCR": {
+"date": "2026-10-18",
+"title": "baidu/Unlimited-OCR"
+},
+"https://skills.sh/mattpocock/skills/grilling": {
+"date": "2026-10-18",
+"title": "grilling: interview you until the plan is clear"
+},
+"https://skills.sh/mattpocock/skills/grill-with-docs": {
+"date": "2026-10-18",
+"title": "grill-with-docs: stress-test plans against your domain model"
+},
+"https://www.youtube.com/watch?v=q4WC4TowkBo": {
+"date": "2026-10-18",
+"title": "Teach Your Agent to Prove It's Done — WorkOS"
+},
+"https://www.youtube.com/watch?v=hfLJq7XF_M0": {
+"date": "2026-10-18",
+"title": "DeepSeek V4.1 Flash 1017 Hands-On: Bug Fixing, Game Building and Image Reasoning"
 }
 }
