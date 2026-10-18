@@ -8,7 +8,7 @@ Every morning a GitHub Actions workflow (`.github/workflows/edition.yml`) runs C
 4. builds the pages (`tools/build.py`): `index.html`, `archive/<date>.html`, `archive/days.json` and `archive/seen.json`,
 5. commits them and starts a GitHub Pages build.
 
-Claude's instructions for steps 1-4 are in `tools/edition.md`. Claude works with a read-only token; a second job, without Claude, commits and publishes.
+The workflow runs step 1 itself; Claude's instructions for steps 2-4 are in `tools/edition.md`. Claude works with a read-only token; a second job, without Claude, commits and publishes.
 
 ## Set up (once)
 

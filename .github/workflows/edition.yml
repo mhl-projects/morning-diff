@@ -41,10 +41,20 @@ jobs:
             fi
           fi
 
+      # Collecting can take ten minutes when YouTube throttles GitHub's servers, so it runs here, not inside Claude's session.
+      - name: Collect the last 24 hours
+        if: steps.when.outputs.skip != 'true'
+        run: python3 -I tools/collect.py .work/candidates.json
+
       - id: claude
         name: Curate and build
         if: steps.when.outputs.skip != 'true'
         uses: anthropics/claude-code-action@v1
+        env:
+          # A headless session ends as soon as Claude stops, so it must wait for every command instead of backgrounding it.
+          CLAUDE_CODE_DISABLE_BACKGROUND_TASKS: "1"
+          BASH_DEFAULT_TIMEOUT_MS: "900000"
+          BASH_MAX_TIMEOUT_MS: "900000"
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ github.token }}
