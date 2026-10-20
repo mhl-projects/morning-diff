@@ -362,5 +362,61 @@
 "https://www.youtube.com/watch?v=m-B3jIMMmUE": {
 "date": "2026-10-19",
 "title": "Make Your Prompts Dumber"
+},
+"https://claude.dev/blog/solving-code-review-at-anthropic": {
+"date": "2026-10-20",
+"title": "How the Claude Code team does code review"
+},
+"https://x.com/poteto/status/2111133080526495985": {
+"date": "2026-10-20",
+"title": "How to trust your coding agents more: an inverse pyramid"
+},
+"https://www.thedeepview.com/articles/why-inception-s-mercury-3-upends-ai-economics": {
+"date": "2026-10-20",
+"title": "Inception's Mercury 3: a diffusion LLM at ~1,000 tokens per second"
+},
+"https://the-decoder.com/minimax-m3-1-flash-shows-chinas-ai-price-race-has-no-floor-in-sight": {
+"date": "2026-10-20",
+"title": "MiniMax M3.1 Flash: cheap reasoning model, open weights on October 23"
+},
+"https://blog.cloudflare.com/clairic-extraction-model": {
+"date": "2026-10-20",
+"title": "Cloudflare's Clairic: a one-pass extraction model on Workers AI"
+},
+"https://techcrunch.com/2026/10/19/microsoft-says-ai-agents-are-like-insider-threats-as-frontier-models-cant-be-trusted": {
+"date": "2026-10-20",
+"title": "Microsoft adds Guardian Agents to watch your own AI agents"
+},
+"https://www.theverge.com/ai-artificial-intelligence/1013643/ai-agents-hack-john-deere-shark-ninja-cummins": {
+"date": "2026-10-20",
+"title": "An army of AI agents broke into 100+ websites via the open-source Cairn platform"
+},
+"https://github.blog/changelog/2026-10-19-some-git-over-https-may-temporarily-require-authentication": {
+"date": "2026-10-20",
+"title": "GitHub: public clones over HTTPS may temporarily require authentication"
+},
+"https://github.blog/changelog/2026-10-19-copilot-model-policy-api-for-enterprise-orgs-and-teams": {
+"date": "2026-10-20",
+"title": "Copilot model policy API reaches general availability"
+},
+"https://github.com/KnifeLemon/Filee": {
+"date": "2026-10-20",
+"title": "KnifeLemon/Filee"
+},
+"https://github.com/yetone/magpie": {
+"date": "2026-10-20",
+"title": "yetone/magpie"
+},
+"https://github.com/amontlabs/lcu": {
+"date": "2026-10-20",
+"title": "amontlabs/lcu"
+},
+"https://huggingface.co/mistralai/Timestral-209M": {
+"date": "2026-10-20",
+"title": "mistralai/Timestral-209M"
+},
+"https://skills.sh/stablyai/orca/orca-cli": {
+"date": "2026-10-20",
+"title": "orca-cli: drive Orca worktrees and agent terminals from your agent"
 }
 }
