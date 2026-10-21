@@ -418,5 +418,69 @@
 "https://skills.sh/stablyai/orca/orca-cli": {
 "date": "2026-10-20",
 "title": "orca-cli: drive Orca worktrees and agent terminals from your agent"
+},
+"https://github.blog/changelog/2026-10-20-github-package-firewall-in-public-preview": {
+"date": "2026-10-21",
+"title": "GitHub package firewall in public preview"
+},
+"https://github.blog/changelog/2026-10-20-updates-to-github-secret-scanning": {
+"date": "2026-10-21",
+"title": "GitHub secret scanning: revocation for encoded tokens, audit log change on Nov 12"
+},
+"https://github.blog/changelog/2026-10-20-bulk-migrate-branch-protections-to-rulesets-for-a-repository": {
+"date": "2026-10-21",
+"title": "Migrate all branch protection rules to rulesets in one click"
+},
+"https://github.blog/changelog/2026-10-20-dependabot-now-supports-npm-12-pnpm-11-and-12-and-bun-1-4": {
+"date": "2026-10-21",
+"title": "Dependabot now supports npm 12, pnpm 11 and 12, and Bun 1.4"
+},
+"https://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture": {
+"date": "2026-10-21",
+"title": "The thin orchestrator: make agents more reliable by giving the router less to do"
+},
+"https://huggingface.co/blog/ibm-research/altk-evolve-bc": {
+"date": "2026-10-21",
+"title": "ALTK-Evolve: learned guidelines in the prompt lift a GPT-4.1 agent to the top of τ²-bench retail"
+},
+"https://exa.ai/blog/exa-3": {
+"date": "2026-10-21",
+"title": "Exa 3.0: new search model and a $4 per 1,000 requests Lite tier"
+},
+"https://blog.google/innovation-and-ai/products/gemini-notebook/co-create-slides-videos": {
+"date": "2026-10-21",
+"title": "Gemini Notebook adds a review step for slide decks and video overviews"
+},
+"https://techcrunch.com/2026/10/20/chatgpt-now-lets-you-lock-your-chats": {
+"date": "2026-10-21",
+"title": "ChatGPT adds Locked Chats with PIN or Face ID"
+},
+"https://simonwillison.net/2026/Oct/20/battledrones": {
+"date": "2026-10-21",
+"title": "Battle Drones: a Claude Code-built RTS with audio-based multiplayer"
+},
+"https://github.com/deepseek-ai/DeepInfer": {
+"date": "2026-10-21",
+"title": "deepseek-ai/DeepInfer"
+},
+"https://github.com/cloudflare/security-audit-skill": {
+"date": "2026-10-21",
+"title": "cloudflare/security-audit-skill"
+},
+"https://github.com/DietrichGebert/ponytail": {
+"date": "2026-10-21",
+"title": "DietrichGebert/ponytail"
+},
+"https://github.com/Graphify-Labs/graphify": {
+"date": "2026-10-21",
+"title": "Graphify-Labs/graphify"
+},
+"https://github.com/oxc-project/tsrs": {
+"date": "2026-10-21",
+"title": "oxc-project/tsrs"
+},
+"https://huggingface.co/nvidia/NVIDIA-Nemotron-Labs-Dory1.0-4B-BF16": {
+"date": "2026-10-21",
+"title": "nvidia/NVIDIA-Nemotron-Labs-Dory1.0-4B-BF16"
 }
 }
