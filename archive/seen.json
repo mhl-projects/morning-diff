@@ -482,5 +482,53 @@
 "https://huggingface.co/nvidia/NVIDIA-Nemotron-Labs-Dory1.0-4B-BF16": {
 "date": "2026-10-21",
 "title": "nvidia/NVIDIA-Nemotron-Labs-Dory1.0-4B-BF16"
+},
+"https://claude.com/resources/articles/claude-duet": {
+"date": "2026-10-22",
+"title": "Claude Duet: Anthropic's proactive agent app, research preview on waitlist"
+},
+"https://www.latent.space/p/claude-mods": {
+"date": "2026-10-22",
+"title": "Claude Mods: customize Claude Code's interface with plugins"
+},
+"https://github.blog/changelog/2026-10-21-github-cli-opt-in-to-expiring-auto-refreshing-oauth-tokens": {
+"date": "2026-10-22",
+"title": "GitHub CLI 2.103 adds opt-in expiring OAuth tokens"
+},
+"https://github.com/ifixai-ai/iFixAi": {
+"date": "2026-10-22",
+"title": "ifixai-ai/iFixAi"
+},
+"https://github.com/Louis-CFM/coucou": {
+"date": "2026-10-22",
+"title": "Louis-CFM/coucou"
+},
+"https://huggingface.co/RecursiveSI/flint": {
+"date": "2026-10-22",
+"title": "RecursiveSI/flint"
+},
+"https://huggingface.co/XHToken/Spark-X2.6-4B": {
+"date": "2026-10-22",
+"title": "XHToken/Spark-X2.6-4B"
+},
+"https://huggingface.co/blog/ibm-granite/granite-speech-5": {
+"date": "2026-10-22",
+"title": "ibm-granite/granite-speech-5.0-2b"
+},
+"https://skills.sh/mattpocock/skills/diagnosing-bugs": {
+"date": "2026-10-22",
+"title": "diagnosing-bugs: build a feedback loop first, then debug"
+},
+"https://skills.sh/mattpocock/skills/improve-codebase-architecture": {
+"date": "2026-10-22",
+"title": "improve-codebase-architecture: find shallow modules and deepen them"
+},
+"https://skills.sh/mattpocock/skills/domain-modeling": {
+"date": "2026-10-22",
+"title": "domain-modeling: keep a glossary and decisions as you design"
+},
+"https://techcrunch.com/2026/10/21/php-armageddon-openai-googles-wiz-find-ancient-holes-panicking-the-internet": {
+"date": "2026-10-22",
+"title": "PHP security release fixes two critical RCE flaws, patch now (8.5.12)"
 }
 }
