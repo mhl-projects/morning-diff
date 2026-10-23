@@ -530,5 +530,93 @@
 "https://techcrunch.com/2026/10/21/php-armageddon-openai-googles-wiz-find-ancient-holes-panicking-the-internet": {
 "date": "2026-10-22",
 "title": "PHP security release fixes two critical RCE flaws, patch now (8.5.12)"
+},
+"https://arstechnica.com/security/2026/10/hackers-got-a-four-day-head-start-on-epic-php2shell-vulnerability": {
+"date": "2026-10-23",
+"title": "PHP2Shell now exploited in the wild: patch PHP, NSA says take unpatched sites offline"
+},
+"https://docs.litellm.ai/blog/security-incident-oct-21-2026": {
+"date": "2026-10-23",
+"title": "LiteLLM 1.107.0 was malware: check and rotate credentials"
+},
+"https://techcrunch.com/2026/10/22/openai-makes-its-jev-competitor-widely-available-as-decision-model-competition-heats-up": {
+"date": "2026-10-23",
+"title": "OpenAI Decisions API is now open to all: a fast classifier instead of an LLM"
+},
+"https://labs.baseten.co/articles/mammoth-1-and-elephant-1-frontier-decision-models": {
+"date": "2026-10-23",
+"title": "Baseten's elephant-1 (9B) and mammoth-1 (27B) decision models"
+},
+"https://techcrunch.com/2026/10/22/1password-launches-a-way-for-ai-agents-to-log-in-on-your-behalf-without-seeing-your-password": {
+"date": "2026-10-23",
+"title": "1Password for Agents lets agents log in without seeing your password"
+},
+"https://the-decoder.com/an-ai-agent-in-skynet-mode-hijacks-unprotected-language-models-to-launch-self-sustaining-cyberattacks": {
+"date": "2026-10-23",
+"title": "Symantec: an attack agent hijacks exposed LLM endpoints (LLMjacking)"
+},
+"https://github.com/openai/openai-cli": {
+"date": "2026-10-23",
+"title": "OpenAI CLI: the official command-line tool for the OpenAI API"
+},
+"https://vllm.ai/blog/2026-10-21-humming": {
+"date": "2026-10-23",
+"title": "Humming: one fast kernel library for quantized inference in vLLM"
+},
+"https://getopposable.com/blog/computer-use-on-the-phone": {
+"date": "2026-10-23",
+"title": "A 2B model operates Android apps on the phone itself"
+},
+"https://huggingface.co/blog/microsoft/thinkingbox-training": {
+"date": "2026-10-23",
+"title": "ThinkingBox: turn database checks into RL rewards for agents"
+},
+"https://github.com/luongnv89/claude-howto": {
+"date": "2026-10-23",
+"title": "luongnv89/claude-howto"
+},
+"https://github.com/tt-a1i/archify": {
+"date": "2026-10-23",
+"title": "tt-a1i/archify"
+},
+"https://github.com/deepopen-com/deepopen": {
+"date": "2026-10-23",
+"title": "deepopen-com/deepopen"
+},
+"https://github.com/NVIDIA/OpenShell": {
+"date": "2026-10-23",
+"title": "NVIDIA/OpenShell"
+},
+"https://github.com/Tencent/AI-Infra-Guard": {
+"date": "2026-10-23",
+"title": "Tencent/AI-Infra-Guard"
+},
+"https://huggingface.co/InternScience/Sage-A1.5": {
+"date": "2026-10-23",
+"title": "InternScience/Sage-A1.5"
+},
+"https://skills.sh/mattpocock/skills/codebase-design": {
+"date": "2026-10-23",
+"title": "codebase-design: design deep modules behind small interfaces"
+},
+"https://skills.sh/heygen-com/hyperframes/slideshow": {
+"date": "2026-10-23",
+"title": "hyperframes slideshow: build live decks as HTML"
+},
+"https://skills.sh/heygen-com/hyperframes/figma": {
+"date": "2026-10-23",
+"title": "hyperframes figma: use Figma assets and brand tokens in videos"
+},
+"https://www.youtube.com/watch?v=c_SPW__jF9w": {
+"date": "2026-10-23",
+"title": "How to Test AI Agents When No Benchmark Exists — Nathanael Weill, Air Canada"
+},
+"https://www.youtube.com/watch?v=Ve2bAarPA2I": {
+"date": "2026-10-23",
+"title": "Better AI Models Won't Fix Your Engineering Team — Nicholas Arcolano, Jellyfish"
+},
+"https://www.youtube.com/watch?v=mMw3arwQsL0": {
+"date": "2026-10-23",
+"title": "1,368 AI Failures and What They Teach About Evals — Vishal Srivastava & Tanmay Sah, New York Life"
 }
 }
