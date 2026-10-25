@@ -698,5 +698,45 @@
 "https://skills.sh/remotion-dev/skills/remotion-captions": {
 "date": "2026-10-24",
 "title": "remotion-captions: transcribe, display and animate captions"
+},
+"https://the-decoder.com/fancy-harnesses-make-coding-agents-more-expensive-but-not-better-study-finds": {
+"date": "2026-10-25",
+"title": "Study: fancier coding-agent harnesses cost more but don't score better"
+},
+"https://github.com/Nutlope/hallmark": {
+"date": "2026-10-25",
+"title": "Nutlope/hallmark"
+},
+"https://github.com/sgl-project/sglang": {
+"date": "2026-10-25",
+"title": "sgl-project/sglang"
+},
+"https://github.com/pbakaus/impeccable": {
+"date": "2026-10-25",
+"title": "pbakaus/impeccable"
+},
+"https://github.com/microsoft/skill-recorder": {
+"date": "2026-10-25",
+"title": "microsoft/skill-recorder"
+},
+"https://github.com/makecindy/cindy": {
+"date": "2026-10-25",
+"title": "makecindy/cindy"
+},
+"https://github.com/amosblomqvist/learnharness": {
+"date": "2026-10-25",
+"title": "amosblomqvist/learnharness"
+},
+"https://huggingface.co/KRAFTON/Raon-1-mini-preview": {
+"date": "2026-10-25",
+"title": "KRAFTON/Raon-1-mini-preview"
+},
+"https://huggingface.co/ornith-ai/Ornith-1.5-122B": {
+"date": "2026-10-25",
+"title": "ornith-ai/Ornith-1.5-122B"
+},
+"https://huggingface.co/OpenMOSS-Team/MOSS-Image-Base": {
+"date": "2026-10-25",
+"title": "OpenMOSS-Team/MOSS-Image-Base"
 }
 }

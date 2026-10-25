@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<base href="../">
+<title>Morning Diff</title>
+<meta name="robots" content="noindex">
+<link rel="manifest" href="assets/manifest.webmanifest">
+<link rel="icon" href="assets/icon-192.png?v=2">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D0E10" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Morning Diff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap">
+<script>try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}</script>
+<style>
+/* Layout: one clean white column: date headline and brief, sticky tabs, then a wall of posts (two columns on wide screens). */
+:root{
+  --bg:#FFFFFF;--ink:#111317;--ink-2:#3F4450;--muted:#6B7080;--line:#E6E7EA;--press:#F3F4F6;--tile-s:65%;--tile:90%;--tile-ink:36%;--edge:rgba(17,19,23,.07);
+  --accent:#2F6BFF;--warn-bg:#FFF6E0;--warn-ink:#6B4A00;
+  --sans:"Geist",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D0E10;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8C919C;--line:#25282D;--press:#17191C;--tile-s:38%;--tile:19%;--tile-ink:74%;--edge:rgba(255,255,255,.07);--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0D0E10;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8C919C;--line:#25282D;--press:#17191C;--tile-s:38%;--tile:19%;--tile-ink:74%;--edge:rgba(255,255,255,.07);--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}
+
+html{-webkit-text-size-adjust:100%}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:env(safe-area-inset-top,0px) env(safe-area-inset-bottom,0px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:620px;margin-inline:auto}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+.mast{padding-block:22px 24px}
+.mast h1{margin:2px 0 0;font-size:30px;font-weight:600;line-height:1.15;letter-spacing:-.025em}
+/* Shows or hides the day's highlights; the choice is remembered on this device. */
+.dayrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.dayrow>div{min-width:0}
+.briefbtn{flex:none;display:grid;place-items:center;width:40px;height:40px;margin-right:-14px;padding:0;border:0;background:none;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.briefbtn svg{width:18px;height:18px}
+.briefbtn[aria-expanded="false"] svg{transform:rotate(180deg)}
+.stat{margin-top:4px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.notice{margin-top:16px;padding:10px 14px;border-radius:10px;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}
+/* Today's highlights, each with a topic icon on a softly tinted tile (hue set per topic). */
+.brief{display:grid;gap:12px;margin-block:26px 0;padding-block:20px 22px;list-style:none;font-size:15px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
+.mast:has(.brief:not([hidden])){padding-bottom:0}
+.brief li,.brief li>a{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start}
+.brief li>a{grid-column:1/-1;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.brief li>a:active{opacity:.7}
+.ico{display:grid;place-items:center;width:20px;height:20px;margin-top:1px;border-radius:5px;background:hsl(var(--h) var(--tile-s) var(--tile));color:hsl(var(--h) 55% var(--tile-ink))}
+.ico svg{width:13px;height:13px}
+
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)))}
+.navrow{display:flex;align-items:center;gap:12px;max-width:620px;margin:0 auto -1px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.strip{flex:1;min-width:0;display:flex;gap:28px;overflow-x:auto;scrollbar-width:none}
+.datebtn,.themebtn{position:relative;flex:none;display:grid;place-items:center;width:40px;height:40px;padding:0;border:0;background:none;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.datebtn{outline:none}
+.themebtn{margin:0 -12px 0 -8px}
+.datebtn svg,.themebtn svg{width:18px;height:18px}
+.datebtn input{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;border:0;outline:none;opacity:0;font-size:16px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.strip::-webkit-scrollbar{display:none}
+.strip button{flex:none;padding:14px 0 12px;border:0;border-bottom:2px solid transparent;border-radius:0;background:none;color:var(--muted);font:inherit;font-size:17px;font-weight:600;letter-spacing:-.012em;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.strip button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+
+section{padding-block:16px 40px;min-height:60vh}
+.empty{margin:8px 0 0;font-size:14px;color:var(--muted)}
+
+
+/* Switching tabs slides the new list in from the side you're moving to. */
+main{overflow-x:clip}
+@media (prefers-reduced-motion:no-preference){
+  .in-next{animation:in-next .24s ease-out}
+  .in-prev{animation:in-prev .24s ease-out}
+}
+@keyframes in-next{from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:none}}
+@keyframes in-prev{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:none}}
+
+/* Wall of posts */
+.wall{display:grid;gap:34px;margin-top:6px}
+.post{display:block;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+a.post:active{opacity:.7}
+.media{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:5px;background:var(--press);outline:1px solid var(--edge);outline-offset:-1px}
+.media img{display:block;width:100%;height:100%;object-fit:cover}
+.media img.fit{object-fit:contain;background:#FFFFFF}
+.kind{position:absolute;left:10px;bottom:10px;display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:999px;background:rgba(10,11,13,.78);color:#FFFFFF;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+.kind svg{flex:none;width:12px;height:12px;margin-left:-2px}
+.post-body{display:grid;gap:5px;padding-top:12px}
+.post-meta{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:12.5px;line-height:1.4;color:var(--muted);font-variant-numeric:tabular-nums}
+.post-src{min-width:0;overflow-wrap:anywhere}
+.t{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.012em;color:var(--ink);overflow-wrap:anywhere;text-wrap:pretty}
+.t .own,.reader-title .own{font-weight:400;color:var(--muted)}
+.b{font-size:15px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
+@media (min-width:760px){
+  .wrap,.navrow,.band .band-in{max-width:1000px}
+  .wall{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:40px 28px}
+}
+
+.band,.mast{margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.band{border-top:1px solid var(--line)}
+.mast{border-bottom:1px solid var(--line)}
+.band-in{max-width:620px;margin-inline:auto}
+/* Wider screens: header, highlights and tabs run edge to edge with their content lined up with the posts,
+   which sit in two and then three columns. Phones keep the single column above. */
+@media (min-width:760px){
+  html{overflow-x:clip}
+  .mast,.band,nav{margin-inline:calc(50% - 50vw)}
+  .mast,.band{padding-inline:calc(50vw - 50%)}
+  .mast h1{font-size:36px}
+  .reader-title{font-size:28px}
+  .strip button{font-size:16px}
+  .reader-bar .reader-close{line-height:1.6} /* keeps the reader bar as tall as the 16px tabs */
+}
+@media (min-width:1100px){
+  .wrap,.navrow,.band .band-in{max-width:1180px}
+  .wall{grid-template-columns:repeat(3,minmax(0,1fr));gap:44px 32px}
+}
+@media (hover:hover){a.post:hover .t,.brief a:hover span:last-child{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}}
+.install{display:flex;align-items:center;gap:12px;padding-block:18px}
+.install img{flex:none;width:36px;height:36px;border-radius:9px}
+/* The white app icon would vanish on the white page: show the dark one there, the white one in dark mode. */
+.install .on-dark{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .install .on-light{display:none}:root:not([data-theme="light"]) .install .on-dark{display:block}}
+:root[data-theme="dark"] .install .on-light{display:none}
+:root[data-theme="dark"] .install .on-dark{display:block}
+.install-copy{flex:1;min-width:0}
+.install-title{font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+.install-text{font-size:13px;line-height:1.45;color:var(--muted)}
+.install-yes{flex:none;padding:7px 16px;border:1px solid var(--line);border-radius:5px;background:none;color:var(--ink);font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+/* Reader: a picked item's key points in the app's own design; the original is one tap away. */
+.reader{position:fixed;inset:0;z-index:30;overflow-y:auto;overscroll-behavior:contain;background:var(--bg);padding:env(safe-area-inset-top,0px) max(16px,env(safe-area-inset-right,0px)) calc(40px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+/* Built like the section tabs (same padding, line box and hairline), so opening an item doesn't shift the bar. */
+.reader-bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:1;margin:0 calc(-1 * max(16px,env(safe-area-inset-right,0px))) 0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));background:var(--bg);border-bottom:1px solid var(--line)}
+.reader-bar-in{display:flex;max-width:620px;margin:0 auto -1px}
+.reader-close{display:inline-flex;align-items:center;gap:4px;margin-left:-6px;padding:14px 10px 12px 0;border:0;border-bottom:2px solid transparent;background:none;color:var(--ink);font:inherit;font-size:15px;font-weight:500;line-height:1.7;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.reader-close svg{width:22px;height:22px}
+@media (display-mode:standalone){body::before{z-index:40;border-bottom:1px solid var(--line)}} /* installed app: a hairline under the phone's status bar */
+.reader-in{max-width:620px;margin:0 auto;padding-top:22px} /* the image sits as far below the bar as the first post below the tabs */
+.reader-in .post-meta{margin-top:14px}
+.reader-title{margin:20px 0 0;font-size:22px;font-weight:600;line-height:1.25;letter-spacing:-.015em;color:var(--ink);overflow-wrap:anywhere;text-wrap:pretty}
+.lead{margin:10px 0 0;font-size:16px;line-height:1.55;color:var(--ink-2);text-wrap:pretty}
+.points{display:grid;gap:10px;margin:18px 0 0;padding:18px 0 0 18px;border-top:1px solid var(--line);font-size:15px;line-height:1.55;color:var(--ink);text-wrap:pretty}
+.points li::marker{color:var(--muted)}
+.original{box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;margin-top:28px;padding:12px 18px;border-radius:5px;background:var(--ink);color:var(--bg);font-size:15px;font-weight:600;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.original:active{opacity:.85}
+.original svg{flex:none;width:15px;height:15px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <div class="hunk">
+      <div class="dayrow"><div><h1 id="day"></h1><div class="stat" id="stat"></div></div><button type="button" class="briefbtn" id="briefBtn" aria-controls="brief" hidden><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10 8 6l4 4"/></svg></button></div>
+      <ul class="brief band" id="brief" hidden></ul>
+    </div>
+    <div class="notice" id="notice" hidden></div>
+  </header>
+  <div id="top"></div>
+  <nav aria-label="Sections">
+    <div class="navrow">
+      <div class="strip" id="tabs" role="tablist"></div>
+      <label class="datebtn" title="Open a past day">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><rect x="2.5" y="3.5" width="11" height="10" rx="2"/><path d="M2.5 6.5h11M5.5 2v3M10.5 2v3"/></svg>
+        <input type="date" id="pick" aria-label="Open a past day">
+      </label>
+      <button type="button" class="themebtn" id="themeBtn" title="Switch light or dark" aria-label="Switch light or dark">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="5.75"/><path d="M8 2.25a5.75 5.75 0 0 1 0 11.5z" fill="currentColor" stroke="none"/></svg>
+      </button>
+    </div>
+  </nav>
+  <main id="main"></main>
+  <aside class="band" id="install" hidden>
+    <div class="band-in install">
+      <img class="on-light" src="assets/icon-dark-192.png" alt="" width="36" height="36"><img class="on-dark" src="assets/icon-192.png?v=2" alt="" width="36" height="36">
+      <div class="install-copy">
+        <div class="install-title">Get the Morning Diff app</div>
+        <div class="install-text" id="installText">One tap from your home screen</div>
+      </div>
+      <button type="button" class="install-yes" id="installBtn">Install</button>
+    </div>
+  </aside>
+</div>
+
+<div class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-labelledby="readerTitle">
+  <div class="reader-bar"><div class="reader-bar-in"><button type="button" class="reader-close" id="readerClose"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg><span id="readerBack">Back</span></button></div></div>
+  <div class="reader-in" id="readerBody"></div>
+</div>
+
+<script id="data" type="application/json">{"updatedAt": "2026-10-25T05:08:00Z", "brief": [{"icon": "code", "text": "Swapping coding harnesses barely changes results", "url": "https://the-decoder.com/fancy-harnesses-make-coding-agents-more-expensive-but-not-better-study-finds/"}, {"icon": "model", "text": "Raon-1 mini runs on one RTX 5090 in NVFP4", "url": "https://huggingface.co/KRAFTON/Raon-1-mini-preview"}, {"icon": "code", "text": "Hallmark: a design skill that lints AI-looking pages", "url": "https://github.com/Nutlope/hallmark"}, {"icon": "code", "text": "Microsoft Skill Recorder turns a screen recording into a skill", "url": "https://github.com/microsoft/skill-recorder"}], "note": "", "sections": [{"id": "news", "label": "News", "items": [{"title": "Study: fancier coding-agent harnesses cost more but don't score better", "url": "https://the-decoder.com/fancy-harnesses-make-coding-agents-more-expensive-but-not-better-study-finds/", "kind": "Article", "blurb": "Claude Code, OpenCode and mini-SWE-agent differ about as much as a rerun does, yet cost per task can triple.", "points": ["Researchers held the model fixed and compared Claude Code, OpenCode and the bare mini-SWE-agent (Bash only) across five open models on SWE-bench Verified tasks.", "Rerunning the identical setup already shifts scores by up to six points, so harness gaps of a few points quoted by vendors are within noise.", "On 447 tasks, the heaviest and lightest harness landed less than two points apart; the median outcome flipped on 13% of tasks for both a rerun and a harness swap.", "The one measurable effect: OpenCode trailed by up to nine points, about half of it from an output limit that Claude Code handles by prompting the model to continue.", "Cost per task can triple with a heavier harness, driven mainly by the long system prompt resent with every step.", "Takeaway: judge a harness on your own repeated runs and cost, not on a single-run leaderboard number. Web access leaked fixes (71% of Deepseek/Qwen attempts), so tests ran offline."], "meta": "The Decoder", "date": "2026-10-24", "time": "11:21", "img": "https://the-decoder.com/wp-content/uploads/2026/10/harness-buys-tokens-nano-banana-pro.jpg"}]}, {"id": "repos", "label": "Projects", "items": [{"title": "Nutlope/hallmark", "url": "https://github.com/Nutlope/hallmark", "blurb": "Design skill for Claude Code, Codex, Cursor and OpenCode that lints pages for AI-generated tells.", "points": ["A frontend design skill from Together AI with 48 themes; it deals three that fit your prompt and builds the page around the visitor's job.", "sloplint checks the result in a real browser at eight widths for tells like eyebrow labels, one coloured word in a headline and a broken phone layout; a fresh-context subagent reviews last.", "Commands: build, `/hallmark redesign <path>` (keeps content and wiring) and `/hallmark audit <path>` (report only).", "Install: `npx skills add nutlope/hallmark -g`. Can point at a URL or dev server and capture screenshots itself."], "meta": "CSS", "fig": "+209 today", "sub": "★ 32.2k", "date": "2026-10-25", "time": "06:08", "img": "https://opengraph.githubassets.com/1/Nutlope/hallmark"}, {"title": "sgl-project/sglang", "url": "https://github.com/sgl-project/sglang", "blurb": "Fast inference engine for LLMs, vision and diffusion models, with RTX 30/40/50 support.", "points": ["Open-source serving framework aimed at agentic workloads, large-scale serving and RL rollouts; includes SGLang Diffusion for image and video generation.", "Supported hardware lists NVIDIA RTX 30/40/50 series, DGX Spark, AMD Instinct, Google TPU, Intel Arc and Apple Silicon.", "Start with `docker pull lmsysorg/sglang:latest` or `uv pip install --prerelease=allow sglang`, then use the Cookbook for a ready launch command per model and GPU.", "Ecosystem covers speculative-decoding draft training (SpecForge), audio serving (SGLang Omni) and deployment tools."], "meta": "Python", "fig": "+204 today", "sub": "★ 37.9k", "date": "2026-10-25", "time": "06:08", "img": "https://opengraph.githubassets.com/1/sgl-project/sglang"}, {"title": "pbakaus/impeccable", "url": "https://github.com/pbakaus/impeccable", "blurb": "Design skill with 24 commands and 62 detector rules that catch AI-looking frontend design.", "points": ["One skill, `/impeccable`, with 24 commands such as audit, critique, polish, harden, typeset, layout and animate.", "62 deterministic detector rules run from the CLI or a browser extension without an LLM or API key; it also has LLM critique checks.", "Setup: run `npx impeccable install` in the project, then `/impeccable init`, which writes a PRODUCT.md with audience, purpose and constraints.", "Live mode iterates on elements in the browser; `pin <command>` makes a standalone shortcut like `/audit`."], "meta": "Rust", "fig": "+196 today", "sub": "★ 86.5k", "date": "2026-10-25", "time": "06:08", "img": "https://opengraph.githubassets.com/1/pbakaus/impeccable"}, {"title": "microsoft/skill-recorder", "url": "https://github.com/microsoft/skill-recorder", "blurb": "Record yourself doing a task once and get a reusable SKILL.md or scheduled automation.", "points": ["Captures clicks, app switches, pages, optional terminal output and narration locally, then GitHub Copilot CLI rebuilds an intent plus ordered steps.", "From the approved analysis it generates a SKILL.md or a scheduled automation that prefers native tools (like `gh`) over replaying UI clicks.", "Needs a GitHub account with Copilot access; macOS is the main target, Windows 11 is supported.", "Published as a source release: copy the commit-pinned install command from the latest release page; it builds the app locally and takes several minutes."], "meta": "TypeScript", "fig": "+120 today", "sub": "★ 4.7k", "date": "2026-10-25", "time": "06:08", "img": "https://opengraph.githubassets.com/1/microsoft/skill-recorder"}, {"title": "makecindy/cindy", "url": "https://github.com/makecindy/cindy", "blurb": "Open-source desktop and mobile agent client that mixes Claude Code and Codex harnesses and models.", "points": ["Apache-2.0 client that runs locally on your files and apps; first supported harnesses are Claude Code and Codex.", "Harnesses and models can switch mid-task while workspace, memory, skills and tools stay shared; one task can be planned, run and reviewed by different combinations.", "Use your existing Claude Code or Codex plan, your own API keys or local models; the hosted Cindy service is optional (Skip Sign-In uses local agents).", "Needs Node 22, pnpm 10 and Git LFS to build; the backend service is not in this repo."], "meta": "TypeScript", "fig": "+119 today", "sub": "★ 4.2k", "date": "2026-10-25", "time": "06:08", "img": "https://opengraph.githubassets.com/1/makecindy/cindy"}, {"title": "amosblomqvist/learnharness", "url": "https://github.com/amosblomqvist/learnharness", "blurb": "Desktop agent harness that teaches you a topic step by step and tracks what you understand.", "points": ["Measures where your understanding ends, plans a dependency map to your goal, teaches one reasoning step at a time, then runs separate practice sessions.", "A persistent knowledge graph carries what you learned across sessions; you can import notes.", "Bring your own key: 30+ providers including OpenAI, Anthropic, Google, DeepSeek and OpenRouter; no subscription, with a live cost meter.", "Apps for macOS, Windows and Linux; chats and keys stay local, but model requests go to your chosen provider. AGPL-3.0."], "meta": "TypeScript", "fig": "+100 today", "sub": "★ 1.1k", "date": "2026-10-25", "time": "06:08", "img": "https://opengraph.githubassets.com/1/amosblomqvist/learnharness"}]}, {"id": "models", "label": "Models", "items": [{"title": "KRAFTON/Raon-1-mini-preview", "url": "https://huggingface.co/KRAFTON/Raon-1-mini-preview", "blurb": "Apache-2.0 30B-A4B MoE with an NVFP4 build that runs on a single RTX 5090 (32 GB).", "points": ["Mixture-of-experts with 28.8B total and 4.3B active parameters, 262k context and built-in thinking, trained from scratch by KRAFTON AI.", "Strong in Korean, also trained on English, Japanese, Chinese, Spanish, French and Thai; tool calling works with Hermes Agent, Pi and OpenCode.", "Card lists SWE-Verified 70.8, LiveCodeBench v6 81.6 and GPQA Diamond 84.3.", "MXFP8 and NVFP4 quantizations exist; NVFP4 enables inference on one RTX 5090. A DFlash2 draft model supports speculative decoding.", "Preview release; specs and results may change. A free playground is available for a limited time."], "meta": "Text generation", "fig": "174 likes", "date": "2026-10-25", "time": "06:08", "img": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/KRAFTON/Raon-1-mini-preview.png"}, {"title": "ornith-ai/Ornith-1.5-122B", "url": "https://huggingface.co/ornith-ai/Ornith-1.5-122B", "blurb": "122B MoE coding and agent model built by a self-improvement loop, with strong SWE-bench scores.", "points": ["Extends Ornith-1.0 (built on Qwen3.5 and Gemma4) by jointly generating training tasks, building scaffolds and optimizing rollouts with RL.", "Described as a 122B MoE designed for efficient single-GPU deployment, with a quantized Mobile variant for edge devices.", "Card reports SWE-bench Verified 84.5, SWE-bench Pro 76.9 and Terminal-Bench 2.1 81.2 (run with Claude Code), compared with Qwen3.8-Flash-Next and DeepSeek-V4-Flash.", "The card notes the Qwen chat template needs a modification for the Terminal-Bench setup; check the card for memory needs before downloading."], "meta": "Text generation", "fig": "167 likes", "date": "2026-10-25", "time": "06:08", "img": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/ornith-ai/Ornith-1.5-122B.png"}, {"title": "OpenMOSS-Team/MOSS-Image-Base", "url": "https://huggingface.co/OpenMOSS-Team/MOSS-Image-Base", "blurb": "Text-to-image base model with JSON layout control for text placement and object positions.", "points": ["Accepts natural-language prompts, tag sequences or JSON layouts that set rendered text, objects and bounding boxes.", "Runs with diffusers (>=0.38) on an NVIDIA GPU, PyTorch 2.9+, 50 steps, CFG 3, bfloat16.", "A ComfyUI plugin is available via ComfyUI Manager (search MOSS-Image); the SFT variant gives clearer text grouping in layouts.", "A bundled prompt-enhancer skill turns ideas into captions or layout prompts for agents with file and Python tools."], "meta": "Text-to-image", "fig": "542 likes", "date": "2026-10-25", "time": "06:08", "img": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/OpenMOSS-Team/MOSS-Image-Base.png"}]}, {"id": "skills", "label": "Skills", "items": []}, {"id": "videos", "label": "Videos", "items": []}], "edition": "2026-10-25", "added": 10}</script>
+<script>
+const DATA = JSON.parse(document.getElementById("data").textContent);
+const VIEWS = [
+  { id: "news", label: "News", from: ["news", "videos"] },
+  { id: "projects", label: "Projects", from: ["repos", "models"] },
+  { id: "skills", label: "Skills", from: ["skills"] },
+];
+const $ = id => document.getElementById(id);
+const el = (tag, cls, text) => {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null && text !== "") e.textContent = String(text);
+  return e;
+};
+const httpsUrl = u => { try { const x = new URL(u); return x.protocol === "https:" ? x.href : null; } catch { return null; } };
+const longDay = ymd => new Date(ymd + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+const time = d => d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+const arr = s => (Array.isArray(s?.items) ? s.items : []).filter(i => httpsUrl(i.img)); // entries without an image are not shown
+const key = i => String(i.date || "") + String(i.time || "");
+const newestFirst = list => [...list].sort((a, b) => key(b).localeCompare(key(a)));
+const byId = Object.fromEntries((DATA.sections || []).map(s => [s.id, s]));
+
+// What a post is, shown on its image. An edition item may set "kind"; otherwise it follows from the section and source.
+const KINDS = { videos: "Video", repos: "Repo", models: "Model", skills: "Skill" };
+const KIND_ICONS = { // 16px line icons; unknown kinds use the article icon
+  Video: '<path d="M4.5 2.8v10.4L13 8z" fill="currentColor" stroke="none"/>',
+  Article: '<path d="M4 1.8h5l3 3v9.4H4z"/><path d="M9 1.8v3h3M6.2 8.5h3.6M6.2 11h3.6"/>',
+  "Release notes": '<path d="M2.8 4.5h.4M6 4.5h7.2M2.8 8h.4M6 8h7.2M2.8 11.5h.4M6 11.5h7.2"/>',
+  Repo: '<path d="M5.5 4.5 2 8l3.5 3.5M10.5 4.5 14 8l-3.5 3.5"/>',
+  Model: '<path d="M8 1.8 13.5 5v6L8 14.2 2.5 11V5z"/><path d="M2.5 5 8 8.2 13.5 5M8 8.2v6"/>',
+  Skill: '<path d="M9 1.8 3.5 9H8l-1 5.2L12.5 7H8z"/>',
+  Website: '<circle cx="8" cy="8" r="6"/><path d="M2 8h12M8 2c1.8 1.7 2.6 3.7 2.6 6S9.8 12.3 8 14c-1.8-1.7-2.6-3.7-2.6-6S6.2 3.7 8 2z"/>',
+  Guide: '<path d="M2.5 3.5c2-.8 3.8-.6 5.5.8 1.7-1.4 3.5-1.6 5.5-.8v9c-2-.8-3.8-.6-5.5.8-1.7-1.4-3.5-1.6-5.5-.8zM8 4.3v9"/>',
+  Paper: '<path d="M4 1.8h5l3 3v9.4H4z"/><path d="M9 1.8v3h3"/>',
+  Thread: '<path d="M2.5 3.5h11v7h-6l-3 2.5v-2.5h-2z"/>',
+};
+const kindIcon = k => {
+  const t = document.createElement("template");
+  t.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (KIND_ICONS[k] || KIND_ICONS.Article) + "</svg>";
+  return t.content.firstChild;
+};
+const kindOf = i => i.kind || KINDS[i.src] || (/release notes|changelog/i.test(i.meta || "") || /^Claude Code \d/.test(i.title || "") ? "Release notes" : "Article");
+
+function mediaOf(item, eager) {
+  const m = el("div", "media");
+  const img = el("img");
+  img.src = httpsUrl(item.img); img.alt = ""; img.width = 640; img.height = 360;
+  img.loading = eager ? "eager" : "lazy"; img.decoding = "async"; img.referrerPolicy = "no-referrer";
+  if (/^https:\/\/(opengraph\.githubassets\.com|cdn-thumbnails\.huggingface\.co)\//.test(img.src)) img.className = "fit"; // GitHub and Hugging Face cards: show them whole
+  m.append(img);
+  const badge = el("span", "kind"), kind = kindOf(item);
+  badge.append(kindIcon(kind), [kind, item.src === "videos" && item.fig].filter(Boolean).join(" · "));
+  m.append(badge);
+  return m;
+}
+
+function metaOf(item) {
+  const parts = item.src === "repos" ? [item.meta, item.fig, item.sub] : item.src === "skills" || item.src === "models" ? [item.meta, item.fig] : [item.meta];
+  const meta = el("div", "post-meta");
+  meta.append(el("span", "post-src", parts.filter(Boolean).join(" · ")));
+  return meta;
+}
+
+function titleOf(item, tag, cls) {
+  const t = el(tag, cls);
+  const text = String(item.title || "");
+  if ((item.src === "repos" || item.src === "models") && text.includes("/")) {
+    const [own, ...rest] = text.split("/");
+    t.append(el("span", "own", own + "/"), rest.join("/"));
+  } else t.append(text);
+  return t;
+}
+
+const pointsOf = item => (Array.isArray(item.points) ? item.points : []).map(p => String(p).trim()).filter(Boolean);
+
+// Links an item: its key points open in the reader; items without points and modified clicks open the original.
+function linkTo(a, item) {
+  a.href = httpsUrl(item.url); a.target = "_blank"; a.rel = "noopener noreferrer";
+  if (pointsOf(item).length) a.addEventListener("click", e => {
+    if (e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    openReader(item);
+  });
+  return a;
+}
+function card(item, eager) {
+  const c = httpsUrl(item.url) ? linkTo(el("a", "post"), item) : el("div", "post");
+  const m = mediaOf(item, eager);
+  m.firstChild.addEventListener("error", () => c.remove()); // no image, no post
+  const body = el("div", "post-body");
+  body.append(metaOf(item), titleOf(item, "div", "t"));
+  if (item.blurb) body.append(el("div", "b", item.blurb));
+  c.append(m, body);
+  return c;
+}
+
+// Reader: a picked item's key points in the app's own design, with the original one tap away. Back closes it.
+const reader = $("reader");
+const SITES = { "github.com": "GitHub", "huggingface.co": "Hugging Face", "youtube.com": "YouTube" };
+function openReader(item) {
+  const href = httpsUrl(item.url);
+  const host = new URL(href).hostname.replace(/^www\./, "");
+  const link = el("a", "original", item.src === "news" ? "Read the full article" : "Open on " + (SITES[host] || host));
+  const arrow = document.createElement("template");
+  arrow.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11 11 5M6 4.5h5.5V10"/></svg>';
+  link.append(arrow.content.firstChild);
+  link.href = href; link.target = "_blank"; link.rel = "noopener noreferrer";
+  const list = el("ul", "points");
+  list.append(...pointsOf(item).map(p => el("li", "", p)));
+  const title = titleOf(item, "h2", "reader-title");
+  title.id = "readerTitle";
+  $("readerBody").replaceChildren(mediaOf(item, true), metaOf(item), title, ...(item.blurb ? [el("p", "lead", item.blurb)] : []), list, link);
+  $("readerBack").textContent = "Back to " + (VIEWS.find(v => v.id === current) || VIEWS[0]).label;
+  reader.hidden = false;
+  reader.scrollTop = 0;
+  document.body.style.overflow = "hidden";
+  history.pushState({ reader: true }, "");
+}
+addEventListener("popstate", () => { reader.hidden = true; document.body.style.overflow = ""; });
+$("readerClose").addEventListener("click", () => history.back());
+addEventListener("keydown", e => { if (e.key === "Escape" && !reader.hidden) history.back(); });
+
+// Only the selected tab's posts are shown; the choice is remembered on this device.
+const store = { get: () => { try { return localStorage.getItem("tab"); } catch { return null; } },
+                set: v => { try { localStorage.setItem("tab", v); } catch {} } };
+const known = id => VIEWS.some(v => v.id === id) ? id : null;
+let current = known(location.hash.slice(1)) || known(store.get()) || "news";
+
+function select(id) {
+  const dir = VIEWS.findIndex(v => v.id === id) - VIEWS.findIndex(v => v.id === current);
+  current = id;
+  store.set(id);
+  renderView();
+  if (dir) $("main").firstChild.classList.add(dir > 0 ? "in-next" : "in-prev"); // slide in from the side we're moving to
+  const top = $("top").offsetTop;
+  if (window.scrollY > top) window.scrollTo(0, top);
+}
+
+function renderView() {
+  $("tabs").replaceChildren(...VIEWS.map(v => {
+    const b = el("button", "", v.label);
+    b.type = "button";
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", v.id === current);
+    b.addEventListener("click", () => select(v.id));
+    return b;
+  }));
+  const v = VIEWS.find(x => x.id === current);
+  const sec = el("section");
+  sec.setAttribute("role", "tabpanel");
+  const items = newestFirst(v.from.flatMap(id => arr(byId[id]).map(i => ({ ...i, src: id }))));
+  if (items.length) {
+    const wall = el("div", "wall");
+    wall.append(...items.map((i, n) => card(i, n < 2)));
+    sec.append(wall);
+  } else sec.append(el("p", "empty", "Nothing here for this day."));
+  $("main").replaceChildren(sec);
+}
+
+// Header
+const at = new Date(DATA.updatedAt);
+const shown = VIEWS.flatMap(v => v.from.flatMap(id => arr(byId[id])));
+const total = shown.length;
+const minutes = Math.max(1, Math.round(shown.reduce((n, i) => n + `${i.title} ${i.blurb || ""}`.split(/\s+/).length, 0) / 230));
+$("day").textContent = longDay(DATA.edition);
+$("stat").textContent = [total + " picks from the last 24 hours", minutes + " min read", DATA.added && DATA.added < total ? DATA.added + " new" : ""].filter(Boolean).join(" · ");
+// Topic icons for the highlights: [hue, svg paths]. Unknown or missing icons fall back to "news".
+const ICONS = {
+  news: [220, '<rect x="2.5" y="2.5" width="11" height="11" rx="2"/><path d="M5.5 5.5h5M5.5 8h5M5.5 10.5h3"/>'],
+  code: [250, '<rect x="2" y="3" width="12" height="10" rx="2"/><path d="m5 6.5 2 1.5-2 1.5M8.5 10h2.5"/>'],
+  model: [275, '<path d="M8 2.5c.5 2.8 2.2 4.5 5 5-2.8.5-4.5 2.2-5 5-.5-2.8-2.2-4.5-5-5 2.8-.5 4.5-2.2 5-5z"/>'],
+  chip: [170, '<rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M6.5 2v2M9.5 2v2M6.5 12v2M9.5 12v2M2 6.5h2M2 9.5h2M12 6.5h2M12 9.5h2"/>'],
+  price: [35, '<path d="M2.5 8.5v-5a1 1 0 0 1 1-1h5l5 5a1 1 0 0 1 0 1.4l-4.6 4.6a1 1 0 0 1-1.4 0z"/><circle cx="5.5" cy="5.5" r="1"/>'],
+  law: [10, '<path d="M8 2.5v11M5.5 13.5h5M3 4.5h10M3 4.5 1.5 8.5a1.6 1.6 0 0 0 3 0zM13 4.5l-1.5 4a1.6 1.6 0 0 0 3 0z"/>'],
+  shield: [145, '<path d="M8 2.5 3 4.5v3.5c0 3 2.2 4.8 5 5.5 2.8-.7 5-2.5 5-5.5V4.5z"/>'],
+  video: [350, '<rect x="2" y="3.5" width="12" height="9" rx="2"/><path d="M7 6.3v3.4L9.8 8z"/>'],
+};
+const brief = (Array.isArray(DATA.brief) ? DATA.brief : String(DATA.brief || "").split(/(?<=\.)\s+/))
+  .map(l => (l && typeof l === "object" ? l : { text: l }))
+  .map(l => ({ icon: ICONS[l.icon] ? l.icon : "news", text: String(l.text || "").trim().replace(/\.$/, ""), url: l.url }))
+  .filter(l => l.text);
+$("brief").replaceChildren(...brief.map(l => {
+  const ico = el("span", "ico");
+  ico.style.setProperty("--h", ICONS[l.icon][0]);
+  ico.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[l.icon][1] + "</svg>";
+  const li = el("li");
+  const item = l.url && shown.find(i => i.page === l.url || i.url === l.url); // a highlight opens the item it's about
+  const row = item && httpsUrl(item.url) ? li.appendChild(linkTo(el("a"), item)) : li;
+  row.append(ico, el("span", "", l.text));
+  return li;
+}));
+let briefOpen = true;
+try { briefOpen = localStorage.getItem("brief") !== "closed"; } catch {}
+function showBrief() {
+  $("brief").hidden = !brief.length || !briefOpen;
+  $("briefBtn").hidden = !brief.length;
+  $("briefBtn").setAttribute("aria-expanded", briefOpen);
+  $("briefBtn").title = briefOpen ? "Hide highlights" : "Show highlights";
+  $("briefBtn").setAttribute("aria-label", $("briefBtn").title);
+}
+$("briefBtn").addEventListener("click", () => {
+  briefOpen = !briefOpen;
+  try { localStorage.setItem("brief", briefOpen ? "open" : "closed"); } catch {}
+  showBrief();
+});
+showBrief();
+const isIndex = !location.pathname.endsWith(DATA.edition + ".html");
+const note = isIndex && Date.now() - at > 30 * 3600e3 ? "Last updated " + longDay(DATA.edition) + ". Today's refresh hasn't landed yet." : DATA.note;
+if (note) { $("notice").textContent = note; $("notice").hidden = false; }
+renderView();
+
+// Horizontal swipes (dir -1 = to the left, 1 = to the right): on the posts they switch tabs; in the reader, a swipe right goes back.
+function onSwipe(area, handler) {
+  let touch = null;
+  area.addEventListener("touchstart", e => { const t = e.touches[0]; touch = { x: t.clientX, y: t.clientY, at: Date.now() }; }, { passive: true });
+  area.addEventListener("touchend", e => {
+    if (!touch) return;
+    const t = e.changedTouches[0], dx = t.clientX - touch.x, dy = t.clientY - touch.y, quick = Date.now() - touch.at < 800;
+    touch = null;
+    if (quick && Math.abs(dx) >= 60 && Math.abs(dx) >= 1.5 * Math.abs(dy)) handler(dx < 0 ? -1 : 1);
+  }, { passive: true });
+}
+onSwipe($("main"), dir => { const next = VIEWS[VIEWS.findIndex(v => v.id === current) - dir]; if (next) select(next.id); });
+onSwipe(reader, dir => { if (dir > 0 && !reader.hidden) history.back(); });
+
+// Install as an app: Chrome on Android offers its own prompt; iPhone needs Share > Add to Home Screen.
+const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+let installPrompt = null;
+const hideInstall = () => { $("install").hidden = true; };
+addEventListener("beforeinstallprompt", e => {
+  e.preventDefault();
+  installPrompt = e;
+  if (!standalone) $("install").hidden = false;
+});
+$("installBtn").addEventListener("click", async () => {
+  if (!installPrompt) { // iPhone: installing goes through Safari's Share menu
+    $("installText").textContent = "Tap Share, then Add to Home Screen";
+    $("installBtn").hidden = true;
+    return;
+  }
+  installPrompt.prompt();
+  await installPrompt.userChoice.catch(() => null);
+  installPrompt = null;
+  hideInstall();
+});
+addEventListener("appinstalled", hideInstall);
+if (!standalone && /iPhone|iPad/.test(navigator.userAgent)) $("install").hidden = false;
+
+// Theme: follows the system until toggled; the choice is remembered on this device.
+const root = document.documentElement;
+const syncThemeColor = () => { if (root.dataset.theme) document.querySelectorAll('meta[name="theme-color"]').forEach(m => { m.content = root.dataset.theme === "dark" ? "#0D0E10" : "#FFFFFF"; }); };
+syncThemeColor();
+$("themeBtn").addEventListener("click", () => {
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+  try { localStorage.setItem("theme", root.dataset.theme); } catch {}
+  syncThemeColor();
+});
+
+const openPicker = () => { try { $("pick").showPicker(); } catch { $("pick").focus(); } };
+
+// Past days: archive/days.json lists every saved edition.
+const pick = $("pick");
+pick.addEventListener("click", openPicker); // desktop browsers open the calendar only on request
+pick.value = DATA.edition;
+pick.max = DATA.edition;
+fetch("archive/days.json", { cache: "no-store" }).then(r => r.ok ? r.json() : []).catch(() => []).then(days => {
+  if (!Array.isArray(days) || !days.length) return;
+  pick.min = days[0];
+  pick.max = days[days.length - 1];
+  // Swiping across the header moves one day: to the right for the day before, to the left for the day after.
+  onSwipe(document.querySelector(".mast"), dir => {
+    const at = days.indexOf(DATA.edition), d = days[at - dir];
+    if (at >= 0 && d) location.href = d === days[days.length - 1] ? "index.html" : "archive/" + d + ".html";
+  });
+  pick.addEventListener("change", () => {
+    const d = pick.value;
+    if (!d || d === DATA.edition) return;
+    if (days.includes(d)) location.href = "archive/" + d + ".html";
+    else { $("notice").textContent = "No edition was saved for " + longDay(d) + "."; $("notice").hidden = false; pick.value = DATA.edition; }
+  });
+});
+
+</script>
+</body>
+</html>
