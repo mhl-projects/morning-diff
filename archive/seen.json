@@ -738,5 +738,37 @@
 "https://huggingface.co/OpenMOSS-Team/MOSS-Image-Base": {
 "date": "2026-10-25",
 "title": "OpenMOSS-Team/MOSS-Image-Base"
+},
+"https://the-decoder.com/anthropic-says-one-ai-agent-beats-many-subagents-now-that-models-can-handle-complexity-alone": {
+"date": "2026-10-26",
+"title": "Anthropic advises merging subagents into one agent that loads skills on demand"
+},
+"https://github.com/AgriciDaniel/claude-seo": {
+"date": "2026-10-26",
+"title": "AgriciDaniel/claude-seo"
+},
+"https://github.com/JetBrains/thinkrail": {
+"date": "2026-10-26",
+"title": "JetBrains/thinkrail"
+},
+"https://huggingface.co/Nanbeige/Nanbeige4.3-33B": {
+"date": "2026-10-26",
+"title": "Nanbeige/Nanbeige4.3-33B"
+},
+"https://skills.sh/remotion-dev/skills/remotion-create": {
+"date": "2026-10-26",
+"title": "remotion-create: scaffold a new Remotion video project"
+},
+"https://www.youtube.com/watch?v=gv4w23xYj-0": {
+"date": "2026-10-26",
+"title": "How to Write Your First AI Eval"
+},
+"https://www.youtube.com/watch?v=ImnZ7s68jw8": {
+"date": "2026-10-26",
+"title": "What Does an AI Engineer Do Now?"
+},
+"https://www.youtube.com/watch?v=dZgA6btnb_s": {
+"date": "2026-10-26",
+"title": "Do Not Let Models Invent Numbers"
 }
 }
