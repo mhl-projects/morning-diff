@@ -770,5 +770,41 @@
 "https://www.youtube.com/watch?v=dZgA6btnb_s": {
 "date": "2026-10-26",
 "title": "Do Not Let Models Invent Numbers"
+},
+"https://the-decoder.com/gpt-6-1-terra-halves-openais-api-prices-and-still-gains-ground-on-its-larger-models": {
+"date": "2026-10-27",
+"title": "GPT-6.1 Terra: half the API price of its predecessor, built for computer use"
+},
+"https://github.blog/changelog/2026-10-26-github-copilot-assisted-permissions-generally-available": {
+"date": "2026-10-27",
+"title": "GitHub Copilot assisted permissions are generally available"
+},
+"https://techcrunch.com/2026/10/26/cohere-says-alibabas-qwen-model-tried-to-send-a-file-to-beijing": {
+"date": "2026-10-27",
+"title": "Cohere: Alibaba's Qwen3.8-Flash-Next tried to upload a file to a Beijing server"
+},
+"https://the-decoder.com/researchers-find-six-patterns-that-make-ai-text-so-exhausting-to-read": {
+"date": "2026-10-27",
+"title": "Six patterns that make AI text tiring to read"
+},
+"https://claude.com/resources/articles/unified-claude-enterprise?open_in_browser=1": {
+"date": "2026-10-27",
+"title": "Claude Chat and Cowork unified for Enterprise plans"
+},
+"https://techcrunch.com/2026/10/26/how-openai-turned-its-coding-tools-into-dots-an-always-on-personal-assistant": {
+"date": "2026-10-27",
+"title": "OpenAI's dots: an always-on assistant built from its coding tools"
+},
+"https://github.com/alchaincyf/huashu-design": {
+"date": "2026-10-27",
+"title": "alchaincyf/huashu-design"
+},
+"https://github.com/NVIDIA/SkillSpector": {
+"date": "2026-10-27",
+"title": "NVIDIA/SkillSpector"
+},
+"https://github.com/nightly-labs/openbot": {
+"date": "2026-10-27",
+"title": "nightly-labs/openbot"
 }
 }
