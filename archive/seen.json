@@ -806,5 +806,57 @@
 "https://github.com/nightly-labs/openbot": {
 "date": "2026-10-27",
 "title": "nightly-labs/openbot"
+},
+"https://entire.com/blog/the-git-forge-for-agent-human-collaboration": {
+"date": "2026-10-28",
+"title": "Entire: a Git forge built for agents and humans"
+},
+"https://github.blog/changelog/2026-10-27-github-copilot-supports-server-to-server-authentication": {
+"date": "2026-10-28",
+"title": "GitHub Copilot SDK: server-to-server auth (preview)"
+},
+"https://developers.cloudflare.com/changelog/post/2026-10-26-computer-durable-javascript": {
+"date": "2026-10-28",
+"title": "Cloudflare Computer: agent code that resumes and waits for approval"
+},
+"https://latent.space/p/offline-coding": {
+"date": "2026-10-28",
+"title": "Coding with an offline agent: OpenCode + Ollama + Qwen3.5 9B"
+},
+"https://techcrunch.com/2026/10/27/opera-introduces-a-new-web-standard-to-let-users-deploy-ai-locally-in-their-browser": {
+"date": "2026-10-28",
+"title": "Opera proposes WebAI, a web standard for local models in the browser"
+},
+"https://the-decoder.com/openais-ted-sanders-shares-a-rule-of-thumb-for-picking-the-right-gpt-model": {
+"date": "2026-10-28",
+"title": "OpenAI's rule of thumb for choosing between GPT-6.1 models"
+},
+"https://latent.space/p/opus55": {
+"date": "2026-10-28",
+"title": "How Anthropic ships Claude with Claude: Opus 5.5 and managed agents"
+},
+"https://github.com/Orkas-AI/Orkas": {
+"date": "2026-10-28",
+"title": "Orkas-AI/Orkas"
+},
+"https://github.com/google/elephant-goldfish-model": {
+"date": "2026-10-28",
+"title": "google/elephant-goldfish-model"
+},
+"https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash": {
+"date": "2026-10-28",
+"title": "MiniMaxAI/MiniMax-M3.1-Flash"
+},
+"https://huggingface.co/LiquidAI/LFM3-1.7B": {
+"date": "2026-10-28",
+"title": "LiquidAI/LFM3-1.7B"
+},
+"https://huggingface.co/baidu/Unlimited-OCR-2": {
+"date": "2026-10-28",
+"title": "baidu/Unlimited-OCR-2"
+},
+"https://skills.sh/mattpocock/skills/setup-matt-pocock-skills": {
+"date": "2026-10-28",
+"title": "setup-matt-pocock-skills: scaffold config for engineering skills"
 }
 }
