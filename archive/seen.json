@@ -858,5 +858,105 @@
 "https://skills.sh/mattpocock/skills/setup-matt-pocock-skills": {
 "date": "2026-10-28",
 "title": "setup-matt-pocock-skills: scaffold config for engineering skills"
+},
+"https://github.blog/changelog/2026-10-28-route-and-orchestrate-models-with-github-copilot-fusion": {
+"date": "2026-10-29",
+"title": "GitHub Copilot Fusion is GA: one model picker entry that routes and combines models"
+},
+"https://deepmind.google/blog/gemini-4-carbon-our-next-frontier-model": {
+"date": "2026-10-29",
+"title": "Gemini 4 Carbon: Google's new top model, first only for cyber defenders"
+},
+"https://the-decoder.com/google-opens-android-development-to-third-party-ai-agents-and-unveils-new-gemini-apis": {
+"date": "2026-10-29",
+"title": "Android Studio opens to 40+ coding agents, including Claude and Codex"
+},
+"https://github.blog/changelog/2026-10-28-github-intelligence-puts-your-code-context-and-history-to-work": {
+"date": "2026-10-29",
+"title": "GitHub Copilot memory is GA, and 'dreaming' curates it and your skills"
+},
+"https://github.blog/changelog/2026-10-28-github-agentic-workflows-generally-available": {
+"date": "2026-10-29",
+"title": "GitHub Agentic Workflows is GA: write automations in Markdown, run them in Actions"
+},
+"https://github.blog/changelog/2026-10-28-github-copilot-app-universe-releases": {
+"date": "2026-10-29",
+"title": "GitHub Copilot app: Projects, computer use and a security extension"
+},
+"https://github.blog/changelog/2026-10-28-github-copilot-fusion-now-supports-selection-of-local-models": {
+"date": "2026-10-29",
+"title": "Copilot Fusion can now route between local and cloud models"
+},
+"https://github.blog/changelog/2026-10-28-build-shared-workflows-for-your-team-with-copilot-automations": {
+"date": "2026-10-29",
+"title": "Shared Copilot Automations: team workflows that run in the cloud"
+},
+"https://github.blog/changelog/2026-10-28-github-copilot-in-vs-code-universe-releases": {
+"date": "2026-10-29",
+"title": "VS Code: start cloud agents, control your machine's agents from your phone"
+},
+"https://techcrunch.com/2026/10/28/anthropic-just-launched-tools-to-show-companies-what-their-ai-spending-is-buying": {
+"date": "2026-10-29",
+"title": "Anthropic adds spend and impact reports, and pooled budgets, for teams"
+},
+"https://latent.space/p/supabase": {
+"date": "2026-10-29",
+"title": "Supabase for agents: Docker-free local runtime and declarative schemas in Git"
+},
+"https://the-decoder.com/claude-for-legal-now-verifies-sources-automatically-then-hands-the-file-to-a-lawyer": {
+"date": "2026-10-29",
+"title": "Claude for Legal adds artifacts that verify citations before a lawyer reviews"
+},
+"https://the-decoder.com/new-artificial-analysis-index-widens-the-gap-between-open-and-closed-models": {
+"date": "2026-10-29",
+"title": "Artificial Analysis Index v5: open models fall 12 points behind"
+},
+"https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation": {
+"date": "2026-10-29",
+"title": "Google Genie 4: a world model with sound and characters you can talk to"
+},
+"https://simonwillison.net/2026/Oct/28/vibe-game-development": {
+"date": "2026-10-29",
+"title": "Simon Willison: Opus 5.5 makes vibe-coded games actually playable"
+},
+"https://devblogs.microsoft.com/visualstudio/visual-studio-october-update-compare-commits-to-your-code-resolve-conflicts-in-bulk-keep-coding": {
+"date": "2026-10-29",
+"title": "Visual Studio October update: compare a commit to your working tree, bulk conflict fixes"
+},
+"https://github.com/HKUDS/DeepTutor": {
+"date": "2026-10-29",
+"title": "HKUDS/DeepTutor"
+},
+"https://github.com/Leonxlnx/taste-skill": {
+"date": "2026-10-29",
+"title": "Leonxlnx/taste-skill"
+},
+"https://github.com/unclebob/ub-mode": {
+"date": "2026-10-29",
+"title": "unclebob/ub-mode"
+},
+"https://github.com/milind-soni/OpenMausBot": {
+"date": "2026-10-29",
+"title": "milind-soni/OpenMausBot"
+},
+"https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Transcribe-30B-A4B": {
+"date": "2026-10-29",
+"title": "nvidia/NVIDIA-Nemotron-3.5-Transcribe-30B-A4B"
+},
+"https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-4GB": {
+"date": "2026-10-29",
+"title": "nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-4GB"
+},
+"https://huggingface.co/openbmb/MiniCPM-OCR-1.0": {
+"date": "2026-10-29",
+"title": "openbmb/MiniCPM-OCR-1.0"
+},
+"https://huggingface.co/LiquidAI/LFM3-Omni-2B": {
+"date": "2026-10-29",
+"title": "LiquidAI/LFM3-Omni-2B"
+},
+"https://skills.sh/heygen-com/hyperframes/hyperframes-registry": {
+"date": "2026-10-29",
+"title": "hyperframes-registry: ~450 ready-made video blocks for HyperFrames"
 }
 }
