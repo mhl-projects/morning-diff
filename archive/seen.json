@@ -958,5 +958,81 @@
 "https://skills.sh/heygen-com/hyperframes/hyperframes-registry": {
 "date": "2026-10-29",
 "title": "hyperframes-registry: ~450 ready-made video blocks for HyperFrames"
+},
+"https://the-decoder.com/openai-doubles-usage-limits-on-pro-plans-as-competition-with-anthropic-heats-up": {
+"date": "2026-10-30",
+"title": "OpenAI doubles Work and Codex limits on Pro plans"
+},
+"https://the-decoder.com/experts-adopt-ai-agents-random-opinions-and-think-theyre-their-own-anthropic-study-finds": {
+"date": "2026-10-30",
+"title": "Anthropic study: experts adopt an agent's coin-toss opinion as their own"
+},
+"https://simonwillison.net/2026/Oct/29/how-i-built-the-most-ai-pilled-company-in-the-world": {
+"date": "2026-10-30",
+"title": "Spawn: a game shipped hourly by a swarm of Fable-powered agents"
+},
+"https://www.theverge.com/ai-artificial-intelligence/1022519/google-gemini-file-editing-documents-pdfs": {
+"date": "2026-10-30",
+"title": "Gemini now edits files it generates, in the chat"
+},
+"https://vercel.com/blog/introducing-vercel-ci": {
+"date": "2026-10-30",
+"title": "Vercel CI (beta): runs only the tasks your change affects"
+},
+"https://github.blog/changelog/2026-10-28-copilot-automations-now-learn-from-outcomes-and-self-improve": {
+"date": "2026-10-30",
+"title": "Copilot Automations can now learn from outcomes and propose their own fixes"
+},
+"https://www.engadget.com/2300235/openai-now-lets-you-text-your-dot-agent": {
+"date": "2026-10-30",
+"title": "OpenAI Dots can now be texted over iMessage or RCS (US Pro preview)"
+},
+"https://huggingface.co/blog/ibm-granite/granite-switch-4-1-1": {
+"date": "2026-10-30",
+"title": "IBM Granite Switch 4.1.1: swap adapters instead of retraining"
+},
+"https://techcrunch.com/2026/10/29/granola-crunches-up-a-dictation-feature-to-compete-with-wispr": {
+"date": "2026-10-30",
+"title": "Granola adds free, unlimited dictation on Mac"
+},
+"https://divagr.com/blog/qwenputer": {
+"date": "2026-10-30",
+"title": "Qwenputer: a RISC-V CPU compiled into Qwen3.5 4B's weights"
+},
+"https://github.com/Donchitos/Claude-Code-Game-Studios": {
+"date": "2026-10-30",
+"title": "Donchitos/Claude-Code-Game-Studios"
+},
+"https://github.com/pingdotgg/t3code": {
+"date": "2026-10-30",
+"title": "pingdotgg/t3code"
+},
+"https://github.com/JimLiu/baoyu-design": {
+"date": "2026-10-30",
+"title": "JimLiu/baoyu-design"
+},
+"https://github.com/skyzh/tiny-llm": {
+"date": "2026-10-30",
+"title": "skyzh/tiny-llm"
+},
+"https://huggingface.co/mistralai/Mistral-Large-4-1T-A52B": {
+"date": "2026-10-30",
+"title": "mistralai/Mistral-Large-4-1T-A52B"
+},
+"https://huggingface.co/LiquidAI/LFM3-VL-2B": {
+"date": "2026-10-30",
+"title": "LiquidAI/LFM3-VL-2B"
+},
+"https://huggingface.co/Diffuspace/Clover-35B-A3B-Preview": {
+"date": "2026-10-30",
+"title": "Diffuspace/Clover-35B-A3B-Preview"
+},
+"https://skills.sh/mattpocock/skills/wayfinder": {
+"date": "2026-10-30",
+"title": "wayfinder: chart a foggy idea as a map of decision tickets"
+},
+"https://skills.sh/mattpocock/skills/research": {
+"date": "2026-10-30",
+"title": "research: hand a question to a background agent"
 }
 }
