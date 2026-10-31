@@ -1034,5 +1034,65 @@
 "https://skills.sh/mattpocock/skills/research": {
 "date": "2026-10-30",
 "title": "research: hand a question to a background agent"
+},
+"https://arstechnica.com/security/2026/10/anthropic-vs-code-extension-on-cursor-backdoored-for-nearly-12-hours": {
+"date": "2026-10-31",
+"title": "Claude extension on Cursor's marketplace was backdoored for hours"
+},
+"https://epoch.ai/publications/open-weight-models-patch-gap": {
+"date": "2026-10-31",
+"title": "GLM 5.3 turns published security fixes into Firefox exploits for about $1,000"
+},
+"https://www.theverge.com/tech/1023763/openai-google-microsoft-ai-scraping-standard-opt-out": {
+"date": "2026-10-31",
+"title": "OpenAI, Google, Microsoft and Anthropic will honor one AI-training opt-out in robots.txt"
+},
+"https://factory.com/news/frontier-harness": {
+"date": "2026-10-31",
+"title": "Droid 1.0: a harness built on programmatic tool calling beats others on Terminal-Bench"
+},
+"https://engineering.fb.com/2026/10/29/security/catching-bugs-before-they-land-jittestings-human-on-the-loop-approach-at-full-scale": {
+"date": "2026-10-31",
+"title": "Meta's Catching JiTTests: LLM-generated tests that are built to fail on risky diffs"
+},
+"https://the-decoder.com/openai-sets-new-behavioral-guidelines-for-ai-models-that-have-already-proven-hard-to-control": {
+"date": "2026-10-31",
+"title": "OpenAI restructures its Model Spec around five core values"
+},
+"https://www.raindrop.ai/blog/agent-swarm-leadership": {
+"date": "2026-10-31",
+"title": "Raindrop: in 2,160 agent teams only 5% produced a real leader"
+},
+"https://www.figma.com/blog/training-a-figma-fluent-editing-model": {
+"date": "2026-10-31",
+"title": "Figma explains how it trains a design-editing model with RL"
+},
+"https://github.com/vercel-labs/agent-desktop": {
+"date": "2026-10-31",
+"title": "vercel-labs/agent-desktop"
+},
+"https://github.com/thedotmack/claude-mem": {
+"date": "2026-10-31",
+"title": "thedotmack/claude-mem"
+},
+"https://github.com/microsoft/TokenEconomizer": {
+"date": "2026-10-31",
+"title": "microsoft/TokenEconomizer"
+},
+"https://github.com/heydamir/unslop": {
+"date": "2026-10-31",
+"title": "heydamir/unslop"
+},
+"https://github.com/lightpanda-io/browser": {
+"date": "2026-10-31",
+"title": "lightpanda-io/browser"
+},
+"https://huggingface.co/LiquidAI/LFM3-Audio-2B": {
+"date": "2026-10-31",
+"title": "LiquidAI/LFM3-Audio-2B"
+},
+"https://skills.sh/remotion-dev/skills/remotion-markup": {
+"date": "2026-10-31",
+"title": "remotion-markup: best practices for Remotion video markup"
 }
 }
