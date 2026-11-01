@@ -1094,5 +1094,49 @@
 "https://skills.sh/remotion-dev/skills/remotion-markup": {
 "date": "2026-10-31",
 "title": "remotion-markup: best practices for Remotion video markup"
+},
+"https://thehackernews.com/2026/10/a-shared-chatgpt-link-could-run.html": {
+"date": "2026-11-01",
+"title": "A shared ChatGPT link could run attacker code in your session"
+},
+"https://the-decoder.com/anthropics-watermark-rollout-leaves-a-loophole-on-two-older-claude-models": {
+"date": "2026-11-01",
+"title": "Anthropic adds text watermark to four more Claude models"
+},
+"https://latent.space/p/arca": {
+"date": "2026-11-01",
+"title": "Agents that prompt people: running agent work across days at Arca"
+},
+"https://github.com/deepseek-ai/dsh-superagent-prototype": {
+"date": "2026-11-01",
+"title": "deepseek-ai/dsh-superagent-prototype"
+},
+"https://github.com/patch-gg/pixelfx": {
+"date": "2026-11-01",
+"title": "patch-gg/pixelfx"
+},
+"https://github.com/anomalyco/hex": {
+"date": "2026-11-01",
+"title": "anomalyco/hex"
+},
+"https://huggingface.co/Pika-Labs/Pika-H3-Flex": {
+"date": "2026-11-01",
+"title": "Pika-Labs/Pika-H3-Flex"
+},
+"https://huggingface.co/LiquidAI/LFM3-1.7B-GGUF": {
+"date": "2026-11-01",
+"title": "LiquidAI/LFM3-1.7B-GGUF"
+},
+"https://huggingface.co/Edge0/Audio8-TTS-Realistic-0.6b": {
+"date": "2026-11-01",
+"title": "Edge0/Audio8-TTS-Realistic-0.6b"
+},
+"https://skills.sh/uizze/uizze/image-to-ui": {
+"date": "2026-11-01",
+"title": "image-to-ui: recreate a screenshot as 1:1 UI code"
+},
+"https://www.youtube.com/watch?v=A2DeaJXO6Fg": {
+"date": "2026-11-01",
+"title": "How the Most AI Pilled Company in the World Works"
 }
 }
