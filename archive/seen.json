@@ -1170,5 +1170,45 @@
 "https://huggingface.co/xiaomi-research/Xiaomi-OCR-0": {
 "date": "2026-11-02",
 "title": "xiaomi-research/Xiaomi-OCR-0"
+},
+"https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2": {
+"date": "2026-11-03",
+"title": "GitHub Actions will block pull_request_target in public repos from Dec 2"
+},
+"https://arstechnica.com/ai/2026/11/claudes-new-rules-against-game-cloning-wont-stop-the-ai-copying-boom": {
+"date": "2026-11-03",
+"title": "Claude Code prompt now steers Opus 5.5 away from cloning specific games"
+},
+"https://www.lesswrong.com/posts/dbStc8ZFESqfihwAd/lessons-from-red-teaming-auto-review-openai-s-blocking-1": {
+"date": "2026-11-03",
+"title": "Red team found 11 ways a misaligned agent could slip past Codex's Auto-review"
+},
+"https://rikiyat.github.io/blog/weight-space-programming": {
+"date": "2026-11-03",
+"title": "MIT: GPT-6 Astra fixed Qwen3.5-0.8B by editing 0.016% of its weights"
+},
+"https://dejan.ai/blog/latent-skills": {
+"date": "2026-11-03",
+"title": "Training 1,000 of Gemma 3 270M's weights unlocked skills prompts could not"
+},
+"https://github.com/D4Vinci/Scrapling": {
+"date": "2026-11-03",
+"title": "D4Vinci/Scrapling"
+},
+"https://github.com/github/spec-kit": {
+"date": "2026-11-03",
+"title": "github/spec-kit"
+},
+"https://github.com/JustVugg/colibri": {
+"date": "2026-11-03",
+"title": "JustVugg/colibri"
+},
+"https://huggingface.co/sensenova/SenseNova-Loop-9B-Preview": {
+"date": "2026-11-03",
+"title": "sensenova/SenseNova-Loop-9B-Preview"
+},
+"https://www.youtube.com/watch?v=y5TEATUDDfc": {
+"date": "2026-11-03",
+"title": "Anthropic can't stop winning"
 }
 }
