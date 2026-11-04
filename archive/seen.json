@@ -1210,5 +1210,65 @@
 "https://www.youtube.com/watch?v=y5TEATUDDfc": {
 "date": "2026-11-03",
 "title": "Anthropic can't stop winning"
+},
+"https://claude.com/resources/articles/message-threads": {
+"date": "2026-11-04",
+"title": "Claude Message Threads: send the conversation once, cut latency 35%"
+},
+"https://www.theregister.com/ai-and-ml/2026/11/03/british-fintech-revolut-slashes-ai-coding-costs-10x-by-cutting-out-claude-and-going-self-hosted/5307345": {
+"date": "2026-11-04",
+"title": "Revolut cut AI coding inference costs ~90% by self-hosting GLM"
+},
+"https://githubnext.com/posts/enclaves": {
+"date": "2026-11-04",
+"title": "GitHub enclaves: stop agents leaking private repo data into public ones"
+},
+"https://framer.com/blog/harness-2": {
+"date": "2026-11-04",
+"title": "Framer Harness 2: the agent writes code that runs while it streams"
+},
+"https://commandline.microsoft.com/how-we-built-copilot-cowork-python-to-rust-migration": {
+"date": "2026-11-04",
+"title": "How Microsoft built Copilot Cowork with agents, then moved Python to Rust live"
+},
+"https://huggingface.co/blog/ibm-research/palette-deck-building": {
+"date": "2026-11-04",
+"title": "Palette: IBM fine-tunes a 20B open model to build on-brand slide decks"
+},
+"https://github.blog/changelog/2026-11-03-github-copilot-is-now-available-in-jetbrains-air": {
+"date": "2026-11-04",
+"title": "GitHub Copilot now works inside JetBrains Air"
+},
+"https://github.blog/changelog/2026-11-03-dependabot-version-updates-support-agent-package-manager": {
+"date": "2026-11-04",
+"title": "Dependabot can now update Agent Package Manager (APM) skills and prompts"
+},
+"https://techcrunch.com/2026/11/03/anthropic-is-working-on-a-system-to-prove-ai-models-identity": {
+"date": "2026-11-04",
+"title": "Anthropic is building FlashProve to prove which model produced an output"
+},
+"https://github.com/OpenSelena/omniget": {
+"date": "2026-11-04",
+"title": "OpenSelena/omniget"
+},
+"https://github.com/NVIDIA/auto-ontology": {
+"date": "2026-11-04",
+"title": "NVIDIA/auto-ontology"
+},
+"https://github.com/mattpocock/skills": {
+"date": "2026-11-04",
+"title": "mattpocock/skills"
+},
+"https://github.com/floci-io/floci": {
+"date": "2026-11-04",
+"title": "floci-io/floci"
+},
+"https://github.com/max-sixty/worktrunk": {
+"date": "2026-11-04",
+"title": "max-sixty/worktrunk"
+},
+"https://skills.sh/heygen-com/hyperframes/media-use": {
+"date": "2026-11-04",
+"title": "media-use: find or make media for HyperFrames videos"
 }
 }
