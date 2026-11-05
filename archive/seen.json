@@ -1270,5 +1270,81 @@
 "https://skills.sh/heygen-com/hyperframes/media-use": {
 "date": "2026-11-04",
 "title": "media-use: find or make media for HyperFrames videos"
+},
+"https://the-decoder.com/anthropics-text-watermark-is-easy-to-bypass-on-several-older-claude-models": {
+"date": "2026-11-05",
+"title": "Anthropic extends text watermarking to more Claude models from Nov 16"
+},
+"https://www.vals.ai/blogs/reasoning-effort": {
+"date": "2026-11-05",
+"title": "Vals AI: lower reasoning effort cuts cost far more than score"
+},
+"https://www.theverge.com/ai-artificial-intelligence/1026474/openai-chatgpt-animated-gifs-images-2-6": {
+"date": "2026-11-05",
+"title": "ChatGPT Images 2.6: GIFs from prompts or photos, faster generation"
+},
+"https://developers.google.com/notebook/docs": {
+"date": "2026-11-05",
+"title": "Gemini Notebook API and MCP server in early public preview"
+},
+"https://github.blog/changelog/2026-11-04-github-copilot-is-now-available-in-xcodes-coding-assistant": {
+"date": "2026-11-05",
+"title": "GitHub Copilot now works inside Xcode's built-in coding assistant"
+},
+"https://github.blog/changelog/2026-11-04-codeql-2-27-4-improves-accuracy-and-query-metadata": {
+"date": "2026-11-05",
+"title": "CodeQL 2.27.4: fewer false positives, stricter pack publishing checks"
+},
+"https://x.com/josharosen/status/2117687393213932003": {
+"date": "2026-11-05",
+"title": "Agent state machines: deterministic scaffolding for agents"
+},
+"https://huggingface.co/blog/Dharma-AI/dharma-field-extractor": {
+"date": "2026-11-05",
+"title": "Dharma Field Extractor: 2B model that turns documents into JSON fields"
+},
+"https://developer.apple.com/news/?id=gdk2umrf": {
+"date": "2026-11-05",
+"title": "Apple opens Siri AI to all developers via App Intents (iOS 27.3 beta)"
+},
+"https://www.primeintellect.ai/blog/auditing-public-evaluations": {
+"date": "2026-11-05",
+"title": "Prime Intellect audits public LLM evals and open-sources fixes"
+},
+"https://www.anthropic.com/research/provable-inference": {
+"date": "2026-11-05",
+"title": "Anthropic: progress on cryptographic proofs of which model answered"
+},
+"https://github.com/KKKKhazix/agent-autoloop": {
+"date": "2026-11-05",
+"title": "KKKKhazix/agent-autoloop"
+},
+"https://github.com/JuneYaooo/rea-video": {
+"date": "2026-11-05",
+"title": "JuneYaooo/rea-video"
+},
+"https://github.com/FareedKhan-dev/kimi-k3-in-c": {
+"date": "2026-11-05",
+"title": "FareedKhan-dev/kimi-k3-in-c"
+},
+"https://huggingface.co/moonshotai/Kimi-K3.1-Pro": {
+"date": "2026-11-05",
+"title": "moonshotai/Kimi-K3.1-Pro"
+},
+"https://huggingface.co/microsoft/Mage-VL-Cowork": {
+"date": "2026-11-05",
+"title": "microsoft/Mage-VL-Cowork"
+},
+"https://www.youtube.com/watch?v=9ZxCOHkfn_8": {
+"date": "2026-11-05",
+"title": "GPT-Image-2.6: Faster image generation with Flare and Sunburst"
+},
+"https://skills.sh/designed-by-ai/skills/design-mobile-apps": {
+"date": "2026-11-05",
+"title": "design-mobile-apps: design screens with Sleek and implement in React Native or HTML"
+},
+"https://skills.sh/microsoft/azure-skills/azure-compliance": {
+"date": "2026-11-05",
+"title": "azure-compliance: Azure security audits with azqr and Key Vault expiry checks"
 }
 }
