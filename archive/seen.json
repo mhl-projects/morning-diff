@@ -1346,5 +1346,57 @@
 "https://skills.sh/microsoft/azure-skills/azure-compliance": {
 "date": "2026-11-05",
 "title": "azure-compliance: Azure security audits with azqr and Key Vault expiry checks"
+},
+"https://docs.claude.com/en/release-notes/claude-apps": {
+"date": "2026-11-06",
+"title": "Claude: Personal Finance beta and new Enterprise security controls"
+},
+"https://www.theverge.com/ai-artificial-intelligence/1028302/perplexity-teammates-ai-agents-work": {
+"date": "2026-11-06",
+"title": "Perplexity launches Teammates: always-on agents for work"
+},
+"https://the-decoder.com/openais-gpt-6-cyber-can-both-break-into-systems-and-propose-how-to-fix-them": {
+"date": "2026-11-06",
+"title": "OpenAI GPT-6 Cyber: finds vulnerabilities, writes exploits and patches"
+},
+"https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash": {
+"date": "2026-11-06",
+"title": "Gemini Omni 1.2 Flash: 15-second clips, conversational editing, 30% cheaper"
+},
+"https://cognition.com/blog/swe-2-flash": {
+"date": "2026-11-06",
+"title": "Cognition SWE-2 Flash: cheap, fast coding model in Devin"
+},
+"https://the-decoder.com/tencent-releases-hy4-with-vision-and-computer-use-claims-second-place-among-chinese-ai-models": {
+"date": "2026-11-06",
+"title": "Tencent Hy4: vision and computer use, weights come later"
+},
+"https://the-decoder.com/baidu-releases-ernie-5-5-flash-base-with-280-billion-parameters-as-an-open-source-foundation-model": {
+"date": "2026-11-06",
+"title": "Baidu ERNIE 5.5 Flash Base: open 280B MoE foundation model"
+},
+"https://github.blog/changelog/2026-11-05-new-pull-request-overview-page-in-public-preview": {
+"date": "2026-11-06",
+"title": "GitHub pull request Overview page (public preview)"
+},
+"https://github.com/microsoft/VibeVoice": {
+"date": "2026-11-06",
+"title": "microsoft/VibeVoice"
+},
+"https://github.com/GCWing/OpenBitFun": {
+"date": "2026-11-06",
+"title": "GCWing/OpenBitFun"
+},
+"https://github.com/aldegad/sprite-gen": {
+"date": "2026-11-06",
+"title": "aldegad/sprite-gen"
+},
+"https://huggingface.co/ricursiveAI/Ripple-65B-Preview": {
+"date": "2026-11-06",
+"title": "ricursiveAI/Ripple-65B Preview"
+},
+"https://skills.sh/uizze/uizze/uizze-ui": {
+"date": "2026-11-06",
+"title": "uizze-ui: build and improve UI/UX with design-system references"
 }
 }
