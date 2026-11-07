@@ -1398,5 +1398,49 @@
 "https://skills.sh/uizze/uizze/uizze-ui": {
 "date": "2026-11-06",
 "title": "uizze-ui: build and improve UI/UX with design-system references"
+},
+"https://thinkingmachines.ai/news/inkling-2-small": {
+"date": "2026-11-07",
+"title": "Inkling 2 Small: 594B MoE from Thinking Machines, Apache weights next week"
+},
+"https://x.com/cursor_ai/status/2118458629091426304": {
+"date": "2026-11-07",
+"title": "Cursor can now build live apps and deploy them to a shareable link"
+},
+"https://devin.ai/blog/devin-review-2": {
+"date": "2026-11-07",
+"title": "Devin Review 2.0: PR reviews now cost $0.25-$0.75"
+},
+"https://github.blog/changelog/2026-11-06-copilot-code-review-api-management-and-review-overview-updates": {
+"date": "2026-11-07",
+"title": "Copilot code review settings now manageable through REST and GraphQL APIs"
+},
+"https://github.blog/changelog/2026-11-06-github-copilot-in-slack-and-teams-is-generally-available": {
+"date": "2026-11-07",
+"title": "@GitHub in Slack and Teams is generally available"
+},
+"https://techcrunch.com/2026/11/06/hundreds-of-artex-ai-hacking-tools-found-publicly-exposed-to-the-web": {
+"date": "2026-11-07",
+"title": "Hundreds of exposed Artex AI pentest servers found, no password required"
+},
+"https://techcrunch.com/2026/11/06/underdog-shows-off-a-32mb-speech-model-in-new-demo": {
+"date": "2026-11-07",
+"title": "Underdog's Woof: a 31M-parameter, 32 MB speech model that runs in the browser"
+},
+"https://github.com/anomalyco/rune": {
+"date": "2026-11-07",
+"title": "anomalyco/rune"
+},
+"https://github.com/vercel-labs/json-render": {
+"date": "2026-11-07",
+"title": "vercel-labs/json-render"
+},
+"https://huggingface.co/ccore/Qwen3.5-4B-GLB-3D-Coder": {
+"date": "2026-11-07",
+"title": "ccore/Qwen3.5-4B-GLB-3D-Coder"
+},
+"https://huggingface.co/speridlabs/idol": {
+"date": "2026-11-07",
+"title": "speridlabs/idol"
 }
 }
