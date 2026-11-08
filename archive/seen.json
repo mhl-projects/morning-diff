@@ -1442,5 +1442,41 @@
 "https://huggingface.co/speridlabs/idol": {
 "date": "2026-11-07",
 "title": "speridlabs/idol"
+},
+"https://the-decoder.com/ai-auditors-catch-most-agent-misbehavior-but-flood-reviewers-with-false-alarms-new-study-finds": {
+"date": "2026-11-08",
+"title": "AI auditors catch most agent misbehavior but flood reviewers with false alarms"
+},
+"https://the-decoder.com/the-gap-between-open-and-closed-ai-models-in-cyber-capabilities-keeps-shrinking": {
+"date": "2026-11-08",
+"title": "Open-weight models close in on closed ones at autonomous network attacks"
+},
+"https://the-decoder.com/nine-ai-agents-tried-autonomous-research-on-open-questions-from-us-national-labs-and-none-passed-the-experts-bar": {
+"date": "2026-11-08",
+"title": "Nine AI agents tried open research problems from US national labs; none met the experts' bar"
+},
+"https://github.com/meta/astryx": {
+"date": "2026-11-08",
+"title": "meta/astryx"
+},
+"https://github.com/vercel-labs/agent-browser": {
+"date": "2026-11-08",
+"title": "vercel-labs/agent-browser"
+},
+"https://github.com/rohitg00/ai-engineering-from-scratch": {
+"date": "2026-11-08",
+"title": "rohitg00/ai-engineering-from-scratch"
+},
+"https://github.com/OpenBMB/VoxCPM": {
+"date": "2026-11-08",
+"title": "OpenBMB/VoxCPM"
+},
+"https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF": {
+"date": "2026-11-08",
+"title": "unsloth/Qwen3.8-Flash-Next-GGUF"
+},
+"https://skills.sh/remotion-dev/skills/remotion-render": {
+"date": "2026-11-08",
+"title": "remotion-render: export Remotion videos from an agent"
 }
 }
