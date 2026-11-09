@@ -1478,5 +1478,37 @@
 "https://skills.sh/remotion-dev/skills/remotion-render": {
 "date": "2026-11-08",
 "title": "remotion-render: export Remotion videos from an agent"
+},
+"https://the-decoder.com/andrej-karpathy-built-a-curated-video-platform-in-a-weekend-using-claude-and-20-years-of-hacker-news": {
+"date": "2026-11-09",
+"title": "Karpathy built a curated video platform in a weekend with Claude"
+},
+"https://the-decoder.com/ai-coding-agents-still-need-human-cleanup-on-nearly-three-out-of-four-tasks-in-a-real-world-test": {
+"date": "2026-11-09",
+"title": "Coding agents fully solve only 26% of real change requests"
+},
+"https://latent.space/p/cs146s": {
+"date": "2026-11-09",
+"title": "What Stanford teaches software engineers in the age of coding agents"
+},
+"https://github.com/anthropics/skills": {
+"date": "2026-11-09",
+"title": "anthropics/skills"
+},
+"https://github.com/h4ckf0r0day/obscura": {
+"date": "2026-11-09",
+"title": "h4ckf0r0day/obscura"
+},
+"https://github.com/anthropics/claude-quickstarts": {
+"date": "2026-11-09",
+"title": "anthropics/claude-quickstarts"
+},
+"https://huggingface.co/webAI-Official/TwIL-8B": {
+"date": "2026-11-09",
+"title": "webAI-Official/TwIL-8B"
+},
+"https://skills.sh/remotion-dev/skills/remotion-studio": {
+"date": "2026-11-09",
+"title": "remotion-studio: preview a Remotion video while the agent builds it"
 }
 }
