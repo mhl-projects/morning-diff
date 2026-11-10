@@ -1510,5 +1510,73 @@
 "https://skills.sh/remotion-dev/skills/remotion-studio": {
 "date": "2026-11-09",
 "title": "remotion-studio: preview a Remotion video while the agent builds it"
+},
+"https://www.anthropic.com/claude-fable-and-mythos-5-2": {
+"date": "2026-11-10",
+"title": "Claude Fable 5.2 and Mythos 5.2: faster, cheaper at $8/$40"
+},
+"https://github.blog/changelog/2026-11-09-claude-fable-5-2-in-github-copilot": {
+"date": "2026-11-10",
+"title": "Claude Fable 5.2 in GitHub Copilot: opt-in, data retention required"
+},
+"https://arstechnica.com/ai/2026/11/claude-code-settings-files-expose-thousands-of-secrets-on-github": {
+"date": "2026-11-10",
+"title": "Claude Code 'don't ask again' rules leak secrets into public repos"
+},
+"https://the-decoder.com/meta-launches-muse-ember-a-small-ai-model-built-for-the-repetitive-work-agents-actually-do": {
+"date": "2026-11-10",
+"title": "Meta Muse Ember: $0.10/$0.50 small model for agent grunt work"
+},
+"https://openrouter.ai/blog/announcements/auto-and-auto-code-routers": {
+"date": "2026-11-10",
+"title": "OpenRouter Auto and Auto Code routers: pick the model per request"
+},
+"https://techcrunch.com/2026/11/09/automattic-debuts-a-platform-to-deploy-vibe-coding-apps-amid-a-changing-internet": {
+"date": "2026-11-10",
+"title": "Spacefast: Automattic's hosting for vibe-coded sites and apps"
+},
+"https://simonwillison.net/2026/Nov/9/mysterious-beeps": {
+"date": "2026-11-10",
+"title": "Beep Locator: Claude Code built a multi-device sound triangulator"
+},
+"https://simonwillison.net/2026/Nov/9/details-summary": {
+"date": "2026-11-10",
+"title": "Hide agent-written PR descriptions behind <details><summary>"
+},
+"https://ace.githubnext.com": {
+"date": "2026-11-10",
+"title": "Ace: shared agent channels for your team over Tailscale"
+},
+"https://github.blog/changelog/2026-11-09-secret-scanning-detects-secrets-in-github-actions-workflow-logs": {
+"date": "2026-11-10",
+"title": "GitHub secret scanning now covers Actions workflow logs"
+},
+"https://github.com/expo/exact": {
+"date": "2026-11-10",
+"title": "expo/exact"
+},
+"https://github.com/janestreet/agent_skills": {
+"date": "2026-11-10",
+"title": "janestreet/agent_skills"
+},
+"https://github.com/homeassistant-ai/ha-mcp": {
+"date": "2026-11-10",
+"title": "homeassistant-ai/ha-mcp"
+},
+"https://github.com/shadcn/improve": {
+"date": "2026-11-10",
+"title": "shadcn/improve"
+},
+"https://github.com/garrytan/gbrain": {
+"date": "2026-11-10",
+"title": "garrytan/gbrain"
+},
+"https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16": {
+"date": "2026-11-10",
+"title": "tencent/Qwen3.8-27B-DSpine-b16"
+},
+"https://huggingface.co/NousResearch/Arete-27B": {
+"date": "2026-11-10",
+"title": "NousResearch/Arete-27B"
 }
 }
