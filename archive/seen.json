@@ -1578,5 +1578,65 @@
 "https://huggingface.co/NousResearch/Arete-27B": {
 "date": "2026-11-10",
 "title": "NousResearch/Arete-27B"
+},
+"https://deepmind.google/blog/gemini-4-carbon-is-now-available": {
+"date": "2026-11-11",
+"title": "Gemini 4 Carbon is out: $2/$10 per million tokens, /swarm in Antigravity"
+},
+"https://github.blog/changelog/2026-11-10-gemini-4-carbon-in-github-copilot": {
+"date": "2026-11-11",
+"title": "Gemini 4 Carbon now in GitHub Copilot"
+},
+"https://www.theverge.com/ai-artificial-intelligence/1030709/anthropic-has-its-own-ai-powered-office-suite-now": {
+"date": "2026-11-11",
+"title": "Claude gets Sheets, Whiteboards, Meetings and interactive connectors"
+},
+"https://arstechnica.com/security/2026/11/grok-build-coding-agent-leaks-oodles-of-confidential-info-some-belonging-to-spacexsi": {
+"date": "2026-11-11",
+"title": "Grok Build leaks 35,000 shared apps, including SpaceXSI's own"
+},
+"https://www.bleepingcomputer.com/news/apple/railway-breach-leads-to-740-000-in-fraudulent-ai-charges": {
+"date": "2026-11-11",
+"title": "Railway breach: stolen AI keys cost about $740K in fraudulent usage"
+},
+"https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories": {
+"date": "2026-11-11",
+"title": "Dependabot alerts will switch off on repos inactive for a year from Dec 8"
+},
+"https://techcrunch.com/2026/11/10/adobe-adds-more-ai-to-its-products-and-launches-an-mcp": {
+"date": "2026-11-11",
+"title": "Adobe ships a local MCP so Claude, ChatGPT and Gemini can drive Creative Cloud"
+},
+"https://latent.space/p/resend": {
+"date": "2026-11-11",
+"title": "Why agents keep picking Resend, and how to be the default they recommend"
+},
+"https://github.com/Edge0-AI/Edge0": {
+"date": "2026-11-11",
+"title": "Edge0-AI/Edge0"
+},
+"https://github.com/GoogleChrome/modern-web-guidance": {
+"date": "2026-11-11",
+"title": "GoogleChrome/modern-web-guidance"
+},
+"https://huggingface.co/MiniMaxAI/MiniMax-H3-Image": {
+"date": "2026-11-11",
+"title": "MiniMaxAI/MiniMax-H3-Image"
+},
+"https://www.youtube.com/watch?v=QRm7VNMnurA": {
+"date": "2026-11-11",
+"title": "Sites and the Next Generation of Web Apps | DevDay 2026"
+},
+"https://www.youtube.com/watch?v=U1IVZy9FhVQ": {
+"date": "2026-11-11",
+"title": "What Will You Build With Coding Agents That Don’t Quit?"
+},
+"https://www.youtube.com/watch?v=gUQN7juxvVI": {
+"date": "2026-11-11",
+"title": "Codex Security: From Vulnerability to Verified Fix"
+},
+"https://www.youtube.com/watch?v=ZTxzWJeGFAA": {
+"date": "2026-11-11",
+"title": "How CodeRabbit uses OpenAI to review AI-generated code"
 }
 }
