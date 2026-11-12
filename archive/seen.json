@@ -1638,5 +1638,53 @@
 "https://www.youtube.com/watch?v=ZTxzWJeGFAA": {
 "date": "2026-11-11",
 "title": "How CodeRabbit uses OpenAI to review AI-generated code"
+},
+"https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api": {
+"date": "2026-11-12",
+"title": "Gemini Decisions API: score up to 1,000 questions in one 150-250 ms call"
+},
+"https://the-decoder.com/google-deepminds-alphaproof-code-verified-signals-cryptographic-core-in-four-weeks-instead-of-years": {
+"date": "2026-11-12",
+"title": "AlphaProof Code verified Signal's cryptographic core in four weeks"
+},
+"https://microsoft.ai/news/mai-transcribe-2-is-the-fastest-most-accurate-and-cheapest-speech-recognition-model-in-the-world": {
+"date": "2026-11-12",
+"title": "MAI-Transcribe-2: Microsoft's speech model adds diarization and 60 languages"
+},
+"https://pytorch.org/blog/executorch-webgpu-pytorch-models-on-the-gpu-in-the-browser": {
+"date": "2026-11-12",
+"title": "ExecuTorch WebGPU runs PyTorch models in the browser, no conversion"
+},
+"https://huggingface.co/blog/qvac/botpsy": {
+"date": "2026-11-12",
+"title": "BotPsy: a 0.8B model for on-device function calling and agents"
+},
+"https://latent.space/p/codex-work": {
+"date": "2026-11-12",
+"title": "OpenAI's Codex workshop: cloud environments, personal agents, voice"
+},
+"https://github.com/aws/aws-emulator": {
+"date": "2026-11-12",
+"title": "aws/aws-emulator"
+},
+"https://github.com/openai/codex-security": {
+"date": "2026-11-12",
+"title": "openai/codex-security"
+},
+"https://github.com/addyosmani/agent-skills": {
+"date": "2026-11-12",
+"title": "addyosmani/agent-skills"
+},
+"https://huggingface.co/unsloth/Qwen3.8-27B-GGUF": {
+"date": "2026-11-12",
+"title": "unsloth/Qwen3.8-27B-GGUF"
+},
+"https://huggingface.co/Zyphra/ZONOS3-Mini": {
+"date": "2026-11-12",
+"title": "Zyphra/ZONOS3-Mini"
+},
+"https://huggingface.co/VideoRebirthAI/hyperflow-h3-flash": {
+"date": "2026-11-12",
+"title": "VideoRebirthAI/hyperflow-h3-flash"
 }
 }
