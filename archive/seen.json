@@ -1686,5 +1686,65 @@
 "https://huggingface.co/VideoRebirthAI/hyperflow-h3-flash": {
 "date": "2026-11-12",
 "title": "VideoRebirthAI/hyperflow-h3-flash"
+},
+"https://the-decoder.com/googles-gemini-4-hydrogen-outscores-the-bigger-argon-just-four-weeks-after-its-launch": {
+"date": "2026-11-13",
+"title": "Gemini 4 Hydrogen: fast agentic model at $1.50/$7.50, beats Argon"
+},
+"https://openrouter.ai/blog/insights/mcp-vs-cli-vs-skills": {
+"date": "2026-11-13",
+"title": "MCP vs CLI vs skills: what each costs in context tokens"
+},
+"https://developers.googleblog.com/a2ui-10-build-delightful-fast-reliable-agentic-experiences": {
+"date": "2026-11-13",
+"title": "A2UI 1.0: open protocol for agents that answer with interactive UI"
+},
+"https://github.com/openai/mcp-extensions": {
+"date": "2026-11-13",
+"title": "OpenAI open-sources MCP Extensions for ChatGPT-native plugins"
+},
+"https://techcrunch.com/2026/11/12/cyberattack-on-fireworks-ai-allowed-hackers-to-access-notion-customers-chat-transcripts": {
+"date": "2026-11-13",
+"title": "Fireworks AI breach exposed Notion AI chat transcripts"
+},
+"https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite": {
+"date": "2026-11-13",
+"title": "IBM LLMON: markup against prompt injection, in Granite 4.1 3B and 8B"
+},
+"https://the-decoder.com/elevenlabs-scribe-v3-live-uses-conversational-context-to-stop-voice-agents-from-cutting-off-callers-mid-sentence": {
+"date": "2026-11-13",
+"title": "ElevenLabs Scribe v3 and v3 Live: transcription with EU servers"
+},
+"https://github.blog/changelog/2026-11-12-secret-scanning-adds-a-detector-for-cloudflare": {
+"date": "2026-11-13",
+"title": "Secret scanning now detects Cloudflare service tokens"
+},
+"https://github.com/vercel-labs/ui": {
+"date": "2026-11-13",
+"title": "vercel-labs/ui"
+},
+"https://github.com/wici-ai/inferssd": {
+"date": "2026-11-13",
+"title": "wici-ai/inferssd"
+},
+"https://github.com/CopilotKit/OpenBot": {
+"date": "2026-11-13",
+"title": "CopilotKit/OpenBot"
+},
+"https://github.com/QwenLM/qwen-code": {
+"date": "2026-11-13",
+"title": "QwenLM/qwen-code"
+},
+"https://github.com/dream-num/univer": {
+"date": "2026-11-13",
+"title": "dream-num/univer"
+},
+"https://huggingface.co/Cactus-Compute/mirage": {
+"date": "2026-11-13",
+"title": "Cactus-Compute/mirage"
+},
+"https://www.youtube.com/watch?v=8GtOKXm1meU": {
+"date": "2026-11-13",
+"title": "Ghostty's creator made an Agent GUI & it's quite good!"
 }
 }
