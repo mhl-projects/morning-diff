@@ -1746,5 +1746,65 @@
 "https://www.youtube.com/watch?v=8GtOKXm1meU": {
 "date": "2026-11-13",
 "title": "Ghostty's creator made an Agent GUI & it's quite good!"
+},
+"https://claude.com/resources/articles/self-hosted-claude-managed-agents": {
+"date": "2026-11-14",
+"title": "Self-hosted Claude Managed Agents: run the whole agent service in your own cloud"
+},
+"https://www.theverge.com/ai-artificial-intelligence/1032518/claude-duet-ai-agent-hands-on": {
+"date": "2026-11-14",
+"title": "Claude Duet hands-on: Anthropic's work agent for professionals"
+},
+"https://github.blog/changelog/2026-11-13-gemini-4-hydrogen-in-github-copilot": {
+"date": "2026-11-14",
+"title": "Gemini 4 Hydrogen now generally available in GitHub Copilot"
+},
+"https://huggingface.co/blog/ggml-org/llama-cpp-v1": {
+"date": "2026-11-14",
+"title": "llama.cpp and ggml reach v1.0.0 with stricter API and ABI versioning"
+},
+"https://github.blog/changelog/2026-11-13-manage-ai-scan-for-repositories-using-the-rest-api": {
+"date": "2026-11-14",
+"title": "GitHub AI Scan for repositories can now be switched on via REST API"
+},
+"https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december": {
+"date": "2026-11-14",
+"title": "GitHub Copilot deprecates selected models on December 14"
+},
+"https://the-decoder.com/openai-enters-the-cybersecurity-market-with-two-daybreak-products": {
+"date": "2026-11-14",
+"title": "OpenAI launches Daybreak Red Team and Defense Factory for security"
+},
+"https://developers.googleblog.com/how-agent-anomaly-detection-scores-on-benchmarks-we-didnt-write": {
+"date": "2026-11-14",
+"title": "Agent Anomaly Detection tested on five outside prompt-injection benchmarks"
+},
+"https://github.com/alibaba/open-code-review": {
+"date": "2026-11-14",
+"title": "alibaba/open-code-review"
+},
+"https://github.com/ChromeDevTools/chrome-devtools-mcp": {
+"date": "2026-11-14",
+"title": "ChromeDevTools/chrome-devtools-mcp"
+},
+"https://github.com/openfilm/openfilm": {
+"date": "2026-11-14",
+"title": "openfilm/openfilm"
+},
+"https://github.com/backnotprop/plannotator": {
+"date": "2026-11-14",
+"title": "backnotprop/plannotator"
+},
+"https://skills.sh/microsoft/azure-skills/azure-diagnostics": {
+"date": "2026-11-14",
+"title": "azure-diagnostics: debug Azure production issues"
+},
+"https://skills.sh/microsoft/azure-skills/azure-validate": {
+"date": "2026-11-14",
+"title": "azure-validate: pre-deployment readiness checks"
+},
+"https://the-decoder.com/openai-rebuilt-ai-shopping-from-scratch-with-chatgpt-wallet": {
+"date": "2026-11-14",
+"title": "ChatGPT Wallet lets agents pay with tokenized cards after biometric approval"
 }
 }
