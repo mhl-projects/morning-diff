@@ -1806,5 +1806,33 @@
 "https://the-decoder.com/openai-rebuilt-ai-shopping-from-scratch-with-chatgpt-wallet": {
 "date": "2026-11-14",
 "title": "ChatGPT Wallet lets agents pay with tokenized cards after biometric approval"
+},
+"https://the-decoder.com/anthropics-claude-fable-5-2-doesnt-generate-images-it-paints-them": {
+"date": "2026-11-16",
+"title": "Claude Fable 5.2 paints images with Python and 700,000 brushstrokes"
+},
+"https://github.com/Tencent/LoopForge": {
+"date": "2026-11-16",
+"title": "Tencent/LoopForge"
+},
+"https://github.com/ag-ui-protocol/ag-ui": {
+"date": "2026-11-16",
+"title": "ag-ui-protocol/ag-ui"
+},
+"https://github.com/NVIDIA/SkillEvaluator": {
+"date": "2026-11-16",
+"title": "NVIDIA/SkillEvaluator"
+},
+"https://github.com/google-labs-code/stitch-skills": {
+"date": "2026-11-16",
+"title": "google-labs-code/stitch-skills"
+},
+"https://huggingface.co/meituan-longcat/LongCat-2.5": {
+"date": "2026-11-16",
+"title": "meituan-longcat/LongCat-2.5"
+},
+"https://skills.sh/remotion-dev/skills/remotion-docs": {
+"date": "2026-11-16",
+"title": "remotion-docs: search and read current Remotion documentation"
 }
 }
