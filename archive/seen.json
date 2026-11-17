@@ -1834,5 +1834,105 @@
 "https://skills.sh/remotion-dev/skills/remotion-docs": {
 "date": "2026-11-16",
 "title": "remotion-docs: search and read current Remotion documentation"
+},
+"https://the-decoder.com/claude-now-builds-interactive-websites-inside-canvas-graphics-reviving-the-flash-era-with-real-html": {
+"date": "2026-11-17",
+"title": "Claude can now build sites with HTML-in-Canvas"
+},
+"https://the-decoder.com/anthropic-says-the-key-to-agent-memory-is-knowing-what-to-forget-not-how-much-to-store": {
+"date": "2026-11-17",
+"title": "Anthropic: agent memory works best when Claude keeps less"
+},
+"https://the-decoder.com/alibabas-qwen4-max-takes-on-opus-5-5-gpt-6-and-kimi-k3-1-pro-at-much-lower-prices": {
+"date": "2026-11-17",
+"title": "Alibaba's Qwen4-Max: 2.4T MoE at a third of the cost per task"
+},
+"https://github.blog/changelog/2026-11-16-github-copilot-weekly-releases-november-9": {
+"date": "2026-11-17",
+"title": "Copilot weekly: agent inbox, model comparison, cron-scheduled automations"
+},
+"https://github.blog/changelog/2026-11-16-vs-code-retires-the-local-harness-in-february-2027": {
+"date": "2026-11-17",
+"title": "VS Code retires the Local harness for Copilot agents in Feb 2027"
+},
+"https://github.blog/changelog/2026-11-16-control-where-github-copilot-customizations-come-from": {
+"date": "2026-11-17",
+"title": "Copilot admins can require skills, MCP and hooks to come from plugins"
+},
+"https://github.blog/changelog/2026-11-16-bulk-start-ai-scan-for-repositories": {
+"date": "2026-11-17",
+"title": "GitHub AI Scan can now start on 20 repositories at once"
+},
+"https://techcrunch.com/2026/11/16/fbi-says-artex-ai-open-source-hacking-tool-used-to-breach-networks-in-under-three-hours": {
+"date": "2026-11-17",
+"title": "FBI warns: open-source Artex AI hacking tool breaches networks in under 3 hours"
+},
+"https://github.blog/changelog/2026-11-16-github-copilot-models-deprecated-on-november-16-2026": {
+"date": "2026-11-17",
+"title": "Copilot drops older models today; Opus 5 leaves the picker"
+},
+"https://github.com/elementalsouls/Claude-BugHunter": {
+"date": "2026-11-17",
+"title": "elementalsouls/Claude-BugHunter"
+},
+"https://github.com/mvanhorn/last30days-skill": {
+"date": "2026-11-17",
+"title": "mvanhorn/last30days-skill"
+},
+"https://github.com/mdiri-ai/SoduWork": {
+"date": "2026-11-17",
+"title": "mdiri-ai/SoduWork"
+},
+"https://github.com/EL4CTEO/blender-skills": {
+"date": "2026-11-17",
+"title": "EL4CTEO/blender-skills"
+},
+"https://huggingface.co/maxwell-model/Maxwell-V1-Flash": {
+"date": "2026-11-17",
+"title": "maxwell-model/Maxwell-V1-Flash"
+},
+"https://huggingface.co/thinkingmachines/Inkling-2-Small": {
+"date": "2026-11-17",
+"title": "thinkingmachines/Inkling-2-Small"
+},
+"https://huggingface.co/nex-agi/Nex-N2.6": {
+"date": "2026-11-17",
+"title": "nex-agi/Nex-N2.6"
+},
+"https://skills.sh/heygen-com/hyperframes/style-sampling": {
+"date": "2026-11-17",
+"title": "hyperframes: HTML to deterministic MP4 video for agents"
+},
+"https://skills.sh/remotion-dev/skills/remotion-multimedia": {
+"date": "2026-11-17",
+"title": "remotion-multimedia: video and audio handling in the browser"
+},
+"https://www.youtube.com/watch?v=ZBTegd8DUZM": {
+"date": "2026-11-17",
+"title": "Writing code that doesn't suck with the creators of Pi"
+},
+"https://www.youtube.com/watch?v=r5iPi8RL7A8": {
+"date": "2026-11-17",
+"title": "5 Types of AI Software Factories Clearly Explained"
+},
+"https://www.youtube.com/watch?v=hYIymEMB9x4": {
+"date": "2026-11-17",
+"title": "Fable 5.2 is CRACKED but THIS goes BEYOND THE MODEL"
+},
+"https://www.youtube.com/watch?v=RYbe_zfhoyo": {
+"date": "2026-11-17",
+"title": "Maxwell V1.0 Flash tested locally: 35B MoE, 3B active"
+},
+"https://www.youtube.com/watch?v=R_sl8zEp9ng": {
+"date": "2026-11-17",
+"title": "How one engineer built a code review service with Codex"
+},
+"https://www.youtube.com/watch?v=hAASMPKkaXA": {
+"date": "2026-11-17",
+"title": "Making seven years of design docs AI-readable in a day"
+},
+"https://www.youtube.com/watch?v=JVu2KicZACg": {
+"date": "2026-11-17",
+"title": "ZGX Fury: how fast can it go?"
 }
 }
