@@ -1934,5 +1934,117 @@
 "https://www.youtube.com/watch?v=JVu2KicZACg": {
 "date": "2026-11-17",
 "title": "ZGX Fury: how fast can it go?"
+},
+"https://the-decoder.com/openai-launches-gpt-6-2-astra-and-sol-with-lower-api-prices-and-some-benchmark-gains": {
+"date": "2026-11-18",
+"title": "GPT-6.2 Astra and Sol: cheaper API, #2 on the Intelligence Index"
+},
+"https://github.blog/changelog/2026-11-17-github-copilot-evals-is-now-in-public-preview": {
+"date": "2026-11-18",
+"title": "GitHub Copilot Evals: test your skills, agents and MCP tools"
+},
+"https://github.blog/changelog/2026-11-17-copilot-code-review-adaptive-effort-secret-detection-and-more": {
+"date": "2026-11-18",
+"title": "Copilot code review: Adaptive effort, cross-repo context, secret detection"
+},
+"https://github.blog/changelog/2026-11-17-github-copilot-app-microsoft-ignite-releases": {
+"date": "2026-11-18",
+"title": "GitHub Copilot app adds browser use and Azure DevOps repos"
+},
+"https://github.blog/changelog/2026-11-17-github-copilot-fusion-updates-more-availability-benchmarks-and-models": {
+"date": "2026-11-18",
+"title": "Copilot Fusion: model mix tops Terminal-Bench 4.1 at lower cost"
+},
+"https://github.blog/changelog/2026-11-17-mai-code-2-and-mai-code-2-flash-in-github-copilot": {
+"date": "2026-11-18",
+"title": "MAI Code 2 and MAI Code 2 Flash arrive in GitHub Copilot"
+},
+"https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification": {
+"date": "2026-11-18",
+"title": "How the Claude Code team makes agents verify their own work"
+},
+"https://simonwillison.net/2026/Nov/17/external-sandboxes-for-coding-agents": {
+"date": "2026-11-18",
+"title": "External sandboxes: keep the agent out, run its code in a VM"
+},
+"https://huggingface.co/blog/openrouter": {
+"date": "2026-11-18",
+"title": "Hugging Face Inference Providers now run on OpenRouter"
+},
+"https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features": {
+"date": "2026-11-18",
+"title": "Gemini Tasks: calls, bills and purchases, now free"
+},
+"https://techcrunch.com/2026/11/17/google-to-keep-gemini-chats-for-two-months-up-from-72-hours-even-with-history-off": {
+"date": "2026-11-18",
+"title": "Gemini keeps temporary chats ~2 months and splits training toggle"
+},
+"https://www.liquid.ai/blog/d1-2": {
+"date": "2026-11-18",
+"title": "Liquid d1.2: cheap decision models that extract, locate and classify"
+},
+"https://techcrunch.com/2026/11/17/protons-lumo-a-privacy-focused-alternative-to-chatgpt-and-claude-arrives-on-desktop": {
+"date": "2026-11-18",
+"title": "Proton Lumo Desktop: privacy-first AI agent for Windows, macOS, Linux"
+},
+"https://arstechnica.com/security/2026/11/grok-bot-took-unapproved-actions-ignored-orders-to-stop-and-then-denied-it": {
+"date": "2026-11-18",
+"title": "Grok Bot made 31 unapproved data requests and ignored stop orders"
+},
+"https://blog.google/innovation-and-ai/products/gemini-notebook/interactive-sites": {
+"date": "2026-11-18",
+"title": "Gemini Notebook can turn your sources into interactive sites"
+},
+"https://simonwillison.net/2026/Nov/17/datasette-lite": {
+"date": "2026-11-18",
+"title": "Datasette Lite rewrite runs full Datasette in the browser"
+},
+"https://github.com/erkamyaman/rust-anything": {
+"date": "2026-11-18",
+"title": "erkamyaman/rust-anything"
+},
+"https://github.com/google-research/paper-orchestra": {
+"date": "2026-11-18",
+"title": "google-research/paper-orchestra"
+},
+"https://github.com/nexu-io/openmotion": {
+"date": "2026-11-18",
+"title": "nexu-io/openmotion"
+},
+"https://github.com/microsoft/ai-agents-for-beginners": {
+"date": "2026-11-18",
+"title": "microsoft/ai-agents-for-beginners"
+},
+"https://github.com/t8y2/motty": {
+"date": "2026-11-18",
+"title": "t8y2/motty"
+},
+"https://huggingface.co/harness-hub/Qwen3.8-27B-pi-adapted": {
+"date": "2026-11-18",
+"title": "harness-hub/Qwen3.8-27B-pi-adapted"
+},
+"https://huggingface.co/tencent/Hy4-flash": {
+"date": "2026-11-18",
+"title": "tencent/Hy4-flash"
+},
+"https://huggingface.co/meituan-longcat/LongCat-Video-Avatar-1.6": {
+"date": "2026-11-18",
+"title": "meituan-longcat/LongCat-Video-Avatar-1.6"
+},
+"https://www.youtube.com/watch?v=9RKrSF9d2SE": {
+"date": "2026-11-18",
+"title": "2026 in LLMs — Simon Willison"
+},
+"https://www.youtube.com/watch?v=IPh9YsWvDQk": {
+"date": "2026-11-18",
+"title": "New Ways of Working with Codex — Dominik Kundel & Charlie Guo"
+},
+"https://www.youtube.com/watch?v=IRZqAdKcNTE": {
+"date": "2026-11-18",
+"title": "RAON-1 Nano: The Tiny LLM for AI Game Characters"
+},
+"https://www.youtube.com/watch?v=tKoDPOrLMX0": {
+"date": "2026-11-18",
+"title": "Building 3D video sets with GPT-6.2 Astra"
 }
 }

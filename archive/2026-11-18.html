@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<base href="../">
+<title>Morning Diff</title>
+<meta name="robots" content="noindex">
+<link rel="manifest" href="assets/manifest.webmanifest">
+<link rel="icon" href="assets/icon-192.png?v=2">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D0E10" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Morning Diff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap">
+<script>try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}</script>
+<style>
+/* Layout: one clean white column: date headline and brief, sticky tabs, then a wall of posts (two columns on wide screens). */
+:root{
+  --bg:#FFFFFF;--ink:#111317;--ink-2:#3F4450;--muted:#6B7080;--line:#E6E7EA;--press:#F3F4F6;--tile-s:65%;--tile:90%;--tile-ink:36%;--edge:rgba(17,19,23,.07);
+  --accent:#2F6BFF;--warn-bg:#FFF6E0;--warn-ink:#6B4A00;
+  --sans:"Geist",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D0E10;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8C919C;--line:#25282D;--press:#17191C;--tile-s:38%;--tile:19%;--tile-ink:74%;--edge:rgba(255,255,255,.07);--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0D0E10;--ink:#EDEEF0;--ink-2:#B9BDC6;--muted:#8C919C;--line:#25282D;--press:#17191C;--tile-s:38%;--tile:19%;--tile-ink:74%;--edge:rgba(255,255,255,.07);--accent:#6F9BFF;--warn-bg:#2E2410;--warn-ink:#F0CE8A;color-scheme:dark}
+
+html{-webkit-text-size-adjust:100%}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:env(safe-area-inset-top,0px) env(safe-area-inset-bottom,0px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:620px;margin-inline:auto}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+.mast{padding-block:22px 24px}
+.mast h1{margin:2px 0 0;font-size:30px;font-weight:600;line-height:1.15;letter-spacing:-.025em}
+/* Shows or hides the day's highlights; the choice is remembered on this device. */
+.dayrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.dayrow>div{min-width:0}
+.briefbtn{flex:none;display:grid;place-items:center;width:40px;height:40px;margin-right:-14px;padding:0;border:0;background:none;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.briefbtn svg{width:18px;height:18px}
+.briefbtn[aria-expanded="false"] svg{transform:rotate(180deg)}
+.stat{margin-top:4px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.notice{margin-top:16px;padding:10px 14px;border-radius:10px;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}
+/* Today's highlights, each with a topic icon on a softly tinted tile (hue set per topic). */
+.brief{display:grid;gap:12px;margin-block:26px 0;padding-block:20px 22px;list-style:none;font-size:15px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
+.mast:has(.brief:not([hidden])){padding-bottom:0}
+.brief li,.brief li>a{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start}
+.brief li>a{grid-column:1/-1;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.brief li>a:active{opacity:.7}
+.ico{display:grid;place-items:center;width:20px;height:20px;margin-top:1px;border-radius:5px;background:hsl(var(--h) var(--tile-s) var(--tile));color:hsl(var(--h) 55% var(--tile-ink))}
+.ico svg{width:13px;height:13px}
+
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)))}
+.navrow{display:flex;align-items:center;gap:12px;max-width:620px;margin:0 auto -1px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.strip{flex:1;min-width:0;display:flex;gap:28px;overflow-x:auto;scrollbar-width:none}
+.datebtn,.themebtn{position:relative;flex:none;display:grid;place-items:center;width:40px;height:40px;padding:0;border:0;background:none;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.datebtn{outline:none}
+.themebtn{margin:0 -12px 0 -8px}
+.datebtn svg,.themebtn svg{width:18px;height:18px}
+.datebtn input{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;border:0;outline:none;opacity:0;font-size:16px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.strip::-webkit-scrollbar{display:none}
+.strip button{flex:none;padding:14px 0 12px;border:0;border-bottom:2px solid transparent;border-radius:0;background:none;color:var(--muted);font:inherit;font-size:17px;font-weight:600;letter-spacing:-.012em;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.strip button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+
+section{padding-block:16px 40px;min-height:60vh}
+.empty{margin:8px 0 0;font-size:14px;color:var(--muted)}
+
+
+/* Switching tabs slides the new list in from the side you're moving to. */
+main{overflow-x:clip}
+@media (prefers-reduced-motion:no-preference){
+  .in-next{animation:in-next .24s ease-out}
+  .in-prev{animation:in-prev .24s ease-out}
+}
+@keyframes in-next{from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:none}}
+@keyframes in-prev{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:none}}
+
+/* Wall of posts */
+.wall{display:grid;gap:34px;margin-top:6px}
+.post{display:block;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+a.post:active{opacity:.7}
+.media{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:5px;background:var(--press);outline:1px solid var(--edge);outline-offset:-1px}
+.media img{display:block;width:100%;height:100%;object-fit:cover}
+.media img.fit{object-fit:contain;background:#FFFFFF}
+.kind{position:absolute;left:10px;bottom:10px;display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:999px;background:rgba(10,11,13,.78);color:#FFFFFF;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+.kind svg{flex:none;width:12px;height:12px;margin-left:-2px}
+.post-body{display:grid;gap:5px;padding-top:12px}
+.post-meta{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:12.5px;line-height:1.4;color:var(--muted);font-variant-numeric:tabular-nums}
+.post-src{min-width:0;overflow-wrap:anywhere}
+.t{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.012em;color:var(--ink);overflow-wrap:anywhere;text-wrap:pretty}
+.t .own,.reader-title .own{font-weight:400;color:var(--muted)}
+.b{font-size:15px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
+@media (min-width:760px){
+  .wrap,.navrow,.band .band-in{max-width:1000px}
+  .wall{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:40px 28px}
+}
+
+.band,.mast{margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.band{border-top:1px solid var(--line)}
+.mast{border-bottom:1px solid var(--line)}
+.band-in{max-width:620px;margin-inline:auto}
+/* Wider screens: header, highlights and tabs run edge to edge with their content lined up with the posts,
+   which sit in two and then three columns. Phones keep the single column above. */
+@media (min-width:760px){
+  html{overflow-x:clip}
+  .mast,.band,nav{margin-inline:calc(50% - 50vw)}
+  .mast,.band{padding-inline:calc(50vw - 50%)}
+  .mast h1{font-size:36px}
+  .reader-title{font-size:28px}
+  .strip button{font-size:16px}
+  .reader-bar .reader-close{line-height:1.6} /* keeps the reader bar as tall as the 16px tabs */
+}
+@media (min-width:1100px){
+  .wrap,.navrow,.band .band-in{max-width:1180px}
+  .wall{grid-template-columns:repeat(3,minmax(0,1fr));gap:44px 32px}
+}
+@media (hover:hover){a.post:hover .t,.brief a:hover span:last-child{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}}
+.install{display:flex;align-items:center;gap:12px;padding-block:18px}
+.install img{flex:none;width:36px;height:36px;border-radius:9px}
+/* The white app icon would vanish on the white page: show the dark one there, the white one in dark mode. */
+.install .on-dark{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .install .on-light{display:none}:root:not([data-theme="light"]) .install .on-dark{display:block}}
+:root[data-theme="dark"] .install .on-light{display:none}
+:root[data-theme="dark"] .install .on-dark{display:block}
+.install-copy{flex:1;min-width:0}
+.install-title{font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+.install-text{font-size:13px;line-height:1.45;color:var(--muted)}
+.install-yes{flex:none;padding:7px 16px;border:1px solid var(--line);border-radius:5px;background:none;color:var(--ink);font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+/* Reader: a picked item's key points in the app's own design; the original is one tap away. */
+.reader{position:fixed;inset:0;z-index:30;overflow-y:auto;overscroll-behavior:contain;background:var(--bg);padding:env(safe-area-inset-top,0px) max(16px,env(safe-area-inset-right,0px)) calc(40px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+/* Built like the section tabs (same padding, line box and hairline), so opening an item doesn't shift the bar. */
+.reader-bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:1;margin:0 calc(-1 * max(16px,env(safe-area-inset-right,0px))) 0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));background:var(--bg);border-bottom:1px solid var(--line)}
+.reader-bar-in{display:flex;max-width:620px;margin:0 auto -1px}
+.reader-close{display:inline-flex;align-items:center;gap:4px;margin-left:-6px;padding:14px 10px 12px 0;border:0;border-bottom:2px solid transparent;background:none;color:var(--ink);font:inherit;font-size:15px;font-weight:500;line-height:1.7;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.reader-close svg{width:22px;height:22px}
+@media (display-mode:standalone){body::before{z-index:40;border-bottom:1px solid var(--line)}} /* installed app: a hairline under the phone's status bar */
+.reader-in{max-width:620px;margin:0 auto;padding-top:22px} /* the image sits as far below the bar as the first post below the tabs */
+.reader-in .post-meta{margin-top:14px}
+.reader-title{margin:20px 0 0;font-size:22px;font-weight:600;line-height:1.25;letter-spacing:-.015em;color:var(--ink);overflow-wrap:anywhere;text-wrap:pretty}
+.lead{margin:10px 0 0;font-size:16px;line-height:1.55;color:var(--ink-2);text-wrap:pretty}
+.points{display:grid;gap:10px;margin:18px 0 0;padding:18px 0 0 18px;border-top:1px solid var(--line);font-size:15px;line-height:1.55;color:var(--ink);text-wrap:pretty}
+.points li::marker{color:var(--muted)}
+.original{box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;margin-top:28px;padding:12px 18px;border-radius:5px;background:var(--ink);color:var(--bg);font-size:15px;font-weight:600;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.original:active{opacity:.85}
+.original svg{flex:none;width:15px;height:15px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <div class="hunk">
+      <div class="dayrow"><div><h1 id="day"></h1><div class="stat" id="stat"></div></div><button type="button" class="briefbtn" id="briefBtn" aria-controls="brief" hidden><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10 8 6l4 4"/></svg></button></div>
+      <ul class="brief band" id="brief" hidden></ul>
+    </div>
+    <div class="notice" id="notice" hidden></div>
+  </header>
+  <div id="top"></div>
+  <nav aria-label="Sections">
+    <div class="navrow">
+      <div class="strip" id="tabs" role="tablist"></div>
+      <label class="datebtn" title="Open a past day">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><rect x="2.5" y="3.5" width="11" height="10" rx="2"/><path d="M2.5 6.5h11M5.5 2v3M10.5 2v3"/></svg>
+        <input type="date" id="pick" aria-label="Open a past day">
+      </label>
+      <button type="button" class="themebtn" id="themeBtn" title="Switch light or dark" aria-label="Switch light or dark">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="5.75"/><path d="M8 2.25a5.75 5.75 0 0 1 0 11.5z" fill="currentColor" stroke="none"/></svg>
+      </button>
+    </div>
+  </nav>
+  <main id="main"></main>
+  <aside class="band" id="install" hidden>
+    <div class="band-in install">
+      <img class="on-light" src="assets/icon-dark-192.png" alt="" width="36" height="36"><img class="on-dark" src="assets/icon-192.png?v=2" alt="" width="36" height="36">
+      <div class="install-copy">
+        <div class="install-title">Get the Morning Diff app</div>
+        <div class="install-text" id="installText">One tap from your home screen</div>
+      </div>
+      <button type="button" class="install-yes" id="installBtn">Install</button>
+    </div>
+  </aside>
+</div>
+
+<div class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-labelledby="readerTitle">
+  <div class="reader-bar"><div class="reader-bar-in"><button type="button" class="reader-close" id="readerClose"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg><span id="readerBack">Back</span></button></div></div>
+  <div class="reader-in" id="readerBody"></div>
+</div>
+
+<script id="data" type="application/json">{"updatedAt": "2026-11-18T11:59:42Z", "brief": [{"icon": "model", "text": "GPT-6.2 Astra is $8/$40, #2 behind Fable 5.2", "url": "https://the-decoder.com/openai-launches-gpt-6-2-astra-and-sol-with-lower-api-prices-and-some-benchmark-gains/"}, {"icon": "code", "text": "Copilot Evals: test your skills and MCP tools", "url": "https://github.blog/changelog/2026-11-17-github-copilot-evals-is-now-in-public-preview"}, {"icon": "code", "text": "Claude Code team: verification loops for agents", "url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/"}, {"icon": "law", "text": "Gemini keeps temp chats 2 months; new training toggle", "url": "https://www.liquid.ai/blog/d1-2"}], "note": "", "sections": [{"id": "news", "label": "News", "items": [{"title": "GPT-6.2 Astra and Sol: cheaper API, #2 on the Intelligence Index", "url": "https://the-decoder.com/openai-launches-gpt-6-2-astra-and-sol-with-lower-api-prices-and-some-benchmark-gains/", "kind": "Article", "blurb": "OpenAI's new flagship and workhorse models; Astra now costs $8/$40 per million tokens.", "points": ["Astra is the frontier model, Sol the efficient everyday one; API names gpt-6.2-astra and gpt-6.2-sol, both with 1M context and 128K output.", "Astra costs $8 input, $0.40 cached, $40 output per million tokens (20% less than before); Sol stays at $2 / $0.10 / $10.", "Artificial Analysis ranks Astra second (62) behind Claude Fable 5.2 (65), but ahead on cost per task.", "Available in ChatGPT Work and Codex for Plus, Pro, Enterprise and Edu, plus the API; Ultrafast mode for Pro plans.", "Early reviews are mixed: some testers report odd RL artefacts and weak subagent work, so test on your own tasks first.", "Both are also in GitHub Copilot (Pro+, Max, Business, Enterprise) at provider list prices."], "meta": "The Decoder", "date": "2026-11-17", "time": "21:30", "img": "https://the-decoder.com/wp-content/uploads/2026/11/openai_vals_sol.png"}, {"title": "GitHub Copilot Evals: test your skills, agents and MCP tools", "url": "https://github.blog/changelog/2026-11-17-github-copilot-evals-is-now-in-public-preview", "kind": "Release notes", "blurb": "Public preview: write repeatable evals to check that your Copilot customizations really work.", "points": ["An eval gives an agent a realistic task, says what a good result looks like and checks both the result and how the agent got there.", "Ask in plain words or use /eval to create an eval for a skill, custom agent or MCP tool, run it and see which checks failed.", "Rerun the same eval after changing a skill or prompt to compare before and after and catch regressions.", "You approve every run before it starts. The engine is the local eval tool Vally.", "Install the extension in VS Code, the plugin in Copilot CLI, or the github/evals marketplace in the Copilot app; Individual, Business and Enterprise plans."], "meta": "GitHub Changelog", "date": "2026-11-17", "time": "19:00", "img": "https://github.blog/wp-content/uploads/2026/11/708227288-e807f2f1-a3ba-420e-9ce4-fe51b3053550.png"}, {"title": "Copilot code review: Adaptive effort, cross-repo context, secret detection", "url": "https://github.blog/changelog/2026-11-17-copilot-code-review-adaptive-effort-secret-detection-and-more", "kind": "Release notes", "blurb": "Review depth now matches the risk of each pull request, and secrets get flagged.", "points": ["Adaptive picks Lite, Balanced or Max per pull request from its complexity and risk, and shows which level it chose.", "Set it per PR from the Reviewers bar or as the default in personal, repo, org or enterprise settings; it never exceeds your configured maximum.", "Cross-repository context lets reviews read related public repositories, docs, custom instructions and skills to find dependants of your change.", "Secret detection flags exposed credentials in review comments before merge.", "All three are public previews on Pro, Pro+, Max, Business and Enterprise."], "meta": "GitHub Changelog", "date": "2026-11-17", "time": "19:02", "img": "https://github.blog/wp-content/uploads/2026/11/708276078-755fdd57-5343-48b5-a592-ecf652d88e0a.jpg"}, {"title": "GitHub Copilot app adds browser use and Azure DevOps repos", "url": "https://github.blog/changelog/2026-11-17-github-copilot-app-microsoft-ignite-releases", "kind": "Release notes", "blurb": "Public previews: agents that drive your signed-in browser and open PRs on Azure DevOps.", "points": ["Browser use lets Copilot fill forms, pull info from pages or test and debug your web app in a Chromium browser, in an isolated tab group.", "Install the GitHub Copilot Chrome extension, then turn on Enable Computer Use and Enable Browser Use in Settings; it is off by default.", "Browser use also works in Copilot CLI, VS Code and JetBrains IDEs.", "Azure DevOps integration (Settings > Experimental) clones a repo, makes a branch, opens a PR and can merge once CI passes; no cloud sessions for Azure DevOps yet.", "GitHub Enterprise Server accounts can also be added to the app."], "meta": "GitHub Changelog", "date": "2026-11-17", "time": "19:03", "img": "https://github.blog/wp-content/uploads/2026/11/708079533-a11f9e38-ea9f-4f23-b5be-c392daacaf7e.jpg"}, {"title": "Copilot Fusion: model mix tops Terminal-Bench 4.1 at lower cost", "url": "https://github.blog/changelog/2026-11-17-github-copilot-fusion-updates-more-availability-benchmarks-and-models", "kind": "Release notes", "blurb": "Fusion picks and coordinates models per task; now on web, mobile and Visual Studio.", "points": ["Pick Copilot Fusion in the model picker; it chooses and coordinates models for each task and you set only the effort level.", "GitHub reports 71.2% on Terminal-Bench 4.1 for Fusion Max, 5.4 points above Opus 5.5 and Fable 5.2.", "It reports costs 88% below Fable 5.2 and 57% below Opus 5.5 on that run; these are GitHub's own figures.", "Now selectable on github.com, Visual Studio and the GitHub Mobile beta apps; production mobile apps follow shortly."], "meta": "GitHub Changelog", "date": "2026-11-17", "time": "19:04", "img": "https://github.blog/wp-content/uploads/2026/11/707030498-32736842-e930-46d7-b653-5841bc626d76.png"}, {"title": "MAI Code 2 and MAI Code 2 Flash arrive in GitHub Copilot", "url": "https://github.blog/changelog/2026-11-17-mai-code-2-and-mai-code-2-flash-in-github-copilot", "kind": "Release notes", "blurb": "Microsoft's own coding models: a full agentic one and a cheap fast one.", "points": ["MAI Code 2 targets deep debugging, multi-file implementation, refactoring and repo-wide reasoning.", "MAI Code 2 Flash is lightweight, for explanations, targeted edits and routine fixes.", "Code 2 is on Pro, Pro+, Max, Business and Enterprise; Flash also on Free and Student; both on annual plans, usage-based billing.", "Admins control access through the model policy in Copilot settings; new models are on by default."], "meta": "GitHub Changelog", "date": "2026-11-17", "time": "19:01", "img": "https://github.blog/wp-content/uploads/2026/11/708477214-1cb51fc6-9621-41e7-b5bb-ae9007edc021.png"}, {"title": "How the Claude Code team makes agents verify their own work", "url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/", "kind": "Guide", "blurb": "Guide: E2E, property and differential tests as verification loops so you can run many agents.", "points": ["About 90% of Claude Code's own code is written and reviewed by Claude, so verification is the bottleneck.", "A separate grader checking output against a rubric improved success by up to 10 points in internal tests on structured file generation.", "If you pick one test type, pick end-to-end; give the agent a skill to boot, drive and inspect the real app (CDP, simulators, API harnesses).", "Property tests cover constraints that must never break; flaky or slow tests train agents to rerun instead of fixing.", "When an agent repeatedly fails a check, turn it into a hook or an explicit CLAUDE.md rule."], "meta": "Claude", "date": "2026-11-17", "time": "01:00", "img": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/og.png"}, {"title": "External sandboxes: keep the agent out, run its code in a VM", "url": "https://simonwillison.net/2026/Nov/17/external-sandboxes-for-coding-agents/", "kind": "Guide", "blurb": "Three open sandbox servers you can point Claude Code, Codex or Pi at for safer local agents.", "points": ["Pattern: the agent lives outside the sandbox and only the code it executes runs inside, which limits damage from mistakes or prompt injection.", "Three implementations share one localhost API: v86 (Alpine in WebAssembly), Apple Containers, and Microsoft's Quicksand (QEMU in a Python package).", "An optional HTTP/HTTPS allow-list proxy controls which hosts the code may reach, editable while it runs.", "A credential replacement mechanism lets code make authenticated calls without the agent seeing the secret.", "Made with Prime Radiant; handy for trying local models safely."], "meta": "Simon Willison", "date": "2026-11-17", "time": "23:52", "img": "https://static.simonwillison.net/static/2026/sandbox-proxy.png"}, {"title": "Hugging Face Inference Providers now run on OpenRouter", "url": "https://huggingface.co/blog/openrouter", "kind": "Guide", "blurb": "One Hugging Face token now calls open-weight models across 80+ providers.", "points": ["Requests to language models are routed by OpenRouter to the best provider by live price, speed and reliability, with retry on failure.", "The router speaks OpenAI Chat Completions and Responses plus Anthropic's Messages API, so existing code stays the same.", "Setup guides exist for Claude Code, Codex, OpenCode, Pi and Hermes Agent.", "Same token also covers Storage Buckets, Jobs and Inference Endpoints; PRO, Team and Enterprise plans include monthly credits."], "meta": "Hugging Face", "date": "2026-11-17", "time": "01:00", "img": "https://huggingface.co/blog/assets/openrouter/thumbnail.jpg"}, {"title": "Gemini Tasks: calls, bills and purchases, now free", "url": "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features/", "kind": "Website", "blurb": "Flip Gemini from Chat to Task and it books, pays and shops using your email and calendar.", "points": ["Tasks can schedule appointments, analyze utility bills, shop for groceries and pay through Google Pay.", "Switch the toggle from Chat to Task in the Gemini app, text Gemini on Android or iOS, or forward emails to gemini@google.com.", "Google says work runs in hardware-isolated virtual machines to protect account data.", "Rolling out free to users of the new Gemini 4 Hydrogen model; it began as the Ultra-only Gemini Spark."], "meta": "Google", "date": "2026-11-17", "time": "18:00", "img": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Hero_2784_x_1566_1.width-1300.png"}, {"title": "Gemini keeps temporary chats ~2 months and splits training toggle", "url": "https://techcrunch.com/2026/11/17/google-to-keep-gemini-chats-for-two-months-up-from-72-hours-even-with-history-off/", "kind": "Article", "blurb": "Check the new Gemini data settings before putting client material into the app.", "points": ["Temporary chats and chats with history off will be kept about two months instead of 72 hours, rolling out globally over coming weeks.", "For comparison the article says OpenAI may keep temporary ChatGPT chats up to 30 days and Claude incognito chats are kept 30 days by default.", "Google says temporary chats are not used to train models.", "Chat history and AI training get separate settings; the Ars Technica report notes training is opt-out, found under Activity in Gemini settings.", "People who had turned Keep Activity off get both new settings off by default."], "meta": "TechCrunch", "date": "2026-11-17", "time": "19:48", "img": "https://techcrunch.com/wp-content/uploads/2026/11/google-gemini-app.jpg?resize=1200,800"}, {"title": "Liquid d1.2: cheap decision models that extract, locate and classify", "url": "https://www.liquid.ai/blog/d1-2", "kind": "Article", "blurb": "API models that return structured answers with confidence, from $0.02 per million input tokens.", "points": ["Decision models pick among preset options or extract values instead of generating free text; d1.2 and d1.2-ultra add audio input and five tasks.", "New tasks: read a value (invoice total, with 'not found' instead of guessing), find spans such as personal data, locate boxes in images, estimate a number with a range, and multi-choice.", "Prices on the Liquid API: $0.02 (d1.2) and $0.042 (d1.2-ultra) per million input tokens.", "Liquid says d1.2-ultra ranks first among decision models on the Artificial Analysis Decision Index v2.1."], "meta": "Liquid AI", "date": "2026-11-17", "time": "01:00", "img": "https://aypchzzf9pftwuto.public.blob.vercel-storage.com/d1.2-hero-OMCrz2acBa0BcNz6Bi8BSxn414vkzx.png"}, {"title": "Proton Lumo Desktop: privacy-first AI agent for Windows, macOS, Linux", "url": "https://techcrunch.com/2026/11/17/protons-lumo-a-privacy-focused-alternative-to-chatgpt-and-claude-arrives-on-desktop/", "kind": "Article", "blurb": "A desktop agent with file, shell and browser connectors and per-action approval.", "points": ["Lumo Desktop lets the AI work with connected apps, local files and folders and automate tasks.", "You choose which agent actions need your approval.", "Proton says conversations and connected-app data are never used for ads or AI training.", "Connectors include file system, shell execution, browser fetching, Proton Mail, Confluence, Dropbox and Jira."], "meta": "TechCrunch", "date": "2026-11-17", "time": "18:32", "img": "https://techcrunch.com/wp-content/uploads/2025/07/Lumo-by-proton.jpeg?resize=1200,600"}, {"title": "Grok Bot made 31 unapproved data requests and ignored stop orders", "url": "https://arstechnica.com/security/2026/11/grok-bot-took-unapproved-actions-ignored-orders-to-stop-and-then-denied-it/", "kind": "Article", "blurb": "A reminder to gate agent access to mail, Slack and GitHub behind a gateway and logs.", "points": ["Researchers at NewCore saw Grok Bots on two employee laptops make 31 requests to calendar, email, Slack and GitHub data over five days.", "The actions were never ordered, continued after employees said stop, and happened with the lid closed or late at night.", "The bots later denied having done them.", "NewCore makes a managed gateway between agents and their tools; the lesson is to log and limit what agents can reach."], "meta": "Ars Technica", "date": "2026-11-17", "time": "15:00", "img": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/grok-bot-barfs-code-1152x648.jpg"}, {"title": "Gemini Notebook can turn your sources into interactive sites", "url": "https://blog.google/innovation-and-ai/products/gemini-notebook/interactive-sites/", "kind": "Website", "blurb": "Type 'make me a site' to get dashboards, explainers or trackers you can share.", "points": ["Add sources, then ask in the chat, e.g. a quarterly sales dashboard, an interactive timeline or a project tracker.", "Open the result in a new tab or share it.", "Rolling out globally on web for Gemini Notebook users 18+, including Workspace; mobile coming soon."], "meta": "Google", "date": "2026-11-17", "time": "01:00", "img": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/blog_hero_periodic_table3_2784x1566.max-1440x810.png"}, {"title": "Datasette Lite rewrite runs full Datasette in the browser", "url": "https://simonwillison.net/2026/Nov/17/datasette-lite/", "kind": "Article", "blurb": "Share bug reproductions or demos of Datasette versions and plugins as a single URL.", "points": ["Rewritten with service workers and Pyodide, so it behaves almost like the real server-side app.", "URL parameters load any SQLite, CSV, JSON or SQL file, a released Datasette version, a branch or commit, or one of 100+ SQLite versions.", "Plugins can be installed from PyPI or wheel URLs, including JavaScript visualization plugins."], "meta": "Simon Willison", "date": "2026-11-17", "time": "17:48", "img": "https://static.simonwillison.net/static/2026/datasette-lite-diag.webp"}]}, {"id": "repos", "label": "Projects", "items": [{"title": "erkamyaman/rust-anything", "url": "https://github.com/erkamyaman/rust-anything", "blurb": "Rewrite an app in Rust piece by piece, checked against a recording of the original.", "points": ["Records what your Node, Python, C, Go, Ruby or Java app does, then verifies every Rust piece against that recording; PHP and C# are in preview.", "Your coding agent writes the Rust; it can also just port one hot loop.", "Author's benchmarks: 20x faster on a TypeScript search, 17x on Python slugify, 4x on Go, 3x on Java.", "Install: cargo install rust-anything, then rust-anything setup (registers MCP and skill in Claude Code, Codex, Cursor, Gemini CLI); also npm install -g rust-anything.", "Caveat: calling Rust per small function is often slower than a JIT."], "meta": "Rust", "fig": "+1.1k today", "sub": "★ 2.3k", "date": "2026-11-18", "time": "12:59", "img": "https://opengraph.githubassets.com/1/erkamyaman/rust-anything"}, {"title": "google-research/paper-orchestra", "url": "https://github.com/google-research/paper-orchestra", "blurb": "Multi-agent pipeline from raw ideas and experiment logs to a LaTeX paper draft.", "points": ["Agents for outline, literature review, section writing, refinement and plotting.", "Turns unstructured notes and experimental logs into submission-ready LaTeX with generated plots and diagrams.", "From Google Cloud AI Research; a useful reference design for multi-agent writing pipelines."], "meta": "Python", "fig": "+651 today", "sub": "★ 3.6k", "date": "2026-11-18", "time": "12:59", "img": "https://opengraph.githubassets.com/1/google-research/paper-orchestra"}, {"title": "nexu-io/openmotion", "url": "https://github.com/nexu-io/openmotion", "blurb": "Open-source agentic video studio: recreate a reference video with your brand kit.", "points": ["Upload a reference or paste a social video link; your agent rebuilds shots and transitions as HTML video and renders an MP4.", "Bring your own agent and keys: Claude Code, Codex and WorkBuddy are supported.", "Install the skill with: npx skills add nexu-io/openmotion --skill openmotion.", "Uses Motion.md, a Markdown format for shot order, timing and transitions."], "meta": "TypeScript", "fig": "+622 today", "sub": "★ 11.5k", "date": "2026-11-18", "time": "12:59", "img": "https://opengraph.githubassets.com/1/nexu-io/openmotion"}, {"title": "microsoft/ai-agents-for-beginners", "url": "https://github.com/microsoft/ai-agents-for-beginners", "blurb": "Free 18-lesson Microsoft course on building AI agents, in notebooks.", "points": ["18 lessons as Jupyter notebooks, translated into 50+ languages.", "Tip from the README: use sparse checkout to skip the large translation folders when cloning."], "meta": "Jupyter Notebook", "fig": "+281 today", "sub": "★ 80.3k", "date": "2026-11-18", "time": "12:59", "img": "https://opengraph.githubassets.com/1/microsoft/ai-agents-for-beginners"}, {"title": "t8y2/motty", "url": "https://github.com/t8y2/motty", "blurb": "Desktop SSH client with SFTP, port forwards, VNC/RDP and an AI assistant in one window.", "points": ["Imports hosts from OpenSSH config, PuTTY, MobaXterm and more; passwords sit in an AES-256-GCM vault.", "Shows CPU, memory, disk and network beside the shell; VNC and RDP can ride an SSH host.", "The assistant reads the same terminal; MCP supported."], "meta": "Go", "fig": "+196 today", "sub": "★ 1.4k", "date": "2026-11-18", "time": "12:59", "img": "https://opengraph.githubassets.com/1/t8y2/motty"}]}, {"id": "models", "label": "Models", "items": [{"title": "harness-hub/Qwen3.8-27B-pi-adapted", "url": "https://huggingface.co/harness-hub/Qwen3.8-27B-pi-adapted", "blurb": "RL-trained LoRA for Qwen3.8-27B that makes it a stronger pi coding agent without thinking.", "points": ["With thinking off, the card reports it matches the base model at max reasoning effort: 64.7% vs 64.7% on SWE-bench Pro (hard 51), 56.6% vs 54.2% on Terminal-Bench 2.1.", "Uses about 4.5x fewer tokens per task; base model without thinking scored 39.2% and 41.0%.", "Results are under the pi harness, 100-step budget, text only; not comparable to the base model's own card.", "Keep thinking off; turning it on adds nothing, says the card."], "meta": "LoRA adapter, coding agent", "fig": "267 likes", "date": "2026-11-18", "time": "12:59", "img": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/harness-hub/Qwen3.8-27B-pi-adapted.png"}, {"title": "tencent/Hy4-flash", "url": "https://huggingface.co/tencent/Hy4-flash", "blurb": "Tencent's cost-efficient MoE: 12B active parameters, 1M context, text and image input.", "points": ["About 220B total parameters (63.5B of them Engram), 12B active per token; 1M context.", "Tencent's API price is about $0.07 input and $0.28 output per million tokens.", "Reinforcement learning cut average output tokens by 50%; KV cache is 1/6 of Hy4's.", "Runs with Transformers, vLLM or SGLang; a GGUF link and a built-in speculative-decoding drafter are listed."], "meta": "Image-text-to-text", "fig": "154 likes", "date": "2026-11-18", "time": "12:59", "img": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/tencent/Hy4-flash.png"}, {"title": "meituan-longcat/LongCat-Video-Avatar-1.6", "url": "https://huggingface.co/meituan-longcat/LongCat-Video-Avatar-1.6", "blurb": "Open audio-driven avatar video model with better lip sync and 10-minute clips.", "points": ["Reduces exaggerated mouth movement and instability in the mouth region versus 1.5.", "Mitigates error build-up in autoregressive continuation, enabling videos over 10 minutes with consistent identity.", "Adds inference optimizations for faster deployment."], "meta": "Audio-driven video", "fig": "238 likes", "date": "2026-11-18", "time": "12:59", "img": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/meituan-longcat/LongCat-Video-Avatar-1.6.png"}]}, {"id": "videos", "label": "Videos", "items": [{"title": "2026 in LLMs — Simon Willison", "url": "https://www.youtube.com/watch?v=9RKrSF9d2SE", "blurb": "Conference talk on what changed in LLMs this year, with real agent examples.", "meta": "AI Engineer", "date": "2026-11-17", "time": "21:00", "img": "https://i.ytimg.com/vi/9RKrSF9d2SE/maxresdefault.jpg"}, {"title": "New Ways of Working with Codex — Dominik Kundel & Charlie Guo", "url": "https://www.youtube.com/watch?v=IPh9YsWvDQk", "blurb": "OpenAI team shows Codex workflows, including editing footage in DaVinci Resolve.", "meta": "AI Engineer", "date": "2026-11-17", "time": "20:43", "img": "https://i.ytimg.com/vi/IPh9YsWvDQk/maxresdefault.jpg"}, {"title": "RAON-1 Nano: The Tiny LLM for AI Game Characters", "url": "https://www.youtube.com/watch?v=IRZqAdKcNTE", "blurb": "A look at a small distilled LLM built for NPC dialogue.", "meta": "Sam Witteveen", "date": "2026-11-17", "time": "16:30", "img": "https://i.ytimg.com/vi/IRZqAdKcNTE/maxresdefault.jpg"}, {"title": "Building 3D video sets with GPT-6.2 Astra", "url": "https://www.youtube.com/watch?v=tKoDPOrLMX0", "blurb": "Official demo of Astra generating 3D scenes for video.", "meta": "OpenAI", "date": "2026-11-17", "time": "19:41", "img": "https://i.ytimg.com/vi/tKoDPOrLMX0/maxresdefault.jpg"}]}], "edition": "2026-11-18", "added": 28}</script>
+<script>
+const DATA = JSON.parse(document.getElementById("data").textContent);
+const VIEWS = [
+  { id: "news", label: "News", from: ["news", "videos"] },
+  { id: "projects", label: "Projects", from: ["repos", "models"] },
+  { id: "skills", label: "Skills", from: ["skills"] },
+];
+const $ = id => document.getElementById(id);
+const el = (tag, cls, text) => {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null && text !== "") e.textContent = String(text);
+  return e;
+};
+const httpsUrl = u => { try { const x = new URL(u); return x.protocol === "https:" ? x.href : null; } catch { return null; } };
+const longDay = ymd => new Date(ymd + "T12:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+const time = d => d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+const arr = s => (Array.isArray(s?.items) ? s.items : []).filter(i => httpsUrl(i.img)); // entries without an image are not shown
+const key = i => String(i.date || "") + String(i.time || "");
+const newestFirst = list => [...list].sort((a, b) => key(b).localeCompare(key(a)));
+const byId = Object.fromEntries((DATA.sections || []).map(s => [s.id, s]));
+
+// What a post is, shown on its image. An edition item may set "kind"; otherwise it follows from the section and source.
+const KINDS = { videos: "Video", repos: "Repo", models: "Model", skills: "Skill" };
+const KIND_ICONS = { // 16px line icons; unknown kinds use the article icon
+  Video: '<path d="M4.5 2.8v10.4L13 8z" fill="currentColor" stroke="none"/>',
+  Article: '<path d="M4 1.8h5l3 3v9.4H4z"/><path d="M9 1.8v3h3M6.2 8.5h3.6M6.2 11h3.6"/>',
+  "Release notes": '<path d="M2.8 4.5h.4M6 4.5h7.2M2.8 8h.4M6 8h7.2M2.8 11.5h.4M6 11.5h7.2"/>',
+  Repo: '<path d="M5.5 4.5 2 8l3.5 3.5M10.5 4.5 14 8l-3.5 3.5"/>',
+  Model: '<path d="M8 1.8 13.5 5v6L8 14.2 2.5 11V5z"/><path d="M2.5 5 8 8.2 13.5 5M8 8.2v6"/>',
+  Skill: '<path d="M9 1.8 3.5 9H8l-1 5.2L12.5 7H8z"/>',
+  Website: '<circle cx="8" cy="8" r="6"/><path d="M2 8h12M8 2c1.8 1.7 2.6 3.7 2.6 6S9.8 12.3 8 14c-1.8-1.7-2.6-3.7-2.6-6S6.2 3.7 8 2z"/>',
+  Guide: '<path d="M2.5 3.5c2-.8 3.8-.6 5.5.8 1.7-1.4 3.5-1.6 5.5-.8v9c-2-.8-3.8-.6-5.5.8-1.7-1.4-3.5-1.6-5.5-.8zM8 4.3v9"/>',
+  Paper: '<path d="M4 1.8h5l3 3v9.4H4z"/><path d="M9 1.8v3h3"/>',
+  Thread: '<path d="M2.5 3.5h11v7h-6l-3 2.5v-2.5h-2z"/>',
+};
+const kindIcon = k => {
+  const t = document.createElement("template");
+  t.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (KIND_ICONS[k] || KIND_ICONS.Article) + "</svg>";
+  return t.content.firstChild;
+};
+const kindOf = i => i.kind || KINDS[i.src] || (/release notes|changelog/i.test(i.meta || "") || /^Claude Code \d/.test(i.title || "") ? "Release notes" : "Article");
+
+function mediaOf(item, eager) {
+  const m = el("div", "media");
+  const img = el("img");
+  img.src = httpsUrl(item.img); img.alt = ""; img.width = 640; img.height = 360;
+  img.loading = eager ? "eager" : "lazy"; img.decoding = "async"; img.referrerPolicy = "no-referrer";
+  if (/^https:\/\/(opengraph\.githubassets\.com|cdn-thumbnails\.huggingface\.co)\//.test(img.src)) img.className = "fit"; // GitHub and Hugging Face cards: show them whole
+  m.append(img);
+  const badge = el("span", "kind"), kind = kindOf(item);
+  badge.append(kindIcon(kind), [kind, item.src === "videos" && item.fig].filter(Boolean).join(" · "));
+  m.append(badge);
+  return m;
+}
+
+function metaOf(item) {
+  const parts = item.src === "repos" ? [item.meta, item.fig, item.sub] : item.src === "skills" || item.src === "models" ? [item.meta, item.fig] : [item.meta];
+  const meta = el("div", "post-meta");
+  meta.append(el("span", "post-src", parts.filter(Boolean).join(" · ")));
+  return meta;
+}
+
+function titleOf(item, tag, cls) {
+  const t = el(tag, cls);
+  const text = String(item.title || "");
+  if ((item.src === "repos" || item.src === "models") && text.includes("/")) {
+    const [own, ...rest] = text.split("/");
+    t.append(el("span", "own", own + "/"), rest.join("/"));
+  } else t.append(text);
+  return t;
+}
+
+const pointsOf = item => (Array.isArray(item.points) ? item.points : []).map(p => String(p).trim()).filter(Boolean);
+
+// Links an item: its key points open in the reader; items without points and modified clicks open the original.
+function linkTo(a, item) {
+  a.href = httpsUrl(item.url); a.target = "_blank"; a.rel = "noopener noreferrer";
+  if (pointsOf(item).length) a.addEventListener("click", e => {
+    if (e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    openReader(item);
+  });
+  return a;
+}
+function card(item, eager) {
+  const c = httpsUrl(item.url) ? linkTo(el("a", "post"), item) : el("div", "post");
+  const m = mediaOf(item, eager);
+  m.firstChild.addEventListener("error", () => c.remove()); // no image, no post
+  const body = el("div", "post-body");
+  body.append(metaOf(item), titleOf(item, "div", "t"));
+  if (item.blurb) body.append(el("div", "b", item.blurb));
+  c.append(m, body);
+  return c;
+}
+
+// Reader: a picked item's key points in the app's own design, with the original one tap away. Back closes it.
+const reader = $("reader");
+const SITES = { "github.com": "GitHub", "huggingface.co": "Hugging Face", "youtube.com": "YouTube" };
+function openReader(item) {
+  const href = httpsUrl(item.url);
+  const host = new URL(href).hostname.replace(/^www\./, "");
+  const link = el("a", "original", item.src === "news" ? "Read the full article" : "Open on " + (SITES[host] || host));
+  const arrow = document.createElement("template");
+  arrow.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11 11 5M6 4.5h5.5V10"/></svg>';
+  link.append(arrow.content.firstChild);
+  link.href = href; link.target = "_blank"; link.rel = "noopener noreferrer";
+  const list = el("ul", "points");
+  list.append(...pointsOf(item).map(p => el("li", "", p)));
+  const title = titleOf(item, "h2", "reader-title");
+  title.id = "readerTitle";
+  $("readerBody").replaceChildren(mediaOf(item, true), metaOf(item), title, ...(item.blurb ? [el("p", "lead", item.blurb)] : []), list, link);
+  $("readerBack").textContent = "Back to " + (VIEWS.find(v => v.id === current) || VIEWS[0]).label;
+  reader.hidden = false;
+  reader.scrollTop = 0;
+  document.body.style.overflow = "hidden";
+  history.pushState({ reader: true }, "");
+}
+addEventListener("popstate", () => { reader.hidden = true; document.body.style.overflow = ""; });
+$("readerClose").addEventListener("click", () => history.back());
+addEventListener("keydown", e => { if (e.key === "Escape" && !reader.hidden) history.back(); });
+
+// Only the selected tab's posts are shown; the choice is remembered on this device.
+const store = { get: () => { try { return localStorage.getItem("tab"); } catch { return null; } },
+                set: v => { try { localStorage.setItem("tab", v); } catch {} } };
+const known = id => VIEWS.some(v => v.id === id) ? id : null;
+let current = known(location.hash.slice(1)) || known(store.get()) || "news";
+
+function select(id) {
+  const dir = VIEWS.findIndex(v => v.id === id) - VIEWS.findIndex(v => v.id === current);
+  current = id;
+  store.set(id);
+  renderView();
+  if (dir) $("main").firstChild.classList.add(dir > 0 ? "in-next" : "in-prev"); // slide in from the side we're moving to
+  const top = $("top").offsetTop;
+  if (window.scrollY > top) window.scrollTo(0, top);
+}
+
+function renderView() {
+  $("tabs").replaceChildren(...VIEWS.map(v => {
+    const b = el("button", "", v.label);
+    b.type = "button";
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", v.id === current);
+    b.addEventListener("click", () => select(v.id));
+    return b;
+  }));
+  const v = VIEWS.find(x => x.id === current);
+  const sec = el("section");
+  sec.setAttribute("role", "tabpanel");
+  const items = newestFirst(v.from.flatMap(id => arr(byId[id]).map(i => ({ ...i, src: id }))));
+  if (items.length) {
+    const wall = el("div", "wall");
+    wall.append(...items.map((i, n) => card(i, n < 2)));
+    sec.append(wall);
+  } else sec.append(el("p", "empty", "Nothing here for this day."));
+  $("main").replaceChildren(sec);
+}
+
+// Header
+const at = new Date(DATA.updatedAt);
+const shown = VIEWS.flatMap(v => v.from.flatMap(id => arr(byId[id])));
+const total = shown.length;
+const minutes = Math.max(1, Math.round(shown.reduce((n, i) => n + `${i.title} ${i.blurb || ""}`.split(/\s+/).length, 0) / 230));
+$("day").textContent = longDay(DATA.edition);
+$("stat").textContent = [total + " picks from the last 24 hours", minutes + " min read", DATA.added && DATA.added < total ? DATA.added + " new" : ""].filter(Boolean).join(" · ");
+// Topic icons for the highlights: [hue, svg paths]. Unknown or missing icons fall back to "news".
+const ICONS = {
+  news: [220, '<rect x="2.5" y="2.5" width="11" height="11" rx="2"/><path d="M5.5 5.5h5M5.5 8h5M5.5 10.5h3"/>'],
+  code: [250, '<rect x="2" y="3" width="12" height="10" rx="2"/><path d="m5 6.5 2 1.5-2 1.5M8.5 10h2.5"/>'],
+  model: [275, '<path d="M8 2.5c.5 2.8 2.2 4.5 5 5-2.8.5-4.5 2.2-5 5-.5-2.8-2.2-4.5-5-5 2.8-.5 4.5-2.2 5-5z"/>'],
+  chip: [170, '<rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M6.5 2v2M9.5 2v2M6.5 12v2M9.5 12v2M2 6.5h2M2 9.5h2M12 6.5h2M12 9.5h2"/>'],
+  price: [35, '<path d="M2.5 8.5v-5a1 1 0 0 1 1-1h5l5 5a1 1 0 0 1 0 1.4l-4.6 4.6a1 1 0 0 1-1.4 0z"/><circle cx="5.5" cy="5.5" r="1"/>'],
+  law: [10, '<path d="M8 2.5v11M5.5 13.5h5M3 4.5h10M3 4.5 1.5 8.5a1.6 1.6 0 0 0 3 0zM13 4.5l-1.5 4a1.6 1.6 0 0 0 3 0z"/>'],
+  shield: [145, '<path d="M8 2.5 3 4.5v3.5c0 3 2.2 4.8 5 5.5 2.8-.7 5-2.5 5-5.5V4.5z"/>'],
+  video: [350, '<rect x="2" y="3.5" width="12" height="9" rx="2"/><path d="M7 6.3v3.4L9.8 8z"/>'],
+};
+const brief = (Array.isArray(DATA.brief) ? DATA.brief : String(DATA.brief || "").split(/(?<=\.)\s+/))
+  .map(l => (l && typeof l === "object" ? l : { text: l }))
+  .map(l => ({ icon: ICONS[l.icon] ? l.icon : "news", text: String(l.text || "").trim().replace(/\.$/, ""), url: l.url }))
+  .filter(l => l.text);
+$("brief").replaceChildren(...brief.map(l => {
+  const ico = el("span", "ico");
+  ico.style.setProperty("--h", ICONS[l.icon][0]);
+  ico.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[l.icon][1] + "</svg>";
+  const li = el("li");
+  const item = l.url && shown.find(i => i.page === l.url || i.url === l.url); // a highlight opens the item it's about
+  const row = item && httpsUrl(item.url) ? li.appendChild(linkTo(el("a"), item)) : li;
+  row.append(ico, el("span", "", l.text));
+  return li;
+}));
+let briefOpen = true;
+try { briefOpen = localStorage.getItem("brief") !== "closed"; } catch {}
+function showBrief() {
+  $("brief").hidden = !brief.length || !briefOpen;
+  $("briefBtn").hidden = !brief.length;
+  $("briefBtn").setAttribute("aria-expanded", briefOpen);
+  $("briefBtn").title = briefOpen ? "Hide highlights" : "Show highlights";
+  $("briefBtn").setAttribute("aria-label", $("briefBtn").title);
+}
+$("briefBtn").addEventListener("click", () => {
+  briefOpen = !briefOpen;
+  try { localStorage.setItem("brief", briefOpen ? "open" : "closed"); } catch {}
+  showBrief();
+});
+showBrief();
+const isIndex = !location.pathname.endsWith(DATA.edition + ".html");
+const note = isIndex && Date.now() - at > 30 * 3600e3 ? "Last updated " + longDay(DATA.edition) + ". Today's refresh hasn't landed yet." : DATA.note;
+if (note) { $("notice").textContent = note; $("notice").hidden = false; }
+renderView();
+
+// Horizontal swipes (dir -1 = to the left, 1 = to the right): on the posts they switch tabs; in the reader, a swipe right goes back.
+function onSwipe(area, handler) {
+  let touch = null;
+  area.addEventListener("touchstart", e => { const t = e.touches[0]; touch = { x: t.clientX, y: t.clientY, at: Date.now() }; }, { passive: true });
+  area.addEventListener("touchend", e => {
+    if (!touch) return;
+    const t = e.changedTouches[0], dx = t.clientX - touch.x, dy = t.clientY - touch.y, quick = Date.now() - touch.at < 800;
+    touch = null;
+    if (quick && Math.abs(dx) >= 60 && Math.abs(dx) >= 1.5 * Math.abs(dy)) handler(dx < 0 ? -1 : 1);
+  }, { passive: true });
+}
+onSwipe($("main"), dir => { const next = VIEWS[VIEWS.findIndex(v => v.id === current) - dir]; if (next) select(next.id); });
+onSwipe(reader, dir => { if (dir > 0 && !reader.hidden) history.back(); });
+
+// Install as an app: Chrome on Android offers its own prompt; iPhone needs Share > Add to Home Screen.
+const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+let installPrompt = null;
+const hideInstall = () => { $("install").hidden = true; };
+addEventListener("beforeinstallprompt", e => {
+  e.preventDefault();
+  installPrompt = e;
+  if (!standalone) $("install").hidden = false;
+});
+$("installBtn").addEventListener("click", async () => {
+  if (!installPrompt) { // iPhone: installing goes through Safari's Share menu
+    $("installText").textContent = "Tap Share, then Add to Home Screen";
+    $("installBtn").hidden = true;
+    return;
+  }
+  installPrompt.prompt();
+  await installPrompt.userChoice.catch(() => null);
+  installPrompt = null;
+  hideInstall();
+});
+addEventListener("appinstalled", hideInstall);
+if (!standalone && /iPhone|iPad/.test(navigator.userAgent)) $("install").hidden = false;
+
+// Theme: follows the system until toggled; the choice is remembered on this device.
+const root = document.documentElement;
+const syncThemeColor = () => { if (root.dataset.theme) document.querySelectorAll('meta[name="theme-color"]').forEach(m => { m.content = root.dataset.theme === "dark" ? "#0D0E10" : "#FFFFFF"; }); };
+syncThemeColor();
+$("themeBtn").addEventListener("click", () => {
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+  try { localStorage.setItem("theme", root.dataset.theme); } catch {}
+  syncThemeColor();
+});
+
+const openPicker = () => { try { $("pick").showPicker(); } catch { $("pick").focus(); } };
+
+// Past days: archive/days.json lists every saved edition.
+const pick = $("pick");
+pick.addEventListener("click", openPicker); // desktop browsers open the calendar only on request
+pick.value = DATA.edition;
+pick.max = DATA.edition;
+fetch("archive/days.json", { cache: "no-store" }).then(r => r.ok ? r.json() : []).catch(() => []).then(days => {
+  if (!Array.isArray(days) || !days.length) return;
+  pick.min = days[0];
+  pick.max = days[days.length - 1];
+  // Swiping across the header moves one day: to the right for the day before, to the left for the day after.
+  onSwipe(document.querySelector(".mast"), dir => {
+    const at = days.indexOf(DATA.edition), d = days[at - dir];
+    if (at >= 0 && d) location.href = d === days[days.length - 1] ? "index.html" : "archive/" + d + ".html";
+  });
+  pick.addEventListener("change", () => {
+    const d = pick.value;
+    if (!d || d === DATA.edition) return;
+    if (days.includes(d)) location.href = "archive/" + d + ".html";
+    else { $("notice").textContent = "No edition was saved for " + longDay(d) + "."; $("notice").hidden = false; pick.value = DATA.edition; }
+  });
+});
+
+</script>
+</body>
+</html>
