@@ -2046,5 +2046,93 @@
 "https://www.youtube.com/watch?v=tKoDPOrLMX0": {
 "date": "2026-11-18",
 "title": "Building 3D video sets with GPT-6.2 Astra"
+},
+"https://deepmind.google/blog/introducing-gemini-4-neon": {
+"date": "2026-11-19",
+"title": "Gemini 4 Neon: Google's mid-tier model, $3/$15, #3 on the Intelligence Index"
+},
+"https://github.blog/changelog/2026-11-18-wait-for-pull-request-events-with-github-cli": {
+"date": "2026-11-19",
+"title": "gh event listen: wait for PR reviews and checks without polling"
+},
+"https://vercel.com/blog/eve-is-now-generally-available": {
+"date": "2026-11-19",
+"title": "Vercel eve 1.0: open-source framework for durable production agents"
+},
+"https://github.blog/changelog/2026-11-18-connect-supabase-box-calendly-and-more-to-copilot": {
+"date": "2026-11-19",
+"title": "Copilot adds Supabase, Box, Calendly, Buildkite connectors"
+},
+"https://github.blog/changelog/2026-11-18-customize-github-copilot-for-your-team": {
+"date": "2026-11-19",
+"title": "Copilot team customizations GA: shared default plugins per team"
+},
+"https://the-decoder.com/ocr-models-now-digitize-a-million-pages-for-under-130-as-costs-drop-fivefold-in-18-months": {
+"date": "2026-11-19",
+"title": "OCR now costs $65-130 per million pages on a rented GPU"
+},
+"https://the-decoder.com/microsoft-is-replacing-outside-ai-models-in-its-own-products-with-cheaper-in-house-alternatives": {
+"date": "2026-11-19",
+"title": "Microsoft MAI: seven cheaper models, with Azure fine-tuning of weights"
+},
+"https://replit.com/blog/introducing-replit-missions": {
+"date": "2026-11-19",
+"title": "Replit Missions: goal-level agent swarms with budget and approval limits"
+},
+"https://the-decoder.com/mistral-plays-catch-up-with-vibe-desktop-as-rivals-already-command-full-operating-systems": {
+"date": "2026-11-19",
+"title": "Mistral Vibe Desktop: parallel agents in Git worktrees"
+},
+"https://techcrunch.com/2026/11/18/snapchat-now-lets-developers-build-ar-lenses-with-ai-coding-assistants-like-claude-code-and-cursor": {
+"date": "2026-11-19",
+"title": "Snap Easy Lens CLI: build AR Lenses from Claude Code, Cursor or Codex"
+},
+"https://github.com/HKUDS/CLI-Anything": {
+"date": "2026-11-19",
+"title": "HKUDS/CLI-Anything"
+},
+"https://github.com/aoci-spec/aoci-code": {
+"date": "2026-11-19",
+"title": "aoci-spec/aoci-code"
+},
+"https://github.com/firecrawl/firecrawl": {
+"date": "2026-11-19",
+"title": "firecrawl/firecrawl"
+},
+"https://github.com/n8n-io/n8n": {
+"date": "2026-11-19",
+"title": "n8n-io/n8n"
+},
+"https://huggingface.co/RadixArk/DaisyRose-27B": {
+"date": "2026-11-19",
+"title": "RadixArk/DaisyRose-27B"
+},
+"https://huggingface.co/higurashi-ai/Haru-4B": {
+"date": "2026-11-19",
+"title": "higurashi-ai/Haru-4B"
+},
+"https://huggingface.co/inworld/voice-isolator": {
+"date": "2026-11-19",
+"title": "inworld/voice-isolator"
+},
+"https://huggingface.co/apple/FastFrames-L": {
+"date": "2026-11-19",
+"title": "apple/FastFrames-L"
+},
+"https://www.youtube.com/watch?v=jVBlkOF8sHk": {
+"date": "2026-11-19",
+"title": "Shipping a 21,000-line feature with mattpocock/skills"
+},
+"https://www.youtube.com/watch?v=U92J5mCDLMc": {
+"date": "2026-11-19",
+"title": "40x more merged PRs with 2.7x the engineers"
+},
+"https://www.youtube.com/watch?v=fTHByDwTxGM": {
+"date": "2026-11-19",
+"title": "Post-training Gemini 4 for real engineering work"
+},
+"https://www.youtube.com/watch?v=a90pZ1DSyls": {
+"date": "2026-11-19",
+"title": "A free skill that makes Claude Code a video editor"
 }
 }
