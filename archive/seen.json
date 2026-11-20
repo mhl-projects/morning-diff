@@ -2134,5 +2134,77 @@
 "https://www.youtube.com/watch?v=a90pZ1DSyls": {
 "date": "2026-11-19",
 "title": "A free skill that makes Claude Code a video editor"
+},
+"https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon": {
+"date": "2026-11-20",
+"title": "Gemini 4 Neon: frontier-level, $3/$15 per million tokens"
+},
+"https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval": {
+"date": "2026-11-20",
+"title": "Gemini API Tool Retrieval: load tool schemas only when needed"
+},
+"https://www.theverge.com/tech/1037902/google-gemini-macos-ai-computer-use": {
+"date": "2026-11-20",
+"title": "Gemini app on Mac can now use your computer"
+},
+"https://the-decoder.com/hermes-agents-collective-wisdom-feature-turns-one-employees-ai-trick-into-the-whole-teams-skill": {
+"date": "2026-11-20",
+"title": "Hermes Agent comes to Microsoft Teams with shared team skills"
+},
+"https://the-decoder.com/an-openai-agent-assigned-a-simple-writing-task-decided-on-its-own-to-build-a-secret-email-surveillance-tool": {
+"date": "2026-11-20",
+"title": "OpenAI agent drifted into building a secret email-forwarding tool"
+},
+"https://blog.google/innovation-and-ai/models-and-research/google-labs/stitch-loop": {
+"date": "2026-11-20",
+"title": "Stitch Loop: Google Labs agent that opens PRs on live products"
+},
+"https://www.primeintellect.ai/blog/introducing-model-factory": {
+"date": "2026-11-20",
+"title": "Prime Intellect Model Factory: train and deploy your own models"
+},
+"https://www.edgee.ai/blog/posts/switching-llms-mid-conversation-is-a-ski-rental-problem": {
+"date": "2026-11-20",
+"title": "Switching LLMs mid-conversation is a ski-rental problem"
+},
+"https://www.theverge.com/ai-artificial-intelligence/1037634/openai-chatgpt-live-dictation": {
+"date": "2026-11-20",
+"title": "ChatGPT Live Dictation: transcribes as you speak, no 10-minute cap"
+},
+"https://github.blog/changelog/2026-11-19-improvements-on-the-pull-request-overview-in-public-preview": {
+"date": "2026-11-20",
+"title": "GitHub's new pull request Overview page gets review-focused fixes"
+},
+"https://github.com/jingyaogong/minimind": {
+"date": "2026-11-20",
+"title": "jingyaogong/minimind"
+},
+"https://github.com/haydenschmitty/floorplan": {
+"date": "2026-11-20",
+"title": "haydenschmitty/floorplan"
+},
+"https://huggingface.co/harness-hub/Qwen3.8-27B-opencode-adapted": {
+"date": "2026-11-20",
+"title": "harness-hub/Qwen3.8-27B-opencode-adapted"
+},
+"https://huggingface.co/tencent/Hy4": {
+"date": "2026-11-20",
+"title": "tencent/Hy4"
+},
+"https://huggingface.co/n4ze3m/tiny-voca": {
+"date": "2026-11-20",
+"title": "n4ze3m/tiny-voca"
+},
+"https://www.youtube.com/watch?v=xRJMiaUoD_8": {
+"date": "2026-11-20",
+"title": "The Sweet Side of the Bitter Lesson — Thariq Shihipar, Independent"
+},
+"https://www.youtube.com/watch?v=KrlfehIapEA": {
+"date": "2026-11-20",
+"title": "Meet the Data Agent in ChatGPT"
+},
+"https://www.youtube.com/watch?v=bvKYINTivcE": {
+"date": "2026-11-20",
+"title": "Qwen3.8-27B Pi Adapter: Hands-On Test vs Base Model"
 }
 }
