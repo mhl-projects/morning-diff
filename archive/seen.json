@@ -2206,5 +2206,85 @@
 "https://www.youtube.com/watch?v=bvKYINTivcE": {
 "date": "2026-11-20",
 "title": "Qwen3.8-27B Pi Adapter: Hands-On Test vs Base Model"
+},
+"https://blog.google/innovation-and-ai/products/gemini-app/computer-use-mac": {
+"date": "2026-11-21",
+"title": "Gemini for Mac gets Computer Use for background desktop chores"
+},
+"https://arstechnica.com/security/2026/11/a-leaky-ai-supply-chain-is-exposing-secret-user-data-at-an-alarming-rate": {
+"date": "2026-11-21",
+"title": "2 million canary prompts show AI routers and hosts leaking user data"
+},
+"https://frontier.replit.com/throwing-headcount-at-the-problem": {
+"date": "2026-11-21",
+"title": "Replit: 32-agent swarms beat a single agent on NumPy speedups"
+},
+"https://stripe.dev/blog/stripe-integration-evals-methodology": {
+"date": "2026-11-21",
+"title": "Stripe evals: coding agents often pick outdated APIs, plugin helps"
+},
+"https://vercel.com/blog/introducing-vercel-board": {
+"date": "2026-11-21",
+"title": "Vercel Board: shared task board for agent swarms"
+},
+"https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast": {
+"date": "2026-11-21",
+"title": "OpenAI's Performance Factory: Codex agents root-cause regressions"
+},
+"https://github.blog/changelog/2026-11-20-security-advisory-permissions-are-now-generally-available": {
+"date": "2026-11-21",
+"title": "GitHub: custom roles for security advisories now GA"
+},
+"https://github.com/obra/superpowers": {
+"date": "2026-11-21",
+"title": "obra/superpowers"
+},
+"https://github.com/rustrak/rustrak": {
+"date": "2026-11-21",
+"title": "rustrak/rustrak"
+},
+"https://huggingface.co/thinkingmachines/Inkling-2-Mini": {
+"date": "2026-11-21",
+"title": "thinkingmachines/Inkling-2-Mini"
+},
+"https://huggingface.co/Cloudflare/clairic": {
+"date": "2026-11-21",
+"title": "Cloudflare/clairic"
+},
+"https://huggingface.co/microsoft/Aion-1.0-Instruct-2.3B": {
+"date": "2026-11-21",
+"title": "microsoft/Aion-1.0-Instruct-2.3B"
+},
+"https://huggingface.co/apple/DepthPro2": {
+"date": "2026-11-21",
+"title": "apple/DepthPro2"
+},
+"https://skills.sh/remotion-dev/skills/remotion-interactivity": {
+"date": "2026-11-21",
+"title": "remotion-interactivity: keep Remotion video markup editable in Studio"
+},
+"https://skills.sh/remotion-dev/skills/remotion-upgrade": {
+"date": "2026-11-21",
+"title": "remotion-upgrade: upgrade Remotion and related packages"
+},
+"https://www.youtube.com/watch?v=mU8WKII1gpk": {
+"date": "2026-11-21",
+"title": "How to Actually Code with AI (ft. Matt Pocock)"
+},
+"https://www.youtube.com/watch?v=0LeT996Hz3E": {
+"date": "2026-11-21",
+"title": "Engineer Your Coding Agents Like Any Other System — Zach Lloyd, Warp"
+},
+"https://www.youtube.com/watch?v=iVm3lsgxH64": {
+"date": "2026-11-21",
+"title": "Microsoft Just Showed Why Harnesses Matter More Than Models"
+},
+"https://www.youtube.com/watch?v=BrN8dKfTU7M": {
+"date": "2026-11-21",
+"title": "Inkling 2 Mini Locally: Small Enough to Run with Power"
+},
+"https://www.youtube.com/watch?v=aFmu4rLgH8U": {
+"date": "2026-11-21",
+"title": "This Opensource Repo Actually saves upto 98% USAGE across Codex,Claude & More!?"
 }
 }
