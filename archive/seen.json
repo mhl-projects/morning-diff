@@ -2286,5 +2286,53 @@
 "https://www.youtube.com/watch?v=aFmu4rLgH8U": {
 "date": "2026-11-21",
 "title": "This Opensource Repo Actually saves upto 98% USAGE across Codex,Claude & More!?"
+},
+"https://the-decoder.com/openai-shares-new-prompting-tips-for-gpt-6-2-astra-and-sol-to-fix-brief-answers-and-unnecessary-questions": {
+"date": "2026-11-22",
+"title": "OpenAI prompting tips for GPT-6.2 Astra and Sol"
+},
+"https://the-decoder.com/gpt-6-2-astra-and-sol-get-to-the-point-faster-but-score-lower-on-transparency-than-claude": {
+"date": "2026-11-22",
+"title": "GPT-6.2 Astra and Sol: shorter answers, less admitted uncertainty"
+},
+"https://github.com/diggerhq/opencomputer": {
+"date": "2026-11-22",
+"title": "diggerhq/opencomputer"
+},
+"https://github.com/baidu/Unlimited-OCR": {
+"date": "2026-11-22",
+"title": "baidu/Unlimited-OCR"
+},
+"https://github.com/a2ui-project/a2ui": {
+"date": "2026-11-22",
+"title": "a2ui-project/a2ui"
+},
+"https://github.com/Augani/openreel-video": {
+"date": "2026-11-22",
+"title": "Augani/openreel-video"
+},
+"https://github.com/deeplethe/sandstorm": {
+"date": "2026-11-22",
+"title": "deeplethe/sandstorm"
+},
+"https://huggingface.co/unsloth/Inkling-2-Mini-GGUF": {
+"date": "2026-11-22",
+"title": "unsloth/Inkling-2-Mini-GGUF"
+},
+"https://skills.sh/vercel-labs/agent-skills/web-design-guidelines": {
+"date": "2026-11-22",
+"title": "web-design-guidelines: review UI code against Web Interface Guidelines"
+},
+"https://skills.sh/anthropics/skills/frontend-design": {
+"date": "2026-11-22",
+"title": "frontend-design: distinctive, non-templated UI"
+},
+"https://www.youtube.com/watch?v=GKSQYbELDzw": {
+"date": "2026-11-22",
+"title": "What Runs Where? Local AI in Production"
+},
+"https://www.youtube.com/watch?v=Gl8ecFo9X80": {
+"date": "2026-11-22",
+"title": "Google's Elephant-Goldfish: design first, code last"
 }
 }
