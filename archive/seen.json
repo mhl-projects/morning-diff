@@ -2334,5 +2334,29 @@
 "https://www.youtube.com/watch?v=Gl8ecFo9X80": {
 "date": "2026-11-22",
 "title": "Google's Elephant-Goldfish: design first, code last"
+},
+"https://the-decoder.com/perplexitys-new-monitor-api-turns-web-search-from-a-one-off-query-into-a-nonstop-watchdog": {
+"date": "2026-11-23",
+"title": "Perplexity Monitor API: scheduled web watching that pings agents by webhook"
+},
+"https://github.com/EL4CTEO/fast-anything": {
+"date": "2026-11-23",
+"title": "EL4CTEO/fast-anything"
+},
+"https://github.com/pierridotite/mobile-agent-testers": {
+"date": "2026-11-23",
+"title": "pierridotite/mobile-agent-testers"
+},
+"https://huggingface.co/sensenova/SenseNova-Loop-9B": {
+"date": "2026-11-23",
+"title": "sensenova/SenseNova-Loop-9B"
+},
+"https://www.youtube.com/watch?v=JNexz3Tbiu8": {
+"date": "2026-11-23",
+"title": "Build the Workshop Before the Software Factory — Armin Ronacher"
+},
+"https://www.youtube.com/watch?v=TPtfyKEAk6c": {
+"date": "2026-11-23",
+"title": "This New AI Architecture Makes Local Models Smarter"
 }
 }
