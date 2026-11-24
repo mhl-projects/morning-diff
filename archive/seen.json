@@ -2358,5 +2358,85 @@
 "https://www.youtube.com/watch?v=TPtfyKEAk6c": {
 "date": "2026-11-23",
 "title": "This New AI Architecture Makes Local Models Smarter"
+},
+"https://techcrunch.com/2026/11/23/anthropic-launches-claude-ship-letting-ai-agents-review-fix-and-approve-code-changes": {
+"date": "2026-11-24",
+"title": "Claude Ship: AI reviews, fixes and approves pull requests"
+},
+"https://the-decoder.com/openai-updates-chatgpt-to-handle-complex-everyday-questions-web-searches-and-images-more-reliably": {
+"date": "2026-11-24",
+"title": "ChatGPT gets GPT-6.2 chat model for harder everyday questions"
+},
+"https://openai.com/index/introducing-shirudo": {
+"date": "2026-11-24",
+"title": "OpenAI and Cisco open-source Shirudo, eBPF shields for unpatched Linux"
+},
+"https://the-decoder.com/z-ai-follows-openai-into-loop-transformer-territory-with-its-new-750b-flagship-model": {
+"date": "2026-11-24",
+"title": "Z.ai GLM-5.4: 750B looped-transformer coding model"
+},
+"https://arstechnica.com/security/2026/11/amazon-says-hackers-ai-agents-found-and-exploited-0-day-with-little-human-input": {
+"date": "2026-11-24",
+"title": "Amazon: AI agents found and exploited a zero-day on their own"
+},
+"https://www.thedeepview.com/articles/exclusive-openclaw-offers-an-agent-reality-check": {
+"date": "2026-11-24",
+"title": "ShellBench: agents fail four in ten real-world shell tasks"
+},
+"https://github.blog/changelog/2026-11-23-issue-statuses-and-repository-boards-are-in-public-preview": {
+"date": "2026-11-24",
+"title": "GitHub issue statuses and repository boards in public preview"
+},
+"https://github.blog/changelog/2026-11-23-code-coverage-uploads-now-flag-invalid-report-formats": {
+"date": "2026-11-24",
+"title": "GitHub code coverage upload now fails on non-Cobertura reports"
+},
+"https://simonwillison.net/2026/Nov/23/ladybird": {
+"date": "2026-11-24",
+"title": "Ladybird ships its first alpha browser"
+},
+"https://github.com/google-gemini/gemini-api-cli": {
+"date": "2026-11-24",
+"title": "google-gemini/gemini-api-cli"
+},
+"https://github.com/cathrynlavery/diagram-design": {
+"date": "2026-11-24",
+"title": "cathrynlavery/diagram-design"
+},
+"https://huggingface.co/nari-labs/Qwen3.8-27B-NariQ-GGUF": {
+"date": "2026-11-24",
+"title": "nari-labs/Qwen3.8-27B-NariQ-GGUF"
+},
+"https://huggingface.co/strata-engine/Inkling-2-Mini-Strata": {
+"date": "2026-11-24",
+"title": "strata-engine/Inkling-2-Mini-Strata"
+},
+"https://huggingface.co/inclusionAI/Ling-3.2-air": {
+"date": "2026-11-24",
+"title": "inclusionAI/Ling-3.2-air"
+},
+"https://huggingface.co/llamaindex/OCRia-nano-1": {
+"date": "2026-11-24",
+"title": "llamaindex/OCRia-nano-1"
+},
+"https://www.youtube.com/watch?v=-NFMsM2y0Vk": {
+"date": "2026-11-24",
+"title": "12 Rules for a Software Factory That Doesn't Ship Slop — Dex Horthy, Factory"
+},
+"https://www.youtube.com/watch?v=0q0UbO4oqgQ": {
+"date": "2026-11-24",
+"title": "Hackers Are Coming for Your AI Coding Agent (Lock It Down Now)"
+},
+"https://www.youtube.com/watch?v=4nnFw0TPDKM": {
+"date": "2026-11-24",
+"title": "Harness Adapters - Train Your Model to Your Harness"
+},
+"https://www.youtube.com/watch?v=PuHDu3Kn8sQ": {
+"date": "2026-11-24",
+"title": "The Meta Software Factory: Advanced Agentic Engineering"
+},
+"https://www.youtube.com/watch?v=MpsO8Ds8uyo": {
+"date": "2026-11-24",
+"title": "Investigating Linux Vulnerabilities with GPT-6 Cyber"
 }
 }
