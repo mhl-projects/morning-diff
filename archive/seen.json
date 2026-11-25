@@ -2438,5 +2438,49 @@
 "https://www.youtube.com/watch?v=MpsO8Ds8uyo": {
 "date": "2026-11-24",
 "title": "Investigating Linux Vulnerabilities with GPT-6 Cyber"
+},
+"https://the-decoder.com/anthropic-turns-claude-artifacts-into-standalone-desktop-apps-for-macos-and-windows": {
+"date": "2026-11-25",
+"title": "Claude Artifacts can now be installed as desktop apps"
+},
+"https://the-decoder.com/anthropic-tops-700-million-monthly-mcp-sdk-downloads-and-expands-the-protocol-for-more-autonomous-ai-agents": {
+"date": "2026-11-25",
+"title": "MCP: Tasks and Elicitation are GA, Skills over MCP in beta"
+},
+"https://github.blog/changelog/2026-11-24-more-predictable-notifications-on-github-com": {
+"date": "2026-11-25",
+"title": "GitHub changes notification subscription rules from December 1"
+},
+"https://github.com/zhouxiaoka/autoclip": {
+"date": "2026-11-25",
+"title": "zhouxiaoka/autoclip"
+},
+"https://huggingface.co/prism-ml/Ternary-Bonsai-2.5-27B-GGUF": {
+"date": "2026-11-25",
+"title": "prism-ml/Ternary-Bonsai-2.5-27B-GGUF"
+},
+"https://skills.sh/mattpocock/skills/to-spec": {
+"date": "2026-11-25",
+"title": "to-spec: turn the current conversation into a spec"
+},
+"https://skills.sh/uxpilot-ai/user-interview-skill/user-interview-guide": {
+"date": "2026-11-25",
+"title": "user-interview-guide: write neutral interview scripts"
+},
+"https://www.youtube.com/watch?v=TvsF67C2F54": {
+"date": "2026-11-25",
+"title": "How to Ship Millions of Lines of Agent-Written Code — Jarred Sumner, Anthropic"
+},
+"https://www.youtube.com/watch?v=dkITChVXii0": {
+"date": "2026-11-25",
+"title": "128GB AI Desktops… HUGE Price difference (ACTUALLY Tested)"
+},
+"https://www.youtube.com/watch?v=1u0hTd86_HU": {
+"date": "2026-11-25",
+"title": "Experiment with SVG & 3D Design with the Codex Plugin"
+},
+"https://www.youtube.com/watch?v=SRhXgeNluIk": {
+"date": "2026-11-25",
+"title": "Software Factories: Escape from Trash Mountain — Steve Yegge, Gas Town"
 }
 }
