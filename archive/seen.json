@@ -2554,5 +2554,45 @@
 "https://www.youtube.com/watch?v=f1gAilgILeI": {
 "date": "2026-11-26",
 "title": "The Best Defense Against This Wave of AI Attacks: Hack Yourself First"
+},
+"https://the-decoder.com/gpt-6-2-astra-users-now-hit-limits-40-faster-after-openai-patched-a-pricing-error": {
+"date": "2026-11-27",
+"title": "GPT-6.2 Astra and Sol users hit limits faster after OpenAI fixes a billing bug"
+},
+"https://huggingface.co/blog/video-trainium3": {
+"date": "2026-11-27",
+"title": "Hugging Face makes script-to-film videos with LTX-2.5 and diffusers"
+},
+"https://latent.space/p/how-clay-builds-gtm-agents-jeff-barg-head-of-ai": {
+"date": "2026-11-27",
+"title": "Clay: half its agent work now runs in Claude Code and other outside harnesses"
+},
+"https://github.com/alesha-pro/llm.asm": {
+"date": "2026-11-27",
+"title": "alesha-pro/llm.asm"
+},
+"https://huggingface.co/ISTA-DASLab/Inkling-2-Mini-GSQ-RCO-GGUF": {
+"date": "2026-11-27",
+"title": "ISTA-DASLab/Inkling-2-Mini-GSQ-RCO-GGUF"
+},
+"https://huggingface.co/inclusionAI/Ming-Image-0.2-Design": {
+"date": "2026-11-27",
+"title": "inclusionAI/Ming-Image-0.2-Design"
+},
+"https://huggingface.co/kandinskylab/Kandinsky-ImageSR-2.0": {
+"date": "2026-11-27",
+"title": "kandinskylab/Kandinsky-ImageSR-2.0"
+},
+"https://www.youtube.com/watch?v=1S4hx3wgvBE": {
+"date": "2026-11-27",
+"title": "Stop Building Software Factories — Justin McCarthy, Diffusion"
+},
+"https://www.youtube.com/watch?v=bFcob2p6u3A": {
+"date": "2026-11-27",
+"title": "Execution Is Free. How Ambitious Are You? — Jason Liu, OpenAI"
+},
+"https://www.youtube.com/watch?v=qAD0Pi9grSc": {
+"date": "2026-11-27",
+"title": "Tencent DFly2: 4.2× Faster AI Inference"
 }
 }
